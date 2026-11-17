@@ -81,6 +81,33 @@ section.blk[hidden] { display: none; }
 .pager a small { font: 600 .74rem/1 var(--mono); letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
 .pager a b { font: 700 1.1rem/1.15 var(--display); }
 .pager .next { margin-left: auto; text-align: right; }
+.pager .lexlink { flex-basis: 100%; display: block; text-align: center; font: 600 .95rem/1.3 var(--body); color: var(--reta); background: transparent; border-style: dashed; }
+
+/* textos das normas */
+.lex-nav { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 12px; }
+.lex-nav a { text-decoration: none; color: var(--ink); font: 600 .88rem/1 var(--body); padding: 8px 11px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); }
+.lex-tools { margin: 0 0 18px; }
+.lex-tools .seg { padding: 7px 12px; cursor: pointer; font-weight: 600; }
+details.lex { border: 1px solid var(--line); border-radius: 10px; background: var(--surface); margin: 0 0 8px; }
+details.lex > summary { cursor: pointer; padding: 12px 14px; display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; list-style: none; }
+details.lex > summary::-webkit-details-marker { display: none; }
+details.lex > summary::before { content: "▸"; color: var(--muted); transition: transform .15s; }
+details.lex[open] > summary::before { transform: rotate(90deg); }
+details.lex > summary b { font: 700 1.02rem/1.25 var(--body); }
+details.lex > summary span { color: var(--muted); font-size: .92rem; }
+.lex-body { padding: 4px 18px 14px 30px; max-width: 86ch; }
+.lx { margin: 0 0 7px; line-height: 1.55; }
+.lx-inc { padding-left: 1.2em; } .lx-ali { padding-left: 2.4em; } .lx-num { padding-left: 3.4em; } .lx-sub { padding-left: 3.4em; } .lx-par { padding-left: 0; }
+.lx-ref { color: var(--muted); font-size: .88rem; }
+.anot { color: var(--muted); font-size: .84em; }
+.anot.rev { color: var(--bad); font-weight: 600; }
+.lex-src { margin-top: 12px; font: 500 .78rem/1.4 var(--mono); color: var(--muted); border-top: 1px dashed var(--line); padding-top: 8px; }
+.lx-tab { margin: 8px 0 12px; }
+.lx-tab table { font-size: .86rem; }
+.lx-nota { font-size: .82rem; color: var(--muted); margin-top: 4px; }
+.lex-conf { margin-top: 6px; }
+.lex-conf td { vertical-align: top; font-size: .9rem; }
+@media print { details.lex { break-inside: avoid; } }
 [data-r="cam"] { --c: var(--cam); } [data-r="reta"] { --c: var(--reta); } [data-r="esp"] { --c: var(--esp); }
 
 section.blk { padding: 54px 0 20px; border-top: 1px solid var(--line); }
@@ -252,7 +279,7 @@ footer ul { padding-left: 18px; }
     <p class="lede">Saídas, extintores, acionadores, hidrantes, chuveiros automáticos, detectores, sinalização e iluminação de emergência. Cada sistema usa uma régua diferente e tem a sua página, com uma cena que mostra, em 3D e em planta, como o Código manda medir. Toque na planta para medir você mesmo.</p>
     <div class="toolbar">
       <button class="seg" id="narr" type="button" aria-pressed="false" style="padding:8px 12px;font-weight:600;cursor:pointer">Ouvir narração: desligada</button>
-      <span class="src-chip">Fonte: COSCIP-PE, texto vigente · NT 1.02 CBMPE</span>
+      <span class="src-chip">Fonte: COSCIP-PE, texto vigente · normas do CBMPE (NT, RT e enunciados)</span>
     </div>
   </div>
 </header>
@@ -269,6 +296,7 @@ footer ul { padding-left: 18px; }
     <a href="#iluminacao" data-pg="iluminacao" data-r="esp">Iluminação</a>
     <a href="#alturas" data-pg="alturas">Alturas</a>
     <a href="#quiz" data-pg="quiz">Teste</a>
+    <a href="#normas" data-pg="normas">Textos das normas</a>
   </div>
 </nav>
 
@@ -314,7 +342,7 @@ footer ul { padding-left: 18px; }
       </svg>
       <h3>3. Espaçamento e área</h3>
       <p class="q">Distância entre equipamentos iguais, até a parede, ou área coberta por cada um.</p>
-      <ul><li>Chuveiros: área por bico, distância entre bicos e metade até a parede</li><li>Detectores: área de ação e raio de ação (aqui o Código usa raio)</li><li>Setas de sinalização: a cada 20 m, no máximo</li><li>Iluminação: o COSCIP não fixa; a NBR 10898 dá a referência</li></ul>
+      <ul><li>Chuveiros: área por bico, distância entre bicos e metade até a parede</li><li>Detectores: área de ação e raio de ação (aqui o Código usa raio)</li><li>Setas de sinalização: a cada 20 m, no máximo</li><li>Iluminação: 15 m entre pontos e 7,5 m até a parede, ou 25 m e 12,5 m acima de 600 lúmens (RT nº 001/2023)</li></ul>
     </article>
   </div>
 </section>
@@ -332,9 +360,15 @@ footer ul { padding-left: 18px; }
     <a class="card-pg" href="#chuveiros" data-r="esp"><span class="regua" style="--c:var(--esp)">ESPAÇAMENTO</span><b>Chuveiros automáticos</b><span>Área por bico, distância entre bicos e metade dessa distância até a parede.</span><i>Cena 3D · art. 121</i></a>
     <a class="card-pg" href="#detectores" data-r="esp"><span class="regua" style="--c:var(--esp)">ÁREA E RAIO</span><b>Detectores automáticos</b><span>Área de ação e raio de ação dos detectores de temperatura e de fumaça.</span><i>Desenho em escala · art. 137</i></a>
     <a class="card-pg" href="#sinalizacao" data-r="esp"><span class="regua" style="--c:var(--esp)">ESPAÇAMENTO</span><b>Sinalização de saídas</b><span>Setas a cada 20 m e visíveis na mudança de direção; placa da porta.</span><i>Cena 3D · arts. 207 a 210</i></a>
-    <a class="card-pg" href="#iluminacao" data-r="esp"><span class="regua" style="--c:var(--esp)">ESPAÇAMENTO</span><b>Iluminação de emergência</b><span>Onde o Código para e onde a NBR 10898 entra como referência.</span><i>Cena 3D · arts. 189 a 206</i></a>
+    <a class="card-pg" href="#iluminacao" data-r="esp"><span class="regua" style="--c:var(--esp)">ESPAÇAMENTO</span><b>Iluminação de emergência</b><span>15 m e 7,5 m ou 25 m e 12,5 m, conforme os lúmens; redução pela altura acima de 3 m.</span><i>Cena 3D · arts. 189 a 206 · RT nº 001/2023</i></a>
     <a class="card-pg" href="#alturas"><span class="regua" style="--c:#5b6770">ALTURAS</span><b>Alturas de instalação</b><span>Extintor, hidrante, acionador manual e porta corta-fogo.</span><i>Desenho em escala</i></a>
     <a class="card-pg" href="#quiz"><span class="regua" style="--c:#5b6770">FIXAÇÃO</span><b>Teste rápido</b><span>Nove perguntas, com a explicação e o artigo de cada resposta.</span><i>Sem 3D</i></a>
+    <a class="card-pg" href="#normas"><span class="regua" style="--c:#5b6770">FONTES</span><b>Textos das normas</b><span>Íntegra de cada artigo, inciso e alínea do COSCIP, das RTs, NTs e enunciados usados no site, e a lista das 54 normas do CBMPE conferidas.</span><i>Sem 3D</i></a>
+  </div>
+  <div class="alert" style="margin-top:16px">
+    <strong>Na vistoria de edificação com projeto aprovado</strong>
+    <p>A vistoria segue o dimensionamento e os equipamentos plotados em planta e verifica o funcionamento (Portaria Administrativa nº 29/2023-DIESP, art. 1º). A própria portaria reconhece que, no local, não é possível conferir todas as distâncias e alturas: a conferência das medidas é da análise de projeto. Se o vistoriador discordar do projeto aprovado, segue o rito da RT nº 007/17 (parecer técnico e deliberação da comissão).</p>
+    <p class="cite"><a href="#normas-vistoria">Ler a portaria e a RT na íntegra</a></p>
   </div>
 </section>
 
@@ -392,7 +426,8 @@ footer ul { padding-left: 18px; }
         <path d="M104 54 L280 54" stroke="var(--cam)" stroke-width="4"/><rect x="282" y="42" width="10" height="24" fill="#12a83a"/>
         <text x="150" y="78" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="10" fill="var(--cam)">daqui conta a distância</text>
       </svg>
-      <p class="cite">COSCIP, art. 147, § 1º</p>
+      <p><span class="flag">A RT nº 001/17 – C.I.A.T. manda medir do ponto mais afastado do pavimento, “inclusive nos casos em que o ponto mais afastado esteja em área privativa”. Ela foi escrita em 2017, sobre a redação anterior do art. 147. A redação atual do § 1º (2022) parte da porta da unidade quando o caminhamento interno não passa de 10 m. Confirme com o setor técnico qual prevalece.</span></p>
+      <p class="cite">COSCIP, art. 147, § 1º · RT nº 001/17 – C.I.A.T.</p>
     </div>
     <div class="card">
       <h3>Notas da Tabela 3</h3>
@@ -404,6 +439,8 @@ footer ul { padding-left: 18px; }
         <li><b>e.</b> Garagem (tipo M): veículo não é obstáculo fixo.</li>
         <li><b>f.</b> Os sistemas que aumentam a distância podem ficar só na área compartimentada que precisa deles. Sem compartimentação, valem para toda a edificação, com ressalvas para as ocupações B, C e K.</li>
         <li><b>g.</b> O CBMPE pode fixar outros limites, por norma técnica, para edificações específicas.</li>
+        <li><b>Templos (tipo P)</b> não aparecem na Tabela 3: usam as distâncias do tipo H (Enunciado Técnico 031, item 2).</li>
+        <li><span class="flag">A NT 1.04 (2021), item 5.4, dá 25 m, 15 m ou 35 m conforme o isolamento entre pavimentos e entre unidades. Ela é anterior à Tabela 3 (Decreto nº 53.760/2022) e foi escrita sobre a redação anterior do art. 147. Confirme com o setor técnico se ainda se aplica.</span></li>
       </ul>
       <p>Depósito (tipo N) automatizado e sem presença humana: a distância máxima pode ser desconsiderada (art. 147, § 3º).</p>
       <p class="cite">COSCIP, Anexo A, Tabela 3, Notas; art. 147, § 3º</p>
@@ -436,7 +473,7 @@ footer ul { padding-left: 18px; }
   </div>
   <div class="calc">
     <div class="card f" id="calc">
-      <div><label class="t" for="c-g">Ocupação</label><select id="c-g"><option value="ABCD">A, B, C e D (residenciais)</option><option value="EFGHIKO" selected>E, F, G, H, I, K e O</option><option value="M">M (garagem)</option><option value="LN">L e N (industrial, depósito)</option><option value="JQ">J e Q</option></select></div>
+      <div><label class="t" for="c-g">Ocupação</label><select id="c-g"><option value="ABCD">A, B, C e D (residenciais)</option><option value="EFGHIKO" selected>E, F, G, H, I, K e O</option><option value="P">P (templos religiosos, como H)</option><option value="M">M (garagem)</option><option value="LN">L e N (industrial, depósito)</option><option value="JQ">J e Q</option></select></div>
       <div><label class="t" for="c-p">Pavimento</label><select id="c-p"><option value="demais" selected>Demais pavimentos</option><option value="descarga">De saída da edificação (piso de descarga)</option></select></div>
       <div><label class="t" for="c-s">Saídas</label><select id="c-s"><option value="0" selected>Saída única</option><option value="1">Mais de uma saída</option></select></div>
       <div><label class="t" for="c-k">Chuveiros automáticos</label><select id="c-k"><option value="0" selected>Sem</option><option value="1">Com</option></select></div>
@@ -511,7 +548,8 @@ footer ul { padding-left: 18px; }
     <div class="card">
       <h3>Na prancha</h3>
       <p>A NT 1.02 pede, no PCI, as medidas do ponto mais distante do pavimento até o extintor mais próximo, e do ponto mais distante de cada risco isolado até o seu extintor. Para o acionador manual, a mesma medida, com os acionadores numerados.</p>
-      <p class="cite">NT 1.02, item 3.2.1, VI, “c”, “d” e “e”</p>
+      <p><b>Garagem:</b> no caminho até o acionador manual, as delimitações das vagas contam como obstáculo (Enunciado Técnico 014). É o contrário do que vale para as saídas, onde o veículo não é obstáculo fixo (Tabela 3, nota “e”).</p>
+      <p class="cite">NT 1.02, item 3.2.1, VI, “c”, “d” e “e” · Enunciado Técnico 014</p>
     </div>
   </div>
 </section>
@@ -561,6 +599,8 @@ footer ul { padding-left: 18px; }
         <li>Se o alcance não for obtido, hidrante em ponto central é obrigatório (art. 49, § 1º).</li>
         <li>Nenhuma área pode ficar sem cobertura (art. 70, IV).</li>
         <li>Linha com mais de 20 m: lances de no mínimo 15 m cada (art. 70, II).</li>
+        <li>Nas garagens, as <b>vagas de veículos contam como obstáculo</b> para verificar o alcance (Enunciado Técnico 019).</li>
+        <li>Desnível de até <b>1,50 m</b> entre pisos, com escada ou rampa para o setor, não é pavimento nem obstáculo: a mangueira segue o caminhamento no plano horizontal (NT nº 003/2019, art. 2º).</li>
       </ul>
     </div>
     <div class="card">
@@ -569,6 +609,7 @@ footer ul { padding-left: 18px; }
         <li>Entre dois hidrantes ou carretéis consecutivos: até <b>60 m</b>, em qualquer direção no plano horizontal (art. 49, § 4º).</li>
         <li>Registro de manobra ou tomada d’água entre <b>1,00 m e 1,50 m</b> do piso (art. 49, III).</li>
         <li>Hidrante externo: referência de 15 m da projeção da edificação ou 1,5 vez a altura (art. 49, § 3º).</li>
+        <li>Hidrante fora da projeção da edificação: lances até completar <b>60 m</b> de mangueira. Hidrante externo dentro da projeção segue os critérios do interno, salvo o art. 51 (NT nº 003/2019, art. 1º e § 1º).</li>
         <li>Onde instalar: perto das portas de acesso às saídas de emergência; nunca em escadas, antecâmaras de escadas à prova de fumaça ou rampas (art. 49, IV, “c” e “d”).</li>
         <li>Na prancha: distância do ponto mais distante ao hidrante mais próximo, com os hidrantes numerados (NT 1.02, 3.2.1, VI, “b”); distância da projeção da edificação ao hidrante externo e entre hidrantes externos (3.2.1, I, “i” e “m”).</li>
       </ul>
@@ -622,6 +663,7 @@ footer ul { padding-left: 18px; }
         <li>Afastamento vertical do teto liso: <b>0,025 m a 0,30 m</b>; teto com vigas: 0,025 m a 0,45 m (§ 2º, I e II).</li>
         <li>Vigas longitudinais e transversais: nos vãos, 0,075 m a 0,40 m; sob as vigas, no máximo 0,50 m abaixo do teto (§ 2º, III).</li>
         <li>Espaço livre de no mínimo <b>1,00 m</b> abaixo e ao redor dos bicos (§ 3º).</li>
+        <li>Bico de teto a no mínimo <b>0,10 m</b> da parede, medido na perpendicular. Em salas de até <b>21 m²</b>, o bico pode ficar até <b>2,70 m</b> da parede e <b>3,40 m</b> do canto, respeitada a área do art. 121. Com vigas e anteparos, cada área separada pelos obstáculos é dimensionada à parte (Enunciado Técnico 002).</li>
         <li>Na prancha: as distâncias exigidas para os chuveiros devem estar cotadas (NT 1.02, 3.2.1, I, “j”).</li>
       </ul>
     </div>
@@ -680,7 +722,7 @@ footer ul { padding-left: 18px; }
   </div>
   <div class="alert" style="margin-top:16px">
     <strong>O que o art. 137 não fixa</strong>
-    <p>O artigo dá a área e o raio de ação, mas não fixa a distância entre detectores nem a distância até a parede. O § 5º deixa os requisitos do sistema de detecção para as normas técnicas do CBMPE.</p>
+    <p>O artigo dá a área e o raio de ação, mas não fixa a distância entre detectores nem a distância até a parede. O § 5º deixa os requisitos do sistema de detecção para as normas técnicas do CBMPE. Entre as normas publicadas pelo CBMPE (conferidas em 17/11/2026), nenhuma fixa essas distâncias; a NT-CSAT 007/15, de detecção sem fio, remete à ABNT NBR 17240.</p>
   </div>
 </section>
 
@@ -715,13 +757,13 @@ footer ul { padding-left: 18px; }
 
 <section class="blk" id="iluminacao" data-pg="iluminacao">
   <div class="sec-head">
-    <div class="tag"><span class="regua" style="--c:var(--esp)">ESPAÇAMENTO</span> Iluminação de emergência · arts. 189 a 206</div>
-    <h2>Iluminação de emergência: onde o Código para e a NBR continua</h2>
-    <p>O COSCIP manda pôr pontos de luz em todas as circulações e rotas de fuga, de modo a reconhecer obstáculos. A distância entre os pontos ele não fixa.</p>
+    <div class="tag"><span class="regua" style="--c:var(--esp)">ESPAÇAMENTO</span> Iluminação de emergência · COSCIP, arts. 189 a 206 · RT nº 001/2023</div>
+    <h2>Iluminação de emergência: a distância depende dos lúmens e da altura</h2>
+    <p>O COSCIP manda pôr pontos de luz em todas as circulações e rotas de fuga. A distância entre os pontos, e deles até a parede, está na Resolução Técnica nº 001/2023 do CBMPE: 15 m e 7,5 m para luminárias de 100 a 600 lúmens, 25 m e 12,5 m acima de 600 lúmens, com redução quando a luminária fica acima de 3 m de altura.</p>
   </div>
   <figure class="player" data-scene="iluminacao" id="fig-ilu">
     <div class="stage"><div class="boot">Carregando a cena 3D…</div>
-      <div class="hud" data-mode="esp"><div class="hud-t">Espaçamento entre pontos (NBR 10898)</div><div class="hud-v">8,0 m</div><div class="hud-bar"><i></i><b></b></div><div class="hud-row"><span class="hud-l">limite 10,0 m</span><span class="hud-s" data-ok="true">Dentro do limite</span></div></div>
+      <div class="hud" data-mode="esp"><div class="hud-t">Entre pontos · RT nº 001/2023</div><div class="hud-v">15,0 m</div><div class="hud-bar"><i></i><b></b></div><div class="hud-row"><span class="hud-l">limite 15,0 m</span><span class="hud-s" data-ok="true">Dentro do limite</span></div></div>
       <div class="viewsw"><button type="button" data-view="3d" aria-pressed="true">3D</button><button type="button" data-view="plan" aria-pressed="false">Planta</button></div>
     </div>
     <div class="bar">
@@ -731,26 +773,47 @@ footer ul { padding-left: 18px; }
     </div>
     <figcaption class="caption"><strong class="cap-title"></strong><span class="cap-body"></span></figcaption>
     <div class="controls">
-      <label for="hh">Altura de instalação <input id="hh" type="range" min="2" max="3.5" step="0.1" value="2.5" data-h> <span class="num" data-h-out>2,50 m</span></label>
-      <label for="cl">Corredor <input id="cl" type="range" min="10" max="40" step="1" value="24" data-cl> <span class="num" data-cl-out>24 m</span></label>
+      <label for="lm">Luminária <select id="lm" data-lm><option value="a" selected>100 a 600 lm</option><option value="b">acima de 600 lm</option><option value="c">2.000 lm ou mais</option></select></label>
+      <label for="hh">Altura de instalação <input id="hh" type="range" min="2" max="6" step="0.1" value="2.5" data-h> <span class="num" data-h-out>2,50 m</span></label>
+      <label for="cl">Corredor <input id="cl" type="range" min="10" max="50" step="1" value="30" data-cl> <span class="num" data-cl-out>30 m</span></label>
       <span class="out ilu-out" style="flex-basis:100%"></span>
     </div>
   </figure>
-  <div class="grid2">
+  <div class="grid3">
     <div class="card">
-      <h3>O que o COSCIP exige</h3>
-      <ul>
-        <li>Entrada automática, por bateria, com autonomia mínima de 1 hora sem perder iluminamento (arts. 190 e 191, § 1º).</li>
-        <li>Luminárias nos acessos, escadas, áreas de refúgio, descargas e antecâmaras, com potência mínima de 10 W (art. 196).</li>
-        <li>Pontos de luz em todos os locais de circulação horizontal ou vertical e nas rotas de fuga (art. 203).</li>
-        <li>Iluminação que permita reconhecer obstáculos (art. 204); sem ofuscamento (art. 197).</li>
-        <li>Obrigatória com escada EP ou PF, lotação acima de 100 pessoas ou área acima de 1.500 m² (arts. 205 e 206).</li>
-      </ul>
+      <h3>Distâncias da RT nº 001/2023</h3>
+      <div class="tbl" style="border:0"><table>
+        <thead><tr><th>Luminária ou bloco autônomo</th><th>Entre pontos</th><th>Ponto até a parede</th></tr></thead>
+        <tbody>
+          <tr><td>100 a 600 lm (ou lâmpada incandescente de 10 W, sistema centralizado)</td><td class="num">15,0 m</td><td class="num">7,5 m</td></tr>
+          <tr><td>Acima de 600 lm</td><td class="num">25,0 m</td><td class="num">12,5 m</td></tr>
+          <tr><td>Mudança de direção na rota de fuga</td><td class="num">7,5 m</td><td>—</td></tr>
+          <tr><td>Escada de emergência</td><td colspan="2">um ponto em cada patamar, principal e/ou intermediário</td></tr>
+        </tbody></table></div>
+      <p><span class="flag">A RT diz, para a segunda faixa, “com o limite superior de 600 lúmens”. A página lê como luminária acima de 600 lm.</span></p>
+      <p class="cite">RT nº 001/2023, itens 3.3.3, 3.3.3.1 e 3.3.3.2</p>
     </div>
-    <div class="alert">
-      <strong>O COSCIP não cita distância entre pontos</strong>
-      <p>Referência técnica: ABNT NBR 10898, com distância entre dois pontos de até 4 vezes a altura de instalação em relação ao piso (critério da edição de 2013, reproduzido por vários Corpos de Bombeiros). A NBR 10898 tem edição de 2023: confira o texto vigente antes de exigir.</p>
-      <p>Outros estados fixam 15 m entre pontos e 7,5 m até a parede (SP, PR, AC, ES). Isso não é regra do CBMPE.</p>
+    <div class="card">
+      <h3>Altura, lúmens e iluminamento</h3>
+      <ul>
+        <li>Altura padrão: até <b>3,0 m</b>. Acima disso, as distâncias caem <b>10% a cada metro ou fração</b> a mais, até o limite de <b>50%</b> (3.3.3.4).</li>
+        <li>Exemplo: a 4,5 m, com luminária de 100 a 600 lm, são 2 frações a mais: 15 × 0,8 = <b>12 m</b> entre pontos e 6 m até a parede.</li>
+        <li>Com <b>2.000 lm ou mais</b> por luminária, não há redução pela altura (3.3.3.5).</li>
+        <li>As distâncias devem garantir pelo menos <b>3 lux</b> em áreas planas (corredores, halls, áreas de refúgio) e <b>5 lux</b> em escadas e rampas (3.3.3.3).</li>
+        <li>O lúmen vem registrado no corpo da luminária; se houver dois valores, a vistoria considera o maior (3.3.1 e 3.3.2). No projeto, o lúmen de cada luminária aparece na simbologia ou na prancha (3.4.1, “a”).</li>
+      </ul>
+      <p class="cite">RT nº 001/2023, itens 3.3.1 a 3.4.1</p>
+    </div>
+    <div class="card">
+      <h3>Onde e quando</h3>
+      <ul>
+        <li>Obrigatória com escada EP ou PF, lotação acima de 100 pessoas ou área acima de 1.500 m² (COSCIP, arts. 205 e 206).</li>
+        <li>Nos acessos, áreas de reunião de público, escadas, áreas de refúgio, antecâmaras e demais rotas de fuga (RT, 3.2.1, “a”; COSCIP, arts. 196 e 203).</li>
+        <li>Em salas cujo ponto mais desfavorável fica a <b>mais de 10 m</b> (distância linear) da porta da área comum (RT, 3.2.1, “b”).</li>
+        <li>Nas circulações internas de salas privativas com área somada <b>acima de 50 m²</b>, sem contar wc, copa e DML (RT, 3.2.1, “c”).</li>
+        <li>Entrada automática por bateria, autonomia mínima de 1 hora sem perder iluminamento (arts. 190 e 191, § 1º); sem ofuscamento (art. 197); que permita reconhecer obstáculos (art. 204).</li>
+        <li>Na vistoria sem projeto, o vistoriador verifica e orienta quanto a (altura de instalação) × (distância de cobertura) × (quantidade de lúmens) (RT, 3.5.1, “b”).</li>
+      </ul>
     </div>
   </div>
 </section>
@@ -865,9 +928,923 @@ footer ul { padding-left: 18px; }
       <tr><td>Chuveiros automáticos</td><td><span class="pill esp">Espaçamento</span></td><td>Área por bico; bico → bico; bico → parede</td><td class="num">21/15/9 m² · 4,5/4,5/3,5 m · metade</td><td>Art. 121</td></tr>
       <tr><td>Detectores automáticos</td><td><span class="pill esp">Área e raio</span></td><td>Área de ação e raio de ação de cada detector</td><td class="num">36 m² · 4,2 m / 81 m² · 6,3 m</td><td>Art. 137, I, “a”</td></tr>
       <tr><td>Setas de saída</td><td><span class="pill esp">Espaçamento</span></td><td>Seta → seta na circulação reta</td><td class="num">20 m</td><td>Art. 210, II</td></tr>
-      <tr><td>Iluminação de emergência</td><td><span class="pill esp">Espaçamento</span></td><td>Ponto → ponto</td><td>Não fixado no COSCIP; NBR 10898: 4 × altura</td><td>Arts. 196, 203 e 204</td></tr>
+      <tr><td>Iluminação de emergência</td><td><span class="pill esp">Espaçamento</span></td><td>Ponto → ponto e ponto → parede</td><td class="num">15 m · 7,5 m (100 a 600 lm) / 25 m · 12,5 m (acima de 600 lm)</td><td>RT nº 001/2023, item 3.3.3</td></tr>
+      <tr><td>Iluminação na mudança de direção · escadas</td><td><span class="pill esp">Espaçamento</span></td><td>Ponto → ponto na curva da rota · patamares</td><td class="num">7,5 m · 1 ponto por patamar</td><td>RT nº 001/2023, itens 3.3.3.1 e 3.3.3.2</td></tr>
     </tbody>
   </table></div>
+</section>
+
+<!-- ===== Textos das normas (gerado por gerar_normas.mjs) ===== -->
+<section class="blk" id="normas" data-pg="normas">
+  <div class="sec-head">
+    <div class="tag">Íntegra dos dispositivos</div>
+    <h2>Textos das normas usadas no site</h2>
+    <p>Cada página cita artigos, itens e enunciados. Aqui está o texto completo de cada um, com incisos, alíneas e parágrafos, para conferir o contexto. As anotações de alteração do texto consolidado aparecem em cinza.</p>
+  </div>
+  <div class="lex-nav"><a href="#normas-saidas">Saídas de emergência</a><a href="#normas-extintores">Extintores e acionador manual</a><a href="#normas-hidrantes">Hidrantes e mangotinhos</a><a href="#normas-chuveiros">Chuveiros automáticos</a><a href="#normas-detectores">Detectores automáticos</a><a href="#normas-sinalizacao">Sinalização de saídas</a><a href="#normas-iluminacao">Iluminação de emergência</a><a href="#normas-alturas">Alturas de instalação</a><a href="#normas-vistoria">Na vistoria</a></div>
+  <p class="lex-tools"><button type="button" class="seg" data-lex="abrir">Abrir todos</button> <button type="button" class="seg" data-lex="fechar">Fechar todos</button></p>
+  <div class="card lex-conf">
+    <h3>Normas do CBMPE conferidas em 17/11/2026</h3>
+    <p>Foram lidas todas as 54 legislações técnicas publicadas em bombeiros.pe.gov.br (leis, decretos, portarias, normas técnicas, resoluções técnicas e enunciados). As digitalizadas foram lidas página por página.</p>
+    <div class="tbl"><table><thead><tr><th>Norma</th><th>O que interessa às medidas do site</th><th>Situação no site</th></tr></thead><tbody>
+      <tr><td>COSCIP-PE (Decreto nº 19.644/1997), texto vigente</td><td>Base de todas as páginas</td><td>Em uso</td></tr>
+      <tr><td>NT 1.02 (2022), item 3.2.1</td><td>O que o projeto deve cotar e medir</td><td>Em uso</td></tr>
+      <tr><td>RT nº 001/2023 – iluminação de emergência</td><td>15 m / 7,5 m (100 a 600 lm) e 25 m / 12,5 m (acima de 600 lm); 7,5 m na mudança de direção; ponto em cada patamar de escada; 3 lx e 5 lx; redução acima de 3 m de altura</td><td><b>Corrigido nesta revisão</b>: o site dizia que o CBMPE não fixava distância</td></tr>
+      <tr><td>NT nº 003/2019 – hidrantes e mangotinho</td><td>Art. 1º: mangueira de até 60 m fora da projeção da edificação; art. 2º: desnível de até 1,50 m não é pavimento nem obstáculo</td><td>Acrescentado</td></tr>
+      <tr><td>Enunciados Técnicos (compilado de 20/10/2025)</td><td>ET 002 (chuveiro: 0,10 m; ambientes até 21 m²); ET 014 (acionador × vagas de garagem); ET 019 (hidrante × vagas de garagem); ET 031, item 2 (templo = tipo H); ET 038 (sistema não exigido)</td><td>Acrescentado</td></tr>
+      <tr><td>Enunciados revogados</td><td>ET 016 (raio dos detectores), ET 029 (extintor sobre rodas), ET 031 item 1 (área de relativa segurança) e ET 044 (nota “f”): revogados pelo Decreto nº 58.690/2025, e o conteúdo está hoje no art. 137, no art. 32, § 3º, no art. 147, § 4º, e na nota “f” da Tabela 3. ET 017 (soma das distâncias do art. 147): revogado pelo Decreto nº 53.760/2022</td><td>O site usa o texto do COSCIP</td></tr>
+      <tr><td>RT nº 001/17 – C.I.A.T. (distância a percorrer)</td><td>Mede do ponto mais afastado, inclusive em área privativa</td><td><span class="flag">Ponto de interpretação</span>: escrita sobre a redação anterior do art. 147</td></tr>
+      <tr><td>NT 1.04 (2021), item 5.4</td><td>25 m, 15 m ou 35 m conforme o isolamento entre pavimentos e unidades</td><td><span class="flag">Ponto de interpretação</span>: anterior à Tabela 3 (2022)</td></tr>
+      <tr><td>RT nº 007/18 – escadas e corredores</td><td>Distância até escadas secundárias segue o art. 147</td><td>Texto reproduzido</td></tr>
+      <tr><td>Portaria Administrativa nº 29/2023 e RT nº 007/17</td><td>Vistoria de edificação com projeto aprovado e divergência entre vistoriador e projeto</td><td>Acrescentado na página inicial</td></tr>
+      <tr><td>Consultadas, sem regra de medida para o site</td><td colspan="2">RT 001/18 (exigência de chuveiros em galpões), RT 003/17 (portas), RT 004/18 (compartilhamento de sistemas), RT 005/17, RT 005/18, RT 008/17, RT 009/17; NT 001/2019, 002/2019, 004/2019; NT 1.01, 1.03, 1.05, 1.06; NT 17/2025 e Atualização nº 01; NT 2.01, 3.01, 3.02, 3.03, 3.04, 3.05; NT-CSAT 002/05, 003/05, 005/08, 007/15; Decreto nº 52.005/2021 e alterações; Leis nº 11.186/1994, 12.323/2003, 15.232/2014, 15.233/2014 e 17.537/2021; Decreto-Lei nº 219/1970; Portarias do Comando Geral 099, 100, 154, 157 e 159; Portarias Administrativas 018/1986 e 1/2025; Nota Técnica SENASP (estádios)</td></tr>
+      <tr><td>Normas Técnicas de Incêndio 001 a 016 de 1986</td><td colspan="2">Anteriores ao COSCIP de 1997. A iluminação de emergência que elas tratavam hoje está na RT nº 001/2023.</td></tr>
+    </tbody></table></div>
+  </div>
+</section>
+<section class="blk lex-sec" id="normas-saidas" data-pg="normas">
+  <div class="sec-head"><div class="tag">Textos das normas</div><h2>Saídas de emergência</h2><p><a href="#saidas">← Voltar para a página de saídas de emergência</a></p></div>
+  <details class="lex"><summary><b>COSCIP-PE, art. 25</b><span>Itens do projeto, entre eles as distâncias a percorrer (inciso VII)</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 25. As edificações relacionadas no artigo 7º do presente Código, dentro de suas respectivas ocupações, terão seus sistemas de segurança contra incêndio e pânico definidos em função dos seguintes parâmetros;</p>
+<p class="lx lx-inc">I - área total construída e/ou coberta;</p>
+<p class="lx lx-inc">II - área construída por pavimento;</p>
+<p class="lx lx-inc">III - número de pavimentos;</p>
+<p class="lx lx-inc">IV - altura total da edificação ou de áreas ou setores específicos, em caso de ocupações diversas;</p>
+<p class="lx lx-inc">V - número total de economia habitáveis na edificação e/ou em agrupamentos;</p>
+<p class="lx lx-inc">VI - número total de economia habitáveis por pavimento edificado;</p>
+<p class="lx lx-inc">VII - distâncias a serem percorridas pela população no caminhamento em circulações ou acessos, partindo-se do local mais afastado até as saídas de emergência, em cada pavimento considerado;</p>
+<p class="lx lx-inc">VIII - natureza das circulações e/ou acessos (abertas ou fechadas);</p>
+<p class="lx lx-inc">IX - natureza específica de sua ocupação, nos casos de industrias, depósitos, galpões e casas comerciais, isoladas ou não, e edificações congêneres;</p>
+<p class="lx lx-inc">X - área total ocupada, consoante as disposições constantes dos §§ 1º, 2º, 3º e 4º deste artigo.</p>
+<p class="lx lx-par">§ 1º Considera-se área total ocupada, a área correspondente ao somatório das áreas edificadas, abertas ou não, dentro de um mesmo perímetro de terreno (agrupamento de edificações), e cujas edificações tenham ligações ou acessos comuns e diretos entre si (ruas, passarelas e parqueamentos).</p>
+<p class="lx lx-par">§ 2º Quando um agrupamento de edificações se enquadrar no parágrafo anterior, os sistemas de proteção contra incêndio e pânico serão exigidos em função da área total ocupada, observando-se os demais parâmetros relacionados neste artigo.</p>
+<p class="lx lx-par">§ 3º Nos casos previstos no parágrafo anterior, os conceitos de risco isolado apenas serão adotados para o correspondente dimensionamento dos sistemas, em conformidade com o disposto no art. 5º. Deste Código.</p>
+<p class="lx lx-par">§ 4º O parâmetro especificado no inciso X do caput não será aplicado desde que as áreas edificadas estejam isoladas entre si por espaços abertos não inferiores a 8 (oito) metros. <span class="anot">(Redação alterada pelo art. 1º do Decreto nº 58.690, de 27 de maio de 2025.)</span></p>
+<p class="lx lx-par">§ 5º A área por pavimentos será a do maio pavimento cuja ocupação a edificação foi classificada.</p>
+<p class="lx lx-par">§ 6º Altura da edificação, salvo o disposto no capítulo I do Título III do Livro II, deste Código, e o comprimento, em metros, do segmento de vertical medida do meio da fachada e compreendido entre o nível de acesso do prédio, junto a fachada, e a linha horizontal passando pelo ponto mais alto do edifício, excetuando-se o reservatório superior.</p>
+<p class="lx lx-par">§ 7º A altura da edificação ressalvada no parágrafo anterior será medida, em metros, entre o ponto que caracterize o ingresso ao nível de acesso sob a projeção do perímetro externo da parede do prédio ao ponto mais alto do piso do último pavimento computável.</p>
+  <p class="lex-src">Decreto nº 19.644/1997, texto vigente consolidado pela ALEPE (consultado em 13/11/2026).</p>
+  </div></details>
+  <details class="lex"><summary><b>COSCIP-PE, art. 147</b><span>Distâncias máximas a serem percorridas</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 147. As distâncias máximas a serem percorridas para atingir um local de relativa segurança (espaço livre exterior, área de refúgio, área compartimentada que tenha pelo menos uma saída direta para o espaço livre exterior, porta das escadas tipo II, III ou porta da antecâmara da escada tipo IV, degrau da escada tipo I, e outros acessos), tendo em vista o risco à vida humana decorrente do fogo e da fumaça, devem considerar: <span class="anot">(Redação alterada pelo art. 1º do Decreto nº 53.760, de 14 de outubro de 2022.)</span></p>
+<p class="lx lx-inc">I - o acréscimo de risco quando a fuga é possível em apenas um sentido; <span class="anot">(Redação alterada pelo art. 1º do Decreto nº 53.760, de 14 de outubro de 2022.)</span></p>
+<p class="lx lx-inc">II - a redução de risco em caso de proteção por chuveiros automáticos, detectores ou controle de fumaça; <span class="anot">(Redação alterada pelo art. 1º do Decreto nº 53.760, de 14 de outubro de 2022.)</span></p>
+<p class="lx lx-inc">III - a redução de risco pela facilidade de saídas em edificações térreas. <span class="anot">(Redação alterada pelo art. 1º do Decreto nº 53.760, de 14 de outubro de 2022.)</span></p>
+<p class="lx lx-par">§ 1º As distâncias máximas a serem percorridas para atingir as portas de acesso às saídas das edificações e o acesso às escadas ou às portas das escadas (nos pavimentos) em conformidade com o estabelecido na Tabela 3 – DISTÂNCIAS MÁXIMAS A SEREM PERCORRIDAS, constante do Anexo A ao presente Código, devem ser consideradas a partir da porta de acesso da unidade autônoma mais distante, desde que o seu caminhamento interno não ultrapasse 10m. <span class="anot">(Redação alterada pelo art. 1º do Decreto nº 53.760, de 14 de outubro de 2022.)</span></p>
+<p class="lx lx-par">§ 2º No caso das distâncias máximas a serem percorridas para as rotas de fuga que não foram definidas no projeto arquitetônico, como, por exemplo, escritórios de plano espacial aberto e galpões sem o arranjo físico interno (leiaute), devem ser consideradas as distâncias diretas comparadas aos limites da Tabela 3 – DISTÂNCIAS MÁXIMAS A SEREM PERCORRIDAS, constante do Anexo A ao presente Código, Nota b, reduzidas em 30%. <span class="anot">(Redação alterada pelo art. 1º do Decreto nº 53.760, de 14 de outubro de 2022.)</span></p>
+<p class="lx lx-par">§ 3º Nas ocupações do tipo N (Galpão ou Depósito), em que as áreas de depósitos sejam automatizadas e sem presença humana, a exigência de distância máxima a ser percorrida pode ser desconsiderada. <span class="anot">(Redação alterada pelo art. 1º do Decreto nº 53.760, de 14 de outubro de 2022.)</span></p>
+<p class="lx lx-par">§ 4º Será considerada área de relativa segurança, para efeito do COSCIP-PE, aquelas que satisfaçam as seguintes condições: <span class="anot">(Acrescido pelo art. 1º do Decreto nº 58.690, de 27 de maio de 2025.)</span></p>
+<p class="lx lx-ali">a) áreas a céu aberto; <span class="anot">(Acrescido pelo art. 1º do Decreto nº 58.690, de 27 de maio de 2025.)</span></p>
+<p class="lx lx-ali">b) que comporte, no mínimo, a população que transite por essa área em direção às saídas; <span class="anot">(Acrescido pelo art. 1º do Decreto nº 58.690, de 27 de maio de 2025.)</span></p>
+<p class="lx lx-ali">c) estar localizada no caminhamento para as saídas da edificação (escadas de emergência ou portas de saídas). <span class="anot">(Acrescido pelo art. 1º do Decreto nº 58.690, de 27 de maio de 2025.)</span></p>
+  <p class="lex-src">Decreto nº 19.644/1997, texto vigente consolidado pela ALEPE (consultado em 13/11/2026).</p>
+  </div></details>
+  <details class="lex"><summary><b>COSCIP-PE, Anexo A, Tabela 3 e notas</b><span>Distâncias máximas a serem percorridas</span></summary>
+  <div class="lex-body">
+<div class="tbl lx-tab"><table class="t3"><thead>
+<tr><th rowspan="3">Tipo de ocupação</th><th rowspan="3">Pavimento</th><th colspan="4">Sem chuveiros automáticos</th><th colspan="4">Com chuveiros automáticos</th></tr>
+<tr><th colspan="2">Saída única</th><th colspan="2">Mais de uma saída</th><th colspan="2">Saída única</th><th colspan="2">Mais de uma saída</th></tr>
+<tr><th>Sem detecção automática de incêndio (referência)</th><th>Com detecção automática de incêndio</th><th>Sem detecção automática de incêndio (referência)</th><th>Com detecção automática de incêndio</th><th>Sem detecção automática de incêndio (referência)</th><th>Com detecção automática de incêndio</th><th>Sem detecção automática de incêndio (referência)</th><th>Com detecção automática de incêndio</th></tr></thead><tbody>
+<tr><td rowspan="2">A, B, C e D</td><td>De saída da edificação (piso de descarga)</td><td class="num">45 m</td><td class="num">55 m</td><td class="num">55 m</td><td class="num">65 m</td><td class="num">60 m</td><td class="num">70 m</td><td class="num">80 m</td><td class="num">95 m</td></tr><tr><td>Demais pavimentos</td><td class="num">40 m</td><td class="num">45 m</td><td class="num">50 m</td><td class="num">60 m</td><td class="num">55 m</td><td class="num">65 m</td><td class="num">75 m</td><td class="num">90 m</td></tr>
+<tr><td rowspan="2">E, F, G, H, I, K e O</td><td>De saída da edificação (piso de descarga)</td><td class="num">40 m</td><td class="num">45 m</td><td class="num">50 m</td><td class="num">60 m</td><td class="num">55 m</td><td class="num">65 m</td><td class="num">75 m</td><td class="num">90 m</td></tr><tr><td>Demais pavimentos</td><td class="num">30 m</td><td class="num">35 m</td><td class="num">40 m</td><td class="num">45 m</td><td class="num">45 m</td><td class="num">55 m</td><td class="num">65 m</td><td class="num">75 m</td></tr>
+<tr><td rowspan="2">M</td><td>De saída da edificação (piso de descarga)</td><td class="num">50 m</td><td class="num">60 m</td><td class="num">60 m</td><td class="num">70 m</td><td class="num">80 m</td><td class="num">95 m</td><td class="num">120 m</td><td class="num">140 m</td></tr><tr><td>Demais pavimentos</td><td class="num">45 m</td><td class="num">55 m</td><td class="num">55 m</td><td class="num">65 m</td><td class="num">70 m</td><td class="num">80 m</td><td class="num">110 m</td><td class="num">130 m</td></tr>
+<tr><td rowspan="2">L e N</td><td>De saída da edificação (piso de descarga)</td><td class="num">40 m</td><td class="num">45 m</td><td class="num">50 m</td><td class="num">60 m</td><td class="num">60 m</td><td class="num">70 m</td><td class="num">100 m</td><td class="num">120 m</td></tr><tr><td>Demais pavimentos</td><td class="num">30 m</td><td class="num">35 m</td><td class="num">40 m</td><td class="num">45 m</td><td class="num">50 m</td><td class="num">65 m</td><td class="num">80 m</td><td class="num">95 m</td></tr>
+<tr><td>J e Q</td><td colspan="9">Em conformidade com a classificação da classe de ocupação correspondente, ressalvados os critérios estabelecidos pelo parágrafo único do art. 144 deste Código.</td></tr>
+</tbody></table></div>
+<p class="lx lx-cap"><span class="anot">(Acrescido pelo art. 2º e pelo anexo do Decreto nº 53.760, de 14 de outubro de 2022.)</span></p>
+<p class="lx lx-cap"><b>Notas:</b></p>
+<p class="lx lx-ali">a. Para que ocorram as distâncias previstas nesta Tabela e Notas, é necessária a apresentação do leiaute definido em planta baixa (salão aberto, sala de eventos, escritórios, escritórios panorâmicos, galpões e outros). Caso não seja apresentado o leiaute definido em planta baixa, as distâncias definidas devem ser reduzidas em 30%; <span class="anot">(Acrescido pelo art. 2º e pelo anexo do Decreto nº 53.760, de 14 de outubro de 2022.)</span></p>
+<p class="lx lx-ali">b. Para edificações com sistema de controle de fumaça, admite-se acrescentar 50% nos valores acima; <span class="anot">(Acrescido pelo art. 2º e pelo anexo do Decreto nº 53.760, de 14 de outubro de 2022.)</span></p>
+<p class="lx lx-ali">c. Para admitir os valores da coluna “mais de uma saída” deve haver uma distância mínima de 10m entre elas; <span class="anot">(Acrescido pelo art. 2º e pelo anexo do Decreto nº 53.760, de 14 de outubro de 2022.)</span></p>
+<p class="lx lx-ali">d. Nas áreas técnicas (locais destinados a equipamentos, sem permanência humana e de acesso restrito), a distância máxima a ser percorrida é de 140 metros; <span class="anot">(Acrescido pelo art. 2º e pelo anexo do Decreto nº 53.760, de 14 de outubro de 2022.)</span></p>
+<p class="lx lx-ali">e. Poderá ser considerado o deslocamento entre veículos no dimensionamento da distância máxima a ser percorrida nos pavimentos que contemplar as edificações do Tipo M (Garagem), tendo em vista que o automóvel não é um obstáculo fixo que impede a passagem das pessoas e que, habitualmente, a permanência humana no local é por um curto espaço de tempo; <span class="anot">(Acrescido pelo art. 2º e pelo anexo do Decreto nº 53.760, de 14 de outubro de 2022.)</span></p>
+<p class="lx lx-ali">f. Para o aumento da distância máxima a ser percorrida, os sistemas de detecção de incêndio, controle de fumaça e chuveiros automáticos podem ser previstos apenas na área compartimentada que apresentar esta necessidade. Quando a edificação não for compartimentada, os sistemas citados deverão ser previstos em toda a edificação, de acordo com as indicações constantes nos arts. 132 e 140 do COSCIP/PE, com as seguintes ressalvas: <span class="anot">(Redação alterada pelo art. 2º do Decreto nº 58.690, de 27 de maio de 2025.)</span></p>
+<p class="lx lx-inc">I - na ocupação Residencial Privativa Multifamiliar (Tipo B) - sistema de chuveiros automáticos nas circulações e garagens internas fechadas; <span class="anot">(Acrescido pelo art. 2º do Decreto nº 58.690, de 27 de maio de 2025.)</span></p>
+<p class="lx lx-inc">II - na ocupação Residencial Coletiva (Tipo C) - sistema de detecção e alarme de incêndio em toda área privativa, ambientes administrativos (arquivos, depósitos, entre outros), salas de atividades, ambientes com leitos e áreas de convivência; <span class="anot">(Acrescido pelo art. 2º do Decreto nº 58.690, de 27 de maio de 2025.)</span></p>
+<p class="lx lx-inc">III - na ocupação Escolar (Tipo K) - sistema de chuveiros automáticos em toda área privativa, ambientes administrativos (arquivos, depósitos, salas administrativas, entre outros) e salas de atividades (salas de aula, bibliotecas, brinquedotecas, berçários, laboratórios, auditórios, dentre outras). <span class="anot">(Acrescido pelo art. 2º do Decreto nº 58.690, de 27 de maio de 2025.)</span></p>
+<p class="lx lx-ali">g. O Corpo de Bombeiros Militar de Pernambuco poderá definir outros critérios de distâncias máximas a percorrer diferentes do previsto na Tabela 3 (anexo A) deste Código, para edificações específicas, sendo regulamentados através de norma técnica específica. <span class="anot">(Acrescido pelo art. 2º e pelo anexo do Decreto nº 53.760, de 14 de outubro de 2022.)</span></p>
+  <p class="lex-src">Decreto nº 19.644/1997, Anexo A, texto vigente consolidado pela ALEPE (consultado em 13/11/2026).</p>
+  </div></details>
+  <details class="lex"><summary><b>COSCIP-PE, art. 144</b><span>Ocupações J e Q (referida na Tabela 3)</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 144. As disposições contidas no presente Título serão aplicadas às edificações que se enquadrarem nas situações previstas na Tabela 2 - Quadro de ocupação de exigência, constante do presente Código.</p>
+<p class="lx lx-par">Parágrafo único. Caberá ao Corpo de Bombeiros Militar de Pernambuco regular as exigências que deverão ser feitas às Edificações Especiais, através de normas técnicas específicas.</p>
+  <p class="lex-src">Decreto nº 19.644/1997, texto vigente consolidado pela ALEPE (consultado em 13/11/2026).</p>
+  </div></details>
+  <details class="lex"><summary><b>COSCIP-PE, art. 152-A</b><span>Classificação das escadas: NE, EP e PF</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 152-A. Para efeito deste Código, as escadas de emergência se classificam em três tipos: <span class="anot">(Acrescido pelo art. 1º do Decreto nº 58.690, de 27 de maio de 2025.)</span></p>
+<p class="lx lx-inc">I - escadas não enclausuradas ou escada comum (NE); <span class="anot">(Acrescido pelo art. 1º do Decreto nº 58.690, de 27 de maio de 2025.)</span></p>
+<p class="lx lx-inc">II - escadas enclausuradas protegidas (EP); e <span class="anot">(Acrescido pelo art. 1º do Decreto nº 58.690, de 27 de maio de 2025.)</span></p>
+<p class="lx lx-inc">III - escadas enclausuradas à prova de fumaça (PF). <span class="anot">(Acrescido pelo art. 1º do Decreto nº 58.690, de 27 de maio de 2025.)</span></p>
+<p class="lx lx-par">§ 1º Entende-se por escada enclausurada protegida aquela devidamente ventilada, cuja caixa é envolvida por paredes corta-fogo e dotada de portas corta-fogo. <span class="anot">(Acrescido pelo art. 1º do Decreto nº 58.690, de 27 de maio de 2025.)</span></p>
+<p class="lx lx-par">§ 2º Entende-se por escada enclausurada à prova de fumaça a escada enclausurada precedida de antecâmara, de modo a evitar, em caso de incêndio, a penetração de fogo e fumaça. <span class="anot">(Acrescido pelo art. 1º do Decreto nº 58.690, de 27 de maio de 2025.)</span></p>
+<p class="lx lx-par">§ 3º Caberá ao Corpo de Bombeiros Militar de Pernambuco, através de normas técnicas, regular os requisitos das escadas de emergência. <span class="anot">(Acrescido pelo art. 1º do Decreto nº 58.690, de 27 de maio de 2025.)</span></p>
+  <p class="lex-src">Decreto nº 19.644/1997, texto vigente consolidado pela ALEPE (consultado em 13/11/2026).</p>
+  </div></details>
+  <details class="lex"><summary><b>NT 1.02 CBMPE, item 3.2.1, I e VI</b><span>O que o projeto deve cotar e medir</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">3.2.1 O projeto de segurança contra incêndio e pânico anexado no sistema para análise digital deverá obrigatoriamente constar as seguintes informações, no que couber (VER ANEXO B):</p>
+<p class="lx lx-inc">I - As cotas:</p>
+<p class="lx lx-ali">a) Das larguras de corredores e das escadas;</p>
+<p class="lx lx-ali">b) Vãos livres de portas (tanto para as portas das saídas quanto as dos compartimentos internos);</p>
+<p class="lx lx-ali">c) Dos Guarda-corpos, balaústres e longarinas;</p>
+<p class="lx lx-ali">d) Todas as medidas de altura (altura da edificação, altura entre pavimentos, altura do nível de acesso à edificação, altura do fundo do reservatório e do nível de acesso ao ponto mais alto do piso do último pavimento computável);</p>
+<p class="lx lx-ali">e) Na planta de locação, distâncias entre edificações nos casos em que houver a previsão de mais de uma edificação no mesmo terreno;</p>
+<p class="lx lx-ali">f) Nos projetos de depósitos de GLP, especificando as distâncias de armazenamento dos recipientes;</p>
+<p class="lx lx-ali">g) Das marquises quando estas servirem de proteção a corredores a céu aberto na descarga da edificação;</p>
+<p class="lx lx-ali">h) Das medidas de segurança previstas em norma para a instalação de centrais de GLP;</p>
+<p class="lx lx-ali">i) Da distância entre a projeção da edificação e o hidrante externo;</p>
+<p class="lx lx-ali">j) Das distâncias exigidas para os chuveiros automáticos;</p>
+<p class="lx lx-ali">k) Das aberturas de pavimentos situados abaixo e acima do nível de acesso à edificação;</p>
+<p class="lx lx-ali">l) Dos Detalhes das marcações em pisos de extintores, altura de instalação de equipamentos, medidas do registro de recalque, instalação de corrimão, etc.;</p>
+<p class="lx lx-ali">m) As distâncias entre hidrantes externos.</p>
+<p class="lx lx-inc">(…)</p>
+<p class="lx lx-inc">VI - As medidas das distâncias:</p>
+<p class="lx lx-ali">a) Do ponto mais distante do perímetro do pavimento às portas das escadas enclausuradas, às portas das antecâmaras das escadas à prova de fumaça ou aos degraus superiores das escadas protegidas;</p>
+<p class="lx lx-ali">b) Do ponto mais distante no pavimento ao hidrante mais próximo deste (havendo mais de um hidrante por pavimento, estes deverão ser numerados para serem referenciados em caso de exigência);</p>
+<p class="lx lx-ali">c) Do ponto mais distante do pavimento ao acionador manual mais próximo deste (também numerado);</p>
+<p class="lx lx-ali">d) Do ponto mais distante do pavimento ao extintor mais próximo deste;</p>
+<p class="lx lx-ali">e) Do ponto mais distante do risco isolado ao extintor mais próximo deste, quando não estiverem muito próximos;</p>
+  <p class="lex-src">Norma Técnica nº 1.02 – Análise de projeto de segurança contra incêndio e pânico (BGE nº 041, de 28/02/2022).</p>
+  </div></details>
+  <details class="lex"><summary><b>Resolução Técnica nº 001/17 – C.I.A.T.</b><span>Distância a percorrer (art. 147): ponto mais afastado, inclusive em área privativa</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">(…) <b>Considerando</b> que a redação do artigo 147 apenas define o parâmetro “medida dentro do perímetro do pavimento, a partir do ponto mais afastado do mesmo” para aferição das distâncias máximas a serem percorridas, em cada pavimento, para atingir as portas das escadas enclausuradas, as portas das antecâmaras das escadas à prova de fumaça, ou ainda, do degrau superior das escadas protegidas;</p>
+<p class="lx lx-cap"><b>Considerando</b> que a NBR nº 9077 em sua seção 4.5.2 define Distâncias máximas a serem percorridas “As distâncias máximas a serem percorridas para atingir um local seguro (espaço livre exterior, área de refúgio, escada protegida ou à prova de fumaça), tendo em vista o risco à vida humana decorrente do fogo e da fumaça”;</p>
+<p class="lx lx-cap"><b>Considerando</b> o conceito geométrico de distância, comprimento do segmento de reta que liga dois pontos;</p>
+<p class="lx lx-cap"><b>RESOLVE:</b></p>
+<p class="lx lx-cap">Art. 1º Considerar para fins de aplicabilidade dos incisos I, II e III e §1º, §2º e §3º do art. 147, as distâncias máximas a serem percorridas em cada pavimento, para atingir as escadas previstas no caput do referido artigo, a medida dentro do perímetro do pavimento a partir do ponto mais afastado do mesmo, <b>inclusive nos casos em que o ponto mais afastado esteja em área privativa</b>.</p>
+<p class="lx lx-cap">Art. 2º Esta Resolução entrará em vigor na data de sua publicação.</p>
+  <p class="lex-src">CBMPE/DIESP, Comissão Interna de Análise Técnica. Publicada no BGE nº 175, de 14/09/2017 (republicada por incorreção).</p>
+  </div></details>
+  <details class="lex"><summary><b>NT 1.04 CBMPE, item 5.4</b><span>Distâncias máximas a percorrer pelo critério de isolamento de risco</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">5.4 Definição das distâncias máximas à serem percorridas (art. 147 do COSCIP)</p>
+<p class="lx lx-cap">5.4.1 Para atender ao art. 147 do COSCIP quanto à definição das distâncias máximas a serem percorridas, em cada pavimento até, para atingir as portas das escadas enclausuradas ou as portas das antecâmaras das escadas à prova de fumaça, ou ainda, do degrau superior das escadas protegidas, medidas dentro do perímetro do pavimento, a partir do ponto mais afastado do mesmo, serão determinadas em função dos seguintes critérios:</p>
+<p class="lx lx-inc">I - quando os pavimentos forem isolados entre si, a distância máxima a percorrer deverá ser de 25,0 m (vinte e cinco metros);</p>
+<p class="lx lx-inc">II - quando não houver isolamento entre pavimentos, a distância máxima a ser percorrida deverá ser de 15,0 m (quinze metros);</p>
+<p class="lx lx-inc">III - quando houver, além do isolamento entre pavimentos, isolamento entre unidades autônomas, a distância a ser percorrida deverá ser de 35,0 m (trinta e cinco metros);</p>
+<p class="lx lx-cap">5.4.1.1 Para atender às distâncias previstas no inciso I do item 5.4.1 os critérios de compartimentação deve atender aos critérios estabelecidos no item 8 desta norma.</p>
+<p class="lx lx-cap">5.4.1.2 Para atender às distâncias previstas no inciso III do item 5.4.1 os critérios de compartimentação deve atender aos critérios estabelecidos no item 8 desta norma, além disso, as paredes divisórias entre unidades autônomas e entre unidades e as áreas comuns devem possuir TRRF mínimo de 60 min (EI-60) e as portas das unidades autônomas que dão acesso aos corredores e hall de entrada, devem ser do tipo resistente ao fogo com TRRF de 30 min (trinta minutos).</p>
+  <p class="lex-src">Norma Técnica nº 1.04 – Dimensionamento de sistemas preventivos através dos critérios de isolamento de risco (Portaria do Comando Geral nº 177, BGE nº 105, de 31/05/2021).</p>
+  </div></details>
+  <details class="lex"><summary><b>Enunciado Técnico 031</b><span>Enunciado técnico para o artigo 147 do COSCIP- PE.</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap"><b>ENUNCIADO TÉCNICO 031: Enunciado técnico para o artigo 147 do COSCIP- PE.</b></p>
+<p class="lx lx-cap">1. "Será considerada área de relativa segurança, para efeito do COSCIP-PE, aquelas que satisfaçam as seguintes condições:</p>
+<p class="lx lx-ali">a) áreas a céu aberto;</p>
+<p class="lx lx-ali">b) que comporte, no mínimo, a população que transite por essa área em direção às saídas;</p>
+<p class="lx lx-ali">c) estar localizada no caminhamento para as saídas da edificação (escadas de emergência ou portas de saídas)". <span class="anot rev">(REGOVADO PELO DECRETO Nº 58.690, DE 27 DE MAIO DE 2025)</span></p>
+<p class="lx lx-cap">2. "Para as edificações do tipo P (templos religiosos), de acordo com o artigo 7º do COSCIP-PE, as distâncias de que tratam este artigo serão as mesmas aplicadas para aquelas de tipo H (reunião de público)".</p>
+<p class="lx lx-ref">(REF.: Ata 059/23 - CSAT, de 22AGO23 (SEI nº 40587881). Publicado no BGE nº 175, de 06SET23)</p>
+  <p class="lex-src">CBMPE/DIESP, Enunciados Técnicos, compilado atualizado em 20/10/2025.</p>
+  </div></details>
+  <details class="lex"><summary><b>Resolução Técnica nº 007/18 – C.I.A.T., arts. 1º e 3º</b><span>Escadas secundárias: a distância segue o art. 147</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 1º Os mezaninos, jiraus, galerias e pavimentos com até 200m² de área construída, desde que não sejam utilizados como reunião de público e salas de aula, ficam dispensados da exigência de escada de emergência, podendo serem usadas escadas secundárias para seus acessos.</p>
+<p class="lx lx-par">(…)</p>
+<p class="lx lx-cap">Art. 3º As distâncias a serem percorridas para acesso às escadas previstas nos artigos 1º e 2º deverão obedecer ao art. 147 do COSCIP-PE;</p>
+  <p class="lex-src">CBMPE/DIESP, Comissão Interna de Análise Técnica. Publicada no BGE nº 172, de 06/09/2018.</p>
+  </div></details>
+</section>
+<section class="blk lex-sec" id="normas-extintores" data-pg="normas">
+  <div class="sec-head"><div class="tag">Textos das normas</div><h2>Extintores e acionador manual</h2><p><a href="#extintores">← Voltar para a página de extintores e acionador manual</a></p></div>
+  <details class="lex"><summary><b>COSCIP-PE, art. 31</b><span>Unidades extintoras: quantidade</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 31. Para efeito de aplicação deste Código, o sistema de proteção por extintores será dimensionado pela necessidade de Unidades Extintoras - EU - para os locais a serem protegidos.</p>
+<p class="lx lx-par">§ 1º Constitui-se uma Unidade Extintora um aparelho contendo o mínimo de capacidade de substância ou agente, a seguir especificado:  </p><div class="tbl lx-tab"><table><thead><tr><th>SUBSTÂNCIA OU AGENTE</th><th>CAP DO EXTINTOR</th></tr></thead><tbody>
+<tr><td>Água ou Espuma</td><td class="num">10 litros</td></tr><tr><td>Gás Carbônico</td><td class="num">6 Kg</td></tr><tr><td>Pó Químico</td><td class="num">4 Kg</td></tr></tbody></table></div><p class="lx lx-cap">  § 2º No caso de extintores de incêndio com capacidade superior às indicadas no parágrafo anterior, e que não venham a se constituir em carretas, o excesso de carga será considerado para formação de uma nova Unidade Extintora.</p>
+<p class="lx lx-par">§ 3º Nos casos de riscos protegidos em parte por extintores manuais e em parte por extintores sobre rodas, deverão ser observados os seguintes critérios:</p>
+<p class="lx lx-inc">I - para o cálculo do número de Unidades Extintoras, dos extintores sobre rodas apenas será computado metade de sua carga em unidades extintoras do tipo correspondente devendo-se, em caso de fração, ser o valor arrendado para menos;</p>
+<p class="lx lx-inc">II - do número total de Unidades Extintoras exigido para cada risco, 50% deverá ser constituído por extintores manuais;</p>
+<p class="lx lx-inc">III - um mesmo extintor sobre rodas não poderá proteger locais ou riscos isolados situados em pavimentos diferentes;</p>
+<p class="lx lx-inc">IV - apenas serão computados extensões sobre rodas no cálculo de Unidades Extintoras quando os mesmos tiverem livre acesso a qualquer parte do risco a proteger sem o impedimento ou obstáculo de portas ou aberturas estreitas, soleiras ou degraus no piso;</p>
+<p class="lx lx-inc">V - os extintores sobre rodas poderão ser instalados em pontos centrais, em relação aos extintores manuais, e aos limites da área do risco a proteger.</p>
+<p class="lx lx-par">§ 4º Um mesmo extintor sobre rodas poderá proteger mais de uma edificação, desde que satisfaça os seguintes parâmetros:</p>
+<p class="lx lx-inc">I - atender a todas as exigências do parágrafo anterior;</p>
+<p class="lx lx-inc">II - atender ao disposto nos incisos I e II do artigo 32 deste Código, no que concerne à área máxima de proteção de uma Unidade Extinta;</p>
+<p class="lx lx-inc">III - atender ao disposto no § 3º do artigo. 32 deste Código;</p>
+<p class="lx lx-inc">IV - as edificações a serem protegidas devem estar situadas em um mesmo pavimento, e ter acessos livres e desimpedidos entre as mesmas;</p>
+<p class="lx lx-inc">V - as edificações a serem protegidas não poderão estar separadas ou isoladas por via pública, ou qualquer via de acesso de trafego de veículos automotores.</p>
+<p class="lx lx-par">§ 5º Não será admitida a proteção de riscos unicamente por extintores sobre rodas.</p>
+<p class="lx lx-par">§ 6º A utilização, como proteção auxiliar, de água, areia, ou outra substância extintora, em baldes ou tambores, bem como extintores de incêndio de qualquer substância ou agente com capacidades inferiores às indicadas neste artigo, não será considerada, para efeitos deste Código, como Unidade Extintora.</p>
+<p class="lx lx-par">§ 7º Será exigido o mínimo de duas Unidades Extintoras para cada pavimento, mezanino, jirau ou risco isolado.</p>
+<p class="lx lx-par">§ 8º Admitir-se-á a instalação de apenas uma Unidade Extintora por pavimento, mezanino, jirau ou risco isolado, desde que a área a ser protegida seja igual ou inferior a 50m2.</p>
+  <p class="lex-src">Decreto nº 19.644/1997, texto vigente consolidado pela ALEPE (consultado em 13/11/2026).</p>
+  </div></details>
+  <details class="lex"><summary><b>COSCIP-PE, art. 32</b><span>Área e distância percorrida pelo operador</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 32. Para efeito de seu emprego, a área máxima de proteção de uma Unidade Extintora será, em conformidade com a classificação do risco a que se refere o artigo 5º deste Código, adiante especificada:</p>
+<p class="lx lx-inc">I - para os riscos de Classe A, a área máxima de proteção de uma Unidade Extintora será de 500,0 m2, devendo os extintores serem dispostos de maneira tal que possam ser alcançados de qualquer ponto da área protegida sem que haja necessidade de ser percorrida, pelo operador, uma distância superior a 20m;</p>
+<p class="lx lx-inc">II - para os riscos de Classes B e C, a área máxima de proteção de uma Unidade Extintora será de 250,0 m2, devendo os extintores serem dispostos de maneira que possam ser alcançados de qualquer ponto da área protegida sem que haja necessidade de ser percorrida, pelo operador, uma distância superior a 15,0 m.</p>
+<p class="lx lx-par">§ 1º Para efeito de dimensionamento do sistema, os parâmetros apresentados neste artigo deverão ser atendidos simultaneamente.</p>
+<p class="lx lx-par">§ 2º Aos riscos constituídos por armazéns, galpões, ou depósitos, em que não haja processos normais de trabalho, a não ser operações de carga ou descarga, será admitida a instalação dos extintores em grupos, em locais de fácil acesso, preferencialmente em mais de um grupo, e nas proximidades das entradas e saídas.</p>
+<p class="lx lx-par">§ 3º Quando houver a instalação de extintores sobre rodas na proteção de risco, as distâncias máximas estabelecidas nos incisos I e II do caput serão acrescidas da metade, exclusivamente para os extintores sobre rodas. <span class="anot">(Redação alterada pelo art. 1º do Decreto nº 58.690, de 27 de maio de 2025.)</span></p>
+  <p class="lex-src">Decreto nº 19.644/1997, texto vigente consolidado pela ALEPE (consultado em 13/11/2026).</p>
+  </div></details>
+  <details class="lex"><summary><b>COSCIP-PE, art. 34</b><span>Altura e locais vedados</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 34. Para efeito de instalação do sistema, deverá ser observado o seguinte;</p>
+<p class="lx lx-inc">I - os extintores não devem ter a sua parte superior acima de 1,60 m do piso;</p>
+<p class="lx lx-inc">II - os extintores não devem ser instalados nas escadas e nas antecâmaras das escadas a prova de fumaça;</p>
+<p class="lx lx-inc">III - os extintores devem ser instalados em locais onde:</p>
+<p class="lx lx-ali">a) haja menor probabilidade do fogo bloquear seu acesso;</p>
+<p class="lx lx-ali">b) sejam visíveis;</p>
+<p class="lx lx-ali">c) conservem-se protegidos contra golpes e intempéries;</p>
+<p class="lx lx-ali">d) não fiquem encobertos ou obstruídos.</p>
+  <p class="lex-src">Decreto nº 19.644/1997, texto vigente consolidado pela ALEPE (consultado em 13/11/2026).</p>
+  </div></details>
+  <details class="lex"><summary><b>COSCIP-PE, art. 35</b><span>Sinalização do extintor e faixa no piso</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 35. Os extintores devem ser devidamente sinalizados, para fácil visualização, permitindo-se uma rápida localização e identificação do equipamento e de seu agente extintor.</p>
+<p class="lx lx-par">§ 1º A sinalização de que trata o presente artigo poderá ser feita através de discos de sinalização ou setas indicativas, com dimensões mínimas de 0,070m2, afixados, no mínimo, a 0,50m acima do extintor e de forma que permitam sua fácil visualização e identificação.</p>
+<p class="lx lx-par">§ 2º Os discos de sinalização deverão ser formados por um circuito interno, que terá a cor identificadora do agente extintor correspondente, com a indicação do fone do Corpo de Bombeiros e circunscrito por outro na cor vermelha, em cores firmes.</p>
+<p class="lx lx-par">§ 3º O círculo interno dos discos de sinalização deverá obedecer à seguinte configuração:</p>
+<p class="lx lx-inc">I - círculo interno na cor BRANCA, para identificação dos aparelhos com o agente extintor a base de água;</p>
+<p class="lx lx-inc">II - círculo interno na cor AMARELA, para identificação dos aparelhos com o agente extintor gás carbônico;</p>
+<p class="lx lx-inc">III - círculo interno na cor AZUL, para identificação dos aparelhos com o agente extintor pó químico.</p>
+<p class="lx lx-par">§ 4º Serão admitidas setas de sinalização, quando sua instalação apresente harmonia com o ambiente, desde que permitam uma identificação rápida do agente extintor contido no aparelho correspondente, sendo admitidos os parâmetros de sinalização previstos na ABNT NBR 16820, ou norma técnica que venha a substituí-la. <span class="anot">(Redação alterada pelo art. 1º do Decreto nº 58.690, de 27 de maio de 2025.)</span></p>
+<p class="lx lx-par">§ 5º Quando os extintores de incêndio forem instalados em pilares ou colunas, a sinalização dever ser de tal maneira que possa ser visualizada em todos os sentidos, através da repetição lateral dos discos ou setas, ou por anéis, nas cores especificadas no § 3º supra.</p>
+<p class="lx lx-par">§ 6º Deverá ser delimitada por faixa, na cor vermelha, no piso abaixo do extintor, uma área de 1,00 m x 1,00 m, salvo para edificações privativas multifamiliares.</p>
+  <p class="lex-src">Decreto nº 19.644/1997, texto vigente consolidado pela ALEPE (consultado em 13/11/2026).</p>
+  </div></details>
+  <details class="lex"><summary><b>COSCIP-PE, art. 137</b><span>Detectores e acionadores manuais (inciso II: altura e 30 m)</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 137. Para efeito de instalação do sistema nos locais e ambientes a serem protegidos, os seguintes parâmetros devem ser observados:</p>
+<p class="lx lx-inc">I - quanto aos Detectores Automáticos: <span class="anot">(Redação alterada pelo art. 1º do Decreto nº 58.690, de 27 de maio de 2025.)</span></p>
+<p class="lx lx-ali">a) terem a seguinte área de ação: <span class="anot">(Redação alterada pelo art. 1º do Decreto nº 58.690, de 27 de maio de 2025.)</span></p>
+<p class="lx lx-num">1. para os detectores de temperatura, a área de ação máxima a ser empregada é de 36,0 m², referente ao retângulo circunscrito na circunferência, de forma que o raio de ação do detector será de 4,2 m; <span class="anot">(Redação alterada pelo art. 1º do Decreto nº 58.690, de 27 de maio de 2025.)</span></p>
+<p class="lx lx-num">2. para os detectores de fumaça, a área de ação máxima a ser empregada é de 81,0 m², referente ao retângulo circunscrito na circunferência, de forma que o raio de ação do detector será de 6,3 m; <span class="anot">(Redação alterada pelo art. 1º do Decreto nº 58.690, de 27 de maio de 2025.)</span></p>
+<p class="lx lx-num">3. para os detectores de chamas, a ação se verifica em função da emanação de energia radiante, considerando-se as seguintes faixas de atuação;</p>
+<p class="lx lx-sub">3.1. emanação de raios ultravioleta;</p>
+<p class="lx lx-sub">3.2. emanação de chama tremulante;</p>
+<p class="lx lx-sub">3.3. emanação de raios infravermelho.</p>
+<p class="lx lx-ali">b) serem selecionados e escolhidos em função dos parâmetros descritos no inciso III do artigo anterior;</p>
+<p class="lx lx-ali">c) serem resistentes a possíveis mudanças normais de temperatura;</p>
+<p class="lx lx-ali">d) serem resistentes à umidade e à corrosão existentes no ambiente;</p>
+<p class="lx lx-ali">e) serem resistentes mecanicamente a vibrações existentes no ambiente;</p>
+<p class="lx lx-ali">f) terem identificação de seu fabricante, tipo, temperatura, faixa ou parâmetros para atuação e ano de fabricação, convenientemente instalados em seu corpo;</p>
+<p class="lx lx-ali">g) serem os detectores de temperatura e fumaça, intercambiáveis entre si no sistema, sem necessidade de mudança de circuito;</p>
+<p class="lx lx-ali">h) possuírem indicação visual própria e adequada, que deverá ser acionada quando de sua atuação.</p>
+<p class="lx lx-inc">II - quanto aos Acionadores Manuais</p>
+<p class="lx lx-ali">a) serem instalados a uma altura entre 1,20 m a 1,60 m do piso acabado;</p>
+<p class="lx lx-ali">b) terem a distância máxima a ser percorrida por uma pessoa em qualquer ponto da área a ser protegida até o acionador manual mais próximo não superior a 30,0m;</p>
+<p class="lx lx-ali">c) serem alojados em carcaças rígidas, que impeçam danos mecânicos aos dispositivos de acionamento;</p>
+<p class="lx lx-ali">d) possuírem instruções de operação, impressas em português no próprio corpo do equipamento, de forma clara e em lugar facilmente visível após a instalação;</p>
+<p class="lx lx-ali">e) possuírem dispositivo que dificulte o acionamento acidental, porém facilmente destrutível no caso de operação internacional;</p>
+<p class="lx lx-ali">f) serem de acionamento de tipo, travante, permitindo a identificação do acionador operado.</p>
+<p class="lx lx-ali">g) possuírem duplo comando, a fim de fornecer informação à central, e permitir o acionamento do alarme do setor ou da edificação.</p>
+<p class="lx lx-inc">III - quanto aos indicadores Sonoros e Visuais</p>
+<p class="lx lx-ali">a) terem, respectivamente, características de audibilidade ou visibilidade compatíveis com o ambiente em que estão instalados, em condições normais de trabalho desses ambientes;</p>
+<p class="lx lx-ali">b) serem alimentado por fontes ininterruptas supervisionadas, ou por fontes ininterruptas supervisionadas, ou por fonte própria, também supervisionada devidamente dimensionada para o sistema.</p>
+<p class="lx lx-inc">IV - quanto aos Circuitos</p>
+<p class="lx lx-ali">a) terem condutores rígidos;</p>
+<p class="lx lx-ali">b) terem os condutores, quando não protegidos por condutos incombustíveis, isolação resistente às chamas;</p>
+<p class="lx lx-inc">V - quanto aos Condutos</p>
+<p class="lx lx-ali">a) serem aparentes ou embutidos, metálicos, plástico ou qualquer outro material que garanta efetiva proteção contra danos mecânicos dos condutores neles contidos;</p>
+<p class="lx lx-ali">b) quando metálicos terem;</p>
+<p class="lx lx-num">1. perfeita continuidade elétrica;</p>
+<p class="lx lx-num">2. rigidez mecânica compatível com o ambiente de instalação;</p>
+<p class="lx lx-num">3. condições satisfatórias de aterramento;</p>
+<p class="lx lx-num">4. perfeita identificação entre os demais condutos.</p>
+<p class="lx lx-ali">c) quando de plástico ou de outro material não condutor, os condutos:</p>
+<p class="lx lx-num">1. serem rígidos;</p>
+<p class="lx lx-num">2. conterem fio terra em toda a sua extensão;</p>
+<p class="lx lx-num">3. terem a fiação de condutores dotados de blindagem elétrica;</p>
+<p class="lx lx-num">4. terem perfeita identificação entre os demais condutos.</p>
+<p class="lx lx-par">§ 1º Em um mesmo pavimento deverá existir, no mínimo, um laço independente.</p>
+<p class="lx lx-par">§ 2º Não poderá haver laço comum a dois ou mais pavimentos.</p>
+<p class="lx lx-par">§ 3º Sempre que um mesmo laço atender áreas compartimentadas, deverão ser instalados dispositivos luminosos que as identifique.</p>
+<p class="lx lx-par">§ 4º Os dispositivos luminosos de que trata o parágrafo anterior deverão ser instalados:</p>
+<p class="lx lx-inc">I - Através de Dispositivo Luminoso Indicativo de Compartimento - DLIC - na parte externa, acima da porta ou abertura principal de acesso ao compartimento;</p>
+<p class="lx lx-inc">II - através de Painel Indicativo de Ponto - PIP - na área de acesso principal ao pavimento.</p>
+<p class="lx lx-par">§ 5º Caberá ao Corpo de Bombeiros Militar de Pernambuco, através de normas técnicas, regular os requisitos dos sistemas de detecção e alarme de incêndio. <span class="anot">(Acrescido pelo art. 1º do Decreto nº 58.690, de 27 de maio de 2025.)</span></p>
+  <p class="lex-src">Decreto nº 19.644/1997, texto vigente consolidado pela ALEPE (consultado em 13/11/2026).</p>
+  </div></details>
+  <details class="lex"><summary><b>Enunciado Técnico 014</b><span>DISTÂNCIA A PERCORRER PARA O ACIONADOR MANUAL X VAGAS DE GARAGENS.</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap"><b>ENUNCIADO TÉCNICO 014: DISTÂNCIA A PERCORRER PARA O ACIONADOR MANUAL X VAGAS DE GARAGENS.</b></p>
+<p class="lx lx-cap">“Para fins de verificação de distância a percorrer até os acionadores manuais, as delimitações de vagas de garagem serão consideradas como obstáculos para o caminhamento do público”.</p>
+<p class="lx lx-ref">(REF.: ATA 121/21-CSAT, DE 09JUL2021 (SEI Nº 15177228). Publicado no BGE nº 139, de 20JUL21)</p>
+  <p class="lex-src">CBMPE/DIESP, Enunciados Técnicos, compilado atualizado em 20/10/2025.</p>
+  </div></details>
+  <details class="lex"><summary><b>NT 1.02 CBMPE, item 3.2.1, I e VI</b><span>O que o projeto deve cotar e medir</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">3.2.1 O projeto de segurança contra incêndio e pânico anexado no sistema para análise digital deverá obrigatoriamente constar as seguintes informações, no que couber (VER ANEXO B):</p>
+<p class="lx lx-inc">I - As cotas:</p>
+<p class="lx lx-ali">a) Das larguras de corredores e das escadas;</p>
+<p class="lx lx-ali">b) Vãos livres de portas (tanto para as portas das saídas quanto as dos compartimentos internos);</p>
+<p class="lx lx-ali">c) Dos Guarda-corpos, balaústres e longarinas;</p>
+<p class="lx lx-ali">d) Todas as medidas de altura (altura da edificação, altura entre pavimentos, altura do nível de acesso à edificação, altura do fundo do reservatório e do nível de acesso ao ponto mais alto do piso do último pavimento computável);</p>
+<p class="lx lx-ali">e) Na planta de locação, distâncias entre edificações nos casos em que houver a previsão de mais de uma edificação no mesmo terreno;</p>
+<p class="lx lx-ali">f) Nos projetos de depósitos de GLP, especificando as distâncias de armazenamento dos recipientes;</p>
+<p class="lx lx-ali">g) Das marquises quando estas servirem de proteção a corredores a céu aberto na descarga da edificação;</p>
+<p class="lx lx-ali">h) Das medidas de segurança previstas em norma para a instalação de centrais de GLP;</p>
+<p class="lx lx-ali">i) Da distância entre a projeção da edificação e o hidrante externo;</p>
+<p class="lx lx-ali">j) Das distâncias exigidas para os chuveiros automáticos;</p>
+<p class="lx lx-ali">k) Das aberturas de pavimentos situados abaixo e acima do nível de acesso à edificação;</p>
+<p class="lx lx-ali">l) Dos Detalhes das marcações em pisos de extintores, altura de instalação de equipamentos, medidas do registro de recalque, instalação de corrimão, etc.;</p>
+<p class="lx lx-ali">m) As distâncias entre hidrantes externos.</p>
+<p class="lx lx-inc">(…)</p>
+<p class="lx lx-inc">VI - As medidas das distâncias:</p>
+<p class="lx lx-ali">a) Do ponto mais distante do perímetro do pavimento às portas das escadas enclausuradas, às portas das antecâmaras das escadas à prova de fumaça ou aos degraus superiores das escadas protegidas;</p>
+<p class="lx lx-ali">b) Do ponto mais distante no pavimento ao hidrante mais próximo deste (havendo mais de um hidrante por pavimento, estes deverão ser numerados para serem referenciados em caso de exigência);</p>
+<p class="lx lx-ali">c) Do ponto mais distante do pavimento ao acionador manual mais próximo deste (também numerado);</p>
+<p class="lx lx-ali">d) Do ponto mais distante do pavimento ao extintor mais próximo deste;</p>
+<p class="lx lx-ali">e) Do ponto mais distante do risco isolado ao extintor mais próximo deste, quando não estiverem muito próximos;</p>
+  <p class="lex-src">Norma Técnica nº 1.02 – Análise de projeto de segurança contra incêndio e pânico (BGE nº 041, de 28/02/2022).</p>
+  </div></details>
+</section>
+<section class="blk lex-sec" id="normas-hidrantes" data-pg="normas">
+  <div class="sec-head"><div class="tag">Textos das normas</div><h2>Hidrantes e mangotinhos</h2><p><a href="#hidrantes">← Voltar para a página de hidrantes e mangotinhos</a></p></div>
+  <details class="lex"><summary><b>COSCIP-PE, art. 49</b><span>Alcance, altura, localização, distância entre hidrantes</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 49. Os sistemas de combate a incêndios por hidrantes ou por carretel com mangotinho são considerados como sistemas fixos sob comando, e deverão obedecer aos requisitos seguintes, quanto à sua instalação:</p>
+<p class="lx lx-inc">I - os hidrantes ou carretéis devem ser instalados de maneira tal que qualquer ponto da edificação ou pavimento possa ser atingido por um jato d’água, considerando-se os seguintes fatores:</p>
+<p class="lx lx-ali">a) para o sistema de proteção por hidrantes ou carretéis internos, será considerado como alcance máximo de linha de mangueira um total de 30,0 m, a partir do registro de manobra ou ponto de tomada d’água, estabelecida no plano horizontal, e com a mangueira ou mangotinho totalmente estendida;</p>
+<p class="lx lx-ali">b) para o sistema de proteção por hidrantes externos, será considerado como alcance máximo da linha de mangueira um total de 60,0 m, a partir do registro de manobra, estabelecida no plano horizontal, e com a mangueira totalmente estendida;</p>
+<p class="lx lx-ali">c) para o sistema de proteção por carretel com mangotinho externo, será considerado como alcance máximo da linha total de 45,0 m, a partir do ponto de tomada d’água, estabelecida no plano horizontal e com o mangotinho totalmente estendido.</p>
+<p class="lx lx-inc">II - um mesmo conjunto não poderá proteger pontos de pavimentos diferentes;</p>
+<p class="lx lx-inc">III - a altura do registro de manobra dos hidrantes ou da tomada d’água dos carretéis com mangotinho deverá estar compreendida entre 1,00 m a 1,50 m, em relação ao piso acabado;</p>
+<p class="lx lx-inc">IV - os hidrantes e os carretéis com mangotinho devem ser:</p>
+<p class="lx lx-ali">a) localizados de tal forma que, entre o operador e as rotas de fuga, os acessos estejam sempre desobstruídos, e não haja probabilidade de serem bloqueados pelo fogo;</p>
+<p class="lx lx-ali">b) devidamente sinalizados, a fim de serem facilmente localizados, e os locais de instalação, bem como seus acessos, devem estar desobstruídos e livres de serem bloqueados pelo fogo;</p>
+<p class="lx lx-ali">c) localizados nas áreas de ocupação do risco, não sendo admitida, em qualquer situação, sua instalação nas escadas ou nas antecâmaras das escadas à prova de fumaça, e, ainda, em rampas;</p>
+<p class="lx lx-ali">d) localizados nas proximidades das portas de acesso às saídas de emergência.</p>
+<p class="lx lx-par">§ 1º A instalação de hidrantes ou de carretéis com mangotinhos em pontos centrais da edificação será:</p>
+<p class="lx lx-inc">I - obrigatória, quando os alcances máximos das linhas de mangueiras, descritos nas alíneas a, b e c do inciso I deste artigo não forem obtidos;</p>
+<p class="lx lx-inc">II - facultativa, quando, a critério da parte interessada, servir como proteção adicional ou complementar.</p>
+<p class="lx lx-par">§ 2º Nos casos previstos no parágrafo anterior, os hidrantes ou carretéis com mangotinho deverão ser instalados nas áreas de circulações do risco.</p>
+<p class="lx lx-par">§ 3º Quando externos, os hidrantes ou carretéis com mangotinho deverão ser localizados em locais onde a probabilidade de danos pela queda de paredes seja mínima e onde o operador não seja bloqueado pelas chamas ou pela fumaça, tomando-se como referência 15,0 m da projeção da edificação a proteger ou a distância mínima de 1,5 vezes a altura da edificação disposta no § 7º do art. 25 deste Código. <span class="anot">(Redação alterada pelo art. 1º do Decreto nº 58.690, de 27 de maio de 2025.)</span></p>
+<p class="lx lx-par">§ 4º A distância máxima entre dois hidrantes ou dois carretéis consecutivos de uma rede, em qualquer direção no plano horizontal, será de 60 (sessenta) metros.</p>
+<p class="lx lx-par">§ 5º O alcance máximo das linhas de mangueira exigido neste artigo será obtido através do caminhamento normal no plano horizontal, não se computando janelas, muretas ou guarda-corpo.</p>
+  <p class="lex-src">Decreto nº 19.644/1997, texto vigente consolidado pela ALEPE (consultado em 13/11/2026).</p>
+  </div></details>
+  <details class="lex"><summary><b>COSCIP-PE, art. 70</b><span>Mangueiras e jato</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 70. Para os efeitos do presente Código, as linhas de mangueiras para combate a incêndio deverão atender aos requisitos adiante relacionados:</p>
+<p class="lx lx-inc">I - comprimento máximos;</p>
+<p class="lx lx-ali">a) para a rede de hidrantes internos, 30,0 m;</p>
+<p class="lx lx-ali">b) para a rede de hidrantes externos, 60,0 m;</p>
+<p class="lx lx-ali">c) para a rede de carretéis internos, será de 30,0 m, sendo a linha constituída de apenas um lance de mangotinho;</p>
+<p class="lx lx-ali">d) para a rede de carretéis externos, do mangotinho será de 45,0 m, sendo a linha constituída de apenas um lance de mangotinho.</p>
+<p class="lx lx-inc">II - quando empregadas linhas de mangueiras de comprimento superior a 20,0 m, as mesmas deverão ser compostas por lances de mangueiras, de comprimento mínimo de 15,0 m cada lance.</p>
+<p class="lx lx-inc">III - ocorrendo a situação prevista no inciso anterior, será admitido o acoplamento do esguicho ao lance de mangueira acoplado diretamente ao hidrante, devendo o outro lance permanecer no abrigo correspondente, para emprego eventual.</p>
+<p class="lx lx-inc">IV - as linhas de mangueiras deverão ser dispostas de forma a não haver áreas sem cobertura.</p>
+<p class="lx lx-inc">V - as mangueiras do sistema de hidrantes, com os demais acessórios, deverão estar acondicionadas nos abrigos a elas destinados, e dispostas de modo a facilitar o seu emprego imediato.</p>
+<p class="lx lx-par">§ 1º Para efeito de cobertura da área a ser protegida, os hidrantes ou mangotinhos devem ser distribuídos de tal forma que qualquer ponto da área a ser protegida seja alcançado, considerando-se o comprimento da mangueira de incêndio por meio de seu trajeto real e o alcance do jato de água de no máximo 8 m, devendo ter contato visual sem barreiras físicas a qualquer parte do ambiente, após adentrar pelo menos 1 m em qualquer compartimento. <span class="anot">(Redação alterada pelo art. 1º do Decreto nº 58.690, de 27 de maio de 2025.)</span></p>
+<p class="lx lx-par">§ 2º Observando o disposto no inciso V deste artigo, deverá ser exigida, para cada linha de mangueiras, uma chave universal de mangueira, que deverá ser acondicionada nos abrigos correspondentes.</p>
+  <p class="lex-src">Decreto nº 19.644/1997, texto vigente consolidado pela ALEPE (consultado em 13/11/2026).</p>
+  </div></details>
+  <details class="lex"><summary><b>COSCIP-PE, art. 75</b><span>Sinalização do hidrante</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 75. Os abrigos, deverão satisfazer as seguintes exigências;</p>
+<p class="lx lx-inc">I - terem, a princípio, forma paralelepidedal, com dimensões suficientes para comportar os registros, as mangueiras e seus acessórios;</p>
+<p class="lx lx-inc">II - terem, a porta fácil condição de acesso ao seu interior, devendo estar situada na parte mais larga do abrigo.</p>
+<p class="lx lx-inc">III - terem a porta dispositivo para ventilação, de modo a evitar o desenvolvimento de fungos e/ou liquens no interior dos abrigos;</p>
+<p class="lx lx-inc">IV - serem construídos em metal ou alvenaria, salvo os casos específicos previstos no artigo 79 deste Código;</p>
+<p class="lx lx-inc">V - estarem sinalizados com a inscrição INCÊNDIO, na cor vermelha, e em letras com dimensões mínimas de 0,07 m de altura por 0,03 m de largura, devendo tal inscrição estar disposta na porta do abrigo, de forma a ser imediatamente identificado.</p>
+<p class="lx lx-par">Parágrafo único. Admitir-se-á a sinalização dos hidrantes e carretel com mangotinho através de discos ou setas indicativas, que deverão apresentar fundo na cor branca e frisos na cor vermelha, tendo no centro a letra H, na cor vermelha.</p>
+  <p class="lex-src">Decreto nº 19.644/1997, texto vigente consolidado pela ALEPE (consultado em 13/11/2026).</p>
+  </div></details>
+  <details class="lex"><summary><b>NT nº 003/19 – DNT, arts. 1º e 2º</b><span>Hidrantes: mangueira de até 60 m fora da projeção; desnível de até 1,50 m</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">SEÇÃO 1 - HIDRANTES</p>
+<p class="lx lx-cap">Art. 1º Para efeito do exposto no art. 49, quanto a possibilidade do tamanho do comprimento da mangueira, fica estabelecido que os hidrantes instalados em local a uma distância após a projeção horizontal da edificação a proteger, poderá ter seus lances dispostos até atingir o comprimento de mangueira de até 60m.</p>
+<p class="lx lx-par">§ 1º Os hidrantes externos dentro desta projeção terão para efeito de dimensionamento, os mesmos critérios dos considerados internos, com exceção do previsto no art. 51 do COSCIP;</p>
+<p class="lx lx-par">§ 2º Os hidrantes externos instalados dentro da projeção de uma edificação, poderão ter o comprimento de mangueira, conforme estabelecido no caput do presente artigo, desde que seja suplementar ao sistema de combate fixo previsto para a edificação em questão, ou seja, esteja atendendo apenas área externa ao prédio (arruamentos) ou até mesmo, outra(s) edificação(ões) próxima(s), desde que a distância de segurança do(s) hidrante(s) a(s) esta(s) última(s) a ser(em) protegida(s), atenda(m) aos parâmetros do caput do presente artigo.</p>
+<p class="lx lx-cap">Art. 2º Para efeito de exposto nos incisos I e II do art. 49, a diferença de nível entre pisos de até 1,50m não será considerado pavimento ou tão pouco obstáculo ao combate, desde que exista escada ou rampa para o citado setor.</p>
+<p class="lx lx-par">Parágrafo único: Devendo ser considerado para fins de dimensionamento em projeto o caminhamento realizado para o combate neste setor, a mangueira estando no plano horizontal, até porque, a altura de instalação do hidrante prevista no COSCIP poder variar de 1,00m a 1,50m, não impactando efetivamente neste entendimento.</p>
+  <p class="lex-src">CBMPE/DIESP, Norma Técnica nº 003/19 – DNT (hidrantes e mangotinho). Publicada no BGE nº 135, de 18/07/2019.</p>
+  </div></details>
+  <details class="lex"><summary><b>Enunciado Técnico 019</b><span>ALCANCE DOS HIDRANTES X VAGAS DE GARAGENS.</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap"><b>ENUNCIADO TÉCNICO 019: ALCANCE DOS HIDRANTES X VAGAS DE GARAGENS.</b></p>
+<p class="lx lx-cap">“Nas garagens, as vagas de veículos serão consideradas como obstáculos para verificação do alcance dos hidrantes”.</p>
+<p class="lx lx-ref">(REF.: ATA 121/21-CSAT, DE 09JUL2021 (SEI Nº 15177228). Publicado no BGE nº 139, de 20JUL21)</p>
+  <p class="lex-src">CBMPE/DIESP, Enunciados Técnicos, compilado atualizado em 20/10/2025.</p>
+  </div></details>
+  <details class="lex"><summary><b>NT 1.02 CBMPE, item 3.2.1, I e VI</b><span>O que o projeto deve cotar e medir</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">3.2.1 O projeto de segurança contra incêndio e pânico anexado no sistema para análise digital deverá obrigatoriamente constar as seguintes informações, no que couber (VER ANEXO B):</p>
+<p class="lx lx-inc">I - As cotas:</p>
+<p class="lx lx-ali">a) Das larguras de corredores e das escadas;</p>
+<p class="lx lx-ali">b) Vãos livres de portas (tanto para as portas das saídas quanto as dos compartimentos internos);</p>
+<p class="lx lx-ali">c) Dos Guarda-corpos, balaústres e longarinas;</p>
+<p class="lx lx-ali">d) Todas as medidas de altura (altura da edificação, altura entre pavimentos, altura do nível de acesso à edificação, altura do fundo do reservatório e do nível de acesso ao ponto mais alto do piso do último pavimento computável);</p>
+<p class="lx lx-ali">e) Na planta de locação, distâncias entre edificações nos casos em que houver a previsão de mais de uma edificação no mesmo terreno;</p>
+<p class="lx lx-ali">f) Nos projetos de depósitos de GLP, especificando as distâncias de armazenamento dos recipientes;</p>
+<p class="lx lx-ali">g) Das marquises quando estas servirem de proteção a corredores a céu aberto na descarga da edificação;</p>
+<p class="lx lx-ali">h) Das medidas de segurança previstas em norma para a instalação de centrais de GLP;</p>
+<p class="lx lx-ali">i) Da distância entre a projeção da edificação e o hidrante externo;</p>
+<p class="lx lx-ali">j) Das distâncias exigidas para os chuveiros automáticos;</p>
+<p class="lx lx-ali">k) Das aberturas de pavimentos situados abaixo e acima do nível de acesso à edificação;</p>
+<p class="lx lx-ali">l) Dos Detalhes das marcações em pisos de extintores, altura de instalação de equipamentos, medidas do registro de recalque, instalação de corrimão, etc.;</p>
+<p class="lx lx-ali">m) As distâncias entre hidrantes externos.</p>
+<p class="lx lx-inc">(…)</p>
+<p class="lx lx-inc">VI - As medidas das distâncias:</p>
+<p class="lx lx-ali">a) Do ponto mais distante do perímetro do pavimento às portas das escadas enclausuradas, às portas das antecâmaras das escadas à prova de fumaça ou aos degraus superiores das escadas protegidas;</p>
+<p class="lx lx-ali">b) Do ponto mais distante no pavimento ao hidrante mais próximo deste (havendo mais de um hidrante por pavimento, estes deverão ser numerados para serem referenciados em caso de exigência);</p>
+<p class="lx lx-ali">c) Do ponto mais distante do pavimento ao acionador manual mais próximo deste (também numerado);</p>
+<p class="lx lx-ali">d) Do ponto mais distante do pavimento ao extintor mais próximo deste;</p>
+<p class="lx lx-ali">e) Do ponto mais distante do risco isolado ao extintor mais próximo deste, quando não estiverem muito próximos;</p>
+  <p class="lex-src">Norma Técnica nº 1.02 – Análise de projeto de segurança contra incêndio e pânico (BGE nº 041, de 28/02/2022).</p>
+  </div></details>
+</section>
+<section class="blk lex-sec" id="normas-chuveiros" data-pg="normas">
+  <div class="sec-head"><div class="tag">Textos das normas</div><h2>Chuveiros automáticos</h2><p><a href="#chuveiros">← Voltar para a página de chuveiros automáticos</a></p></div>
+  <details class="lex"><summary><b>COSCIP-PE, art. 121</b><span>Área por bico, distância entre bicos e até a parede</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 121. A área máxima a ser coberta por um bico de chuveiro automático, e a distância máxima entre os bicos, deverão obedecer, de acordo com os riscos respectivos, a tabela abaixo:  </p><div class="tbl lx-tab"><table><thead><tr><th>RISCO</th><th>TIPO DO BICO DO CHUVEIRO</th><th>ÁREA MÁXIMA A SER COBERTA POR UM BICO (m2)</th><th>DISTÂNCIA MAXIMA ENTRE OS BICOS BICO (m)</th></tr></thead><tbody>
+<tr><td rowspan="2">A</td><td>Pendente no Teto</td><td class="num">21,0</td><td class="num">4,5</td></tr><tr><td>Lateral (Parede)</td><td colspan="2" class="num">4,2</td></tr>
+<tr><td rowspan="2">B</td><td>Pendente de Teto</td><td class="num">15,0</td><td class="num">4,5</td></tr><tr><td>Lateral (Parede)</td><td colspan="2" class="num">4,2</td></tr>
+<tr><td rowspan="2">C</td><td>Pendente de Teto</td><td class="num">9,0</td><td class="num">3,5</td></tr><tr><td>Lateral (Parede)</td><td colspan="2" class="num">3,5</td></tr>
+</tbody></table><p class="lx-nota">No texto consolidado, a linha do bico lateral traz um único valor para as duas colunas.</p></div><p class="lx lx-cap">  § 1º A distância entre os blocos dos chuveiros automáticos e as paredes, vigas, lajes ou pilares, não poderá ser superior à metade da distância exigida entre os blocos, em cada classe de risco.</p>
+<p class="lx lx-par">§ 2º O afastamento vertical entre os blocos dos chuveiros automáticos e os elementos estruturais (tetos e vigas) deverá obedecer às seguintes disposições;</p>
+<p class="lx lx-inc">I - para tetos lisos, afastamento entre 0,025 a 0,30 m;</p>
+<p class="lx lx-inc">II - para tetos com vigas, afastamento entre 0,025 a 0,45 m;</p>
+<p class="lx lx-inc">III - para vigas longitudinais e transversais;</p>
+<p class="lx lx-ali">a) nos vãos, afastamento entre 0,075 a 0,40m;</p>
+<p class="lx lx-ali">b) sob as vigas, no máximo a 0,50 m abaixo do teto.</p>
+<p class="lx lx-par">§ 3º Deverá ser prevista a existência de um espaço livre de, no mínimo, 1,00 m abaixo ao redor dos blocos dos chuveiros, a fim de assegurar uma ação eficaz dos mesmos.</p>
+  <p class="lex-src">Decreto nº 19.644/1997, texto vigente consolidado pela ALEPE (consultado em 13/11/2026).</p>
+  </div></details>
+  <details class="lex"><summary><b>Enunciado Técnico 002</b><span>DISTÂNCIA DO BICO DE SPRINKLER À PAREDE E DISTÂNCIA ENTRE BICOS.</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap"><b>ENUNCIADO TÉCNICO 002: DISTÂNCIA DO BICO DE SPRINKLER À PAREDE E DISTÂNCIA ENTRE BICOS.</b></p>
+<p class="lx lx-cap">”1 A distância mínima entre bico de sprinkler de teto (pendent ou up rigth) e a parede, deverá ser medida perpendicularmente a mesma, e possuir valor numérico igual ou maior que 0,10 metros.</p>
+<p class="lx lx-cap">2 Para salas ou ambientes com área menor ou igual a 21 m2 (vinte e um metros quadrados), o bico de sprinkler poderá ficar distanciado da parede até 2,70 metros, e para o vértice formado pelo encontro destas a distância de até 3,40 metros (Figura 1), devendo ser observada ainda, a área máxima de cobertura prevista no Art. 121 do COSCIP/PE.</p>
+<p class="lx lx-cap">3 As distâncias mínimas e máximas previstas entre bico de sprinkler devem ser adotadas quando o teto for liso (sem obstáculos). Possuindo obstáculos (vigas, anteparos, entre outros), a distribuição deverá levar em conta esses obstáculos construtivos para efeito de locação dos bicos de sprinkler, devendo as áreas segregadas pelos obstáculos serem dimensionadas em separado para fins de cálculo do distanciamento entre bicos de sprinklers e cobertura efetiva da área a ser protegida.”</p>
+<p class="lx lx-ref">(REF.: ATA 290/20-CSAT, DE 18SET2020 (SEI Nº 8845892). Publicado no BGE nº 105, de 31MAIO21)</p>
+  <p class="lex-src">CBMPE/DIESP, Enunciados Técnicos, compilado atualizado em 20/10/2025.</p>
+  </div></details>
+  <details class="lex"><summary><b>NT 1.02 CBMPE, item 3.2.1, I e VI</b><span>O que o projeto deve cotar e medir</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">3.2.1 O projeto de segurança contra incêndio e pânico anexado no sistema para análise digital deverá obrigatoriamente constar as seguintes informações, no que couber (VER ANEXO B):</p>
+<p class="lx lx-inc">I - As cotas:</p>
+<p class="lx lx-ali">a) Das larguras de corredores e das escadas;</p>
+<p class="lx lx-ali">b) Vãos livres de portas (tanto para as portas das saídas quanto as dos compartimentos internos);</p>
+<p class="lx lx-ali">c) Dos Guarda-corpos, balaústres e longarinas;</p>
+<p class="lx lx-ali">d) Todas as medidas de altura (altura da edificação, altura entre pavimentos, altura do nível de acesso à edificação, altura do fundo do reservatório e do nível de acesso ao ponto mais alto do piso do último pavimento computável);</p>
+<p class="lx lx-ali">e) Na planta de locação, distâncias entre edificações nos casos em que houver a previsão de mais de uma edificação no mesmo terreno;</p>
+<p class="lx lx-ali">f) Nos projetos de depósitos de GLP, especificando as distâncias de armazenamento dos recipientes;</p>
+<p class="lx lx-ali">g) Das marquises quando estas servirem de proteção a corredores a céu aberto na descarga da edificação;</p>
+<p class="lx lx-ali">h) Das medidas de segurança previstas em norma para a instalação de centrais de GLP;</p>
+<p class="lx lx-ali">i) Da distância entre a projeção da edificação e o hidrante externo;</p>
+<p class="lx lx-ali">j) Das distâncias exigidas para os chuveiros automáticos;</p>
+<p class="lx lx-ali">k) Das aberturas de pavimentos situados abaixo e acima do nível de acesso à edificação;</p>
+<p class="lx lx-ali">l) Dos Detalhes das marcações em pisos de extintores, altura de instalação de equipamentos, medidas do registro de recalque, instalação de corrimão, etc.;</p>
+<p class="lx lx-ali">m) As distâncias entre hidrantes externos.</p>
+<p class="lx lx-inc">(…)</p>
+<p class="lx lx-inc">VI - As medidas das distâncias:</p>
+<p class="lx lx-ali">a) Do ponto mais distante do perímetro do pavimento às portas das escadas enclausuradas, às portas das antecâmaras das escadas à prova de fumaça ou aos degraus superiores das escadas protegidas;</p>
+<p class="lx lx-ali">b) Do ponto mais distante no pavimento ao hidrante mais próximo deste (havendo mais de um hidrante por pavimento, estes deverão ser numerados para serem referenciados em caso de exigência);</p>
+<p class="lx lx-ali">c) Do ponto mais distante do pavimento ao acionador manual mais próximo deste (também numerado);</p>
+<p class="lx lx-ali">d) Do ponto mais distante do pavimento ao extintor mais próximo deste;</p>
+<p class="lx lx-ali">e) Do ponto mais distante do risco isolado ao extintor mais próximo deste, quando não estiverem muito próximos;</p>
+  <p class="lex-src">Norma Técnica nº 1.02 – Análise de projeto de segurança contra incêndio e pânico (BGE nº 041, de 28/02/2022).</p>
+  </div></details>
+</section>
+<section class="blk lex-sec" id="normas-detectores" data-pg="normas">
+  <div class="sec-head"><div class="tag">Textos das normas</div><h2>Detectores automáticos</h2><p><a href="#detectores">← Voltar para a página de detectores automáticos</a></p></div>
+  <details class="lex"><summary><b>COSCIP-PE, art. 137</b><span>Área de ação e raio de ação</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 137. Para efeito de instalação do sistema nos locais e ambientes a serem protegidos, os seguintes parâmetros devem ser observados:</p>
+<p class="lx lx-inc">I - quanto aos Detectores Automáticos: <span class="anot">(Redação alterada pelo art. 1º do Decreto nº 58.690, de 27 de maio de 2025.)</span></p>
+<p class="lx lx-ali">a) terem a seguinte área de ação: <span class="anot">(Redação alterada pelo art. 1º do Decreto nº 58.690, de 27 de maio de 2025.)</span></p>
+<p class="lx lx-num">1. para os detectores de temperatura, a área de ação máxima a ser empregada é de 36,0 m², referente ao retângulo circunscrito na circunferência, de forma que o raio de ação do detector será de 4,2 m; <span class="anot">(Redação alterada pelo art. 1º do Decreto nº 58.690, de 27 de maio de 2025.)</span></p>
+<p class="lx lx-num">2. para os detectores de fumaça, a área de ação máxima a ser empregada é de 81,0 m², referente ao retângulo circunscrito na circunferência, de forma que o raio de ação do detector será de 6,3 m; <span class="anot">(Redação alterada pelo art. 1º do Decreto nº 58.690, de 27 de maio de 2025.)</span></p>
+<p class="lx lx-num">3. para os detectores de chamas, a ação se verifica em função da emanação de energia radiante, considerando-se as seguintes faixas de atuação;</p>
+<p class="lx lx-sub">3.1. emanação de raios ultravioleta;</p>
+<p class="lx lx-sub">3.2. emanação de chama tremulante;</p>
+<p class="lx lx-sub">3.3. emanação de raios infravermelho.</p>
+<p class="lx lx-ali">b) serem selecionados e escolhidos em função dos parâmetros descritos no inciso III do artigo anterior;</p>
+<p class="lx lx-ali">c) serem resistentes a possíveis mudanças normais de temperatura;</p>
+<p class="lx lx-ali">d) serem resistentes à umidade e à corrosão existentes no ambiente;</p>
+<p class="lx lx-ali">e) serem resistentes mecanicamente a vibrações existentes no ambiente;</p>
+<p class="lx lx-ali">f) terem identificação de seu fabricante, tipo, temperatura, faixa ou parâmetros para atuação e ano de fabricação, convenientemente instalados em seu corpo;</p>
+<p class="lx lx-ali">g) serem os detectores de temperatura e fumaça, intercambiáveis entre si no sistema, sem necessidade de mudança de circuito;</p>
+<p class="lx lx-ali">h) possuírem indicação visual própria e adequada, que deverá ser acionada quando de sua atuação.</p>
+<p class="lx lx-inc">II - quanto aos Acionadores Manuais</p>
+<p class="lx lx-ali">a) serem instalados a uma altura entre 1,20 m a 1,60 m do piso acabado;</p>
+<p class="lx lx-ali">b) terem a distância máxima a ser percorrida por uma pessoa em qualquer ponto da área a ser protegida até o acionador manual mais próximo não superior a 30,0m;</p>
+<p class="lx lx-ali">c) serem alojados em carcaças rígidas, que impeçam danos mecânicos aos dispositivos de acionamento;</p>
+<p class="lx lx-ali">d) possuírem instruções de operação, impressas em português no próprio corpo do equipamento, de forma clara e em lugar facilmente visível após a instalação;</p>
+<p class="lx lx-ali">e) possuírem dispositivo que dificulte o acionamento acidental, porém facilmente destrutível no caso de operação internacional;</p>
+<p class="lx lx-ali">f) serem de acionamento de tipo, travante, permitindo a identificação do acionador operado.</p>
+<p class="lx lx-ali">g) possuírem duplo comando, a fim de fornecer informação à central, e permitir o acionamento do alarme do setor ou da edificação.</p>
+<p class="lx lx-inc">III - quanto aos indicadores Sonoros e Visuais</p>
+<p class="lx lx-ali">a) terem, respectivamente, características de audibilidade ou visibilidade compatíveis com o ambiente em que estão instalados, em condições normais de trabalho desses ambientes;</p>
+<p class="lx lx-ali">b) serem alimentado por fontes ininterruptas supervisionadas, ou por fontes ininterruptas supervisionadas, ou por fonte própria, também supervisionada devidamente dimensionada para o sistema.</p>
+<p class="lx lx-inc">IV - quanto aos Circuitos</p>
+<p class="lx lx-ali">a) terem condutores rígidos;</p>
+<p class="lx lx-ali">b) terem os condutores, quando não protegidos por condutos incombustíveis, isolação resistente às chamas;</p>
+<p class="lx lx-inc">V - quanto aos Condutos</p>
+<p class="lx lx-ali">a) serem aparentes ou embutidos, metálicos, plástico ou qualquer outro material que garanta efetiva proteção contra danos mecânicos dos condutores neles contidos;</p>
+<p class="lx lx-ali">b) quando metálicos terem;</p>
+<p class="lx lx-num">1. perfeita continuidade elétrica;</p>
+<p class="lx lx-num">2. rigidez mecânica compatível com o ambiente de instalação;</p>
+<p class="lx lx-num">3. condições satisfatórias de aterramento;</p>
+<p class="lx lx-num">4. perfeita identificação entre os demais condutos.</p>
+<p class="lx lx-ali">c) quando de plástico ou de outro material não condutor, os condutos:</p>
+<p class="lx lx-num">1. serem rígidos;</p>
+<p class="lx lx-num">2. conterem fio terra em toda a sua extensão;</p>
+<p class="lx lx-num">3. terem a fiação de condutores dotados de blindagem elétrica;</p>
+<p class="lx lx-num">4. terem perfeita identificação entre os demais condutos.</p>
+<p class="lx lx-par">§ 1º Em um mesmo pavimento deverá existir, no mínimo, um laço independente.</p>
+<p class="lx lx-par">§ 2º Não poderá haver laço comum a dois ou mais pavimentos.</p>
+<p class="lx lx-par">§ 3º Sempre que um mesmo laço atender áreas compartimentadas, deverão ser instalados dispositivos luminosos que as identifique.</p>
+<p class="lx lx-par">§ 4º Os dispositivos luminosos de que trata o parágrafo anterior deverão ser instalados:</p>
+<p class="lx lx-inc">I - Através de Dispositivo Luminoso Indicativo de Compartimento - DLIC - na parte externa, acima da porta ou abertura principal de acesso ao compartimento;</p>
+<p class="lx lx-inc">II - através de Painel Indicativo de Ponto - PIP - na área de acesso principal ao pavimento.</p>
+<p class="lx lx-par">§ 5º Caberá ao Corpo de Bombeiros Militar de Pernambuco, através de normas técnicas, regular os requisitos dos sistemas de detecção e alarme de incêndio. <span class="anot">(Acrescido pelo art. 1º do Decreto nº 58.690, de 27 de maio de 2025.)</span></p>
+  <p class="lex-src">Decreto nº 19.644/1997, texto vigente consolidado pela ALEPE (consultado em 13/11/2026).</p>
+  </div></details>
+</section>
+<section class="blk lex-sec" id="normas-sinalizacao" data-pg="normas">
+  <div class="sec-head"><div class="tag">Textos das normas</div><h2>Sinalização de saídas</h2><p><a href="#sinalizacao">← Voltar para a página de sinalização de saídas</a></p></div>
+  <details class="lex"><summary><b>COSCIP-PE, art. 207</b><span>Sistema de sinalização</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 207. O sistema de sinalização de saídas de emergência tem como finalidade proporcionar a indicação visual do caminhamento das rotas de fuga das edificações.</p>
+<p class="lx lx-par">Parágrafo único. O sistema de que trata este artigo poderá ser.</p>
+<p class="lx lx-inc">I - luminoso, com fonte alimentadora própria;</p>
+<p class="lx lx-inc">II - fosforescente.</p>
+  <p class="lex-src">Decreto nº 19.644/1997, texto vigente consolidado pela ALEPE (consultado em 13/11/2026).</p>
+  </div></details>
+  <details class="lex"><summary><b>COSCIP-PE, art. 208</b><span>Sinalização luminosa</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 208. Nos casos em que o sistema de sinalização seja luminoso, os seguintes requisitos deverão ser obedecidos:</p>
+<p class="lx lx-inc">I - as luminárias conterão a palavra SAÍDA e uma seta indicando o sentido do caminhamento;</p>
+<p class="lx lx-inc">II - as luminárias terão uma pertencia mínima de 15 W;</p>
+<p class="lx lx-inc">III - as letras e a seta da sinalização serão na cor vermelha sobre fundo branco, e em dimensões que garanta perfeita identificação;</p>
+<p class="lx lx-inc">IV - o sistema terá fonte de alimentação própria, devendo esta assegurar o seu funcionamento por 1 hora, no mínimo.</p>
+  <p class="lex-src">Decreto nº 19.644/1997, texto vigente consolidado pela ALEPE (consultado em 13/11/2026).</p>
+  </div></details>
+  <details class="lex"><summary><b>COSCIP-PE, art. 209</b><span>Placas fosforescentes</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 209. Quando o sistema for composto por placas fosforescentes, deverão ser instaladas;</p>
+<p class="lx lx-inc">I - nas paredes das rotas de fuga das edificações;</p>
+<p class="lx lx-inc">II - penduradas no teto das rotas de fuga das edificações.</p>
+<p class="lx lx-par">§ 1º As placas fosforescentes deverão conter a palavra SAÍDA e uma seta indicando o sentido do caminhamento.</p>
+<p class="lx lx-par">§ 2º As letras e a seta da sinalização poderão ser na cor vermelha sobre fundo branco, e em dimensões que garanta perfeita identificação, sendo admitidos os parâmetros de sinalização previstos na ABNT NBR 16820, ou norma técnica que venha a substituí-la. <span class="anot">(Redação alterada pelo art. 1º do Decreto nº 58.690, de 27 de maio de 2025.)</span></p>
+  <p class="lex-src">Decreto nº 19.644/1997, texto vigente consolidado pela ALEPE (consultado em 13/11/2026).</p>
+  </div></details>
+  <details class="lex"><summary><b>COSCIP-PE, art. 210</b><span>Setas a cada 20 m e placa da porta corta-fogo</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 210. Para efeito de instalação do sistema de sinalização de saídas de emergência, serão observados os seguintes requisitos:</p>
+<p class="lx lx-inc">I - colocação de setas indicativas de sentido de fluxo em todos os pavimentos, acessos, escadas ou rampas, terminando na área de descarga da edificação;</p>
+<p class="lx lx-inc">II - nas circulações retilíneas, será colocada seta indicativa a cada 20,0 m no máximo;</p>
+<p class="lx lx-inc">III - nas mudanças de direção serão instaladas tantas setas indicativas quantas forem necessárias para que uma pessoa, na posição mais desfavorável, possa visualizá-las;</p>
+<p class="lx lx-inc">IV - nas portas corta-fogo serão colocadas placas indicativas no terço superior das mesmas, com a palavra SAÍDA, colocadas na face voltada para a rota de fuga.</p>
+<p class="lx lx-par">Parágrafo único. Quando a edificação dispuser de rampas, estas serão sinalizadas com os dizeres SAÍDA - RAMPA.</p>
+  <p class="lex-src">Decreto nº 19.644/1997, texto vigente consolidado pela ALEPE (consultado em 13/11/2026).</p>
+  </div></details>
+</section>
+<section class="blk lex-sec" id="normas-iluminacao" data-pg="normas">
+  <div class="sec-head"><div class="tag">Textos das normas</div><h2>Iluminação de emergência</h2><p><a href="#iluminacao">← Voltar para a página de iluminação de emergência</a></p></div>
+  <details class="lex"><summary><b>Resolução Técnica nº 001/2023 – Subsistema de iluminação de emergência</b><span>Distâncias entre pontos e até a parede, altura, iluminamento, projeto e vistoria</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">1. OBJETIVO</p>
+<p class="lx lx-cap">1.1 Fixar as condições necessárias para o projeto e para a instalação do subsistema de iluminação de emergência em edificações e áreas de risco.</p>
+<p class="lx lx-cap">2. APLICAÇÃO</p>
+<p class="lx lx-cap">2.1 Esta Norma Técnica (NT) aplica-se às edificações e áreas de risco onde o subsistema de iluminação de emergência é exigido em conformidade com os artigos 205 e 206 do COSCIP-PE (edificações onde forem exigidas escadas dos tipos II, III e IV ou com área superior a 1.500 m2 ou ainda, com lotação prevista superior a 100 (cem) pessoas).</p>
+<p class="lx lx-cap">2.3 A presente RT deverá ser aplicada em harmonia, no que couber, com o arcabouço formado pelas demais normas técnicas adotadas pelo CBMPE para os serviços de análise de projeto e vistoria.</p>
+<p class="lx lx-cap">3. EXPEDIENTE TÉCNICO</p>
+<p class="lx lx-cap">3.1 DO SUBSISTEMA DE ILUMINAÇÃO DE EMERGÊNCIA</p>
+<p class="lx lx-cap">3.1.1 As luminárias poderão ser incandescentes, fluorescentes ou led. Poderão, ainda, serem utilizadas outras tecnologias, desde que atendam às exigências contidas nesta resolução técnica.</p>
+<p class="lx lx-cap">3.1.2 Ficam definidos os seguintes conceitos para efeito desta norma técnica:</p>
+<p class="lx lx-ali">a) Iluminância ou iluminamento é a quantidade de luz que chega em uma superfície, cuja unidade de medida é o lux (lx), ou seja, é o fluxo luminoso (lm) por unidade de área (m²). Dessa forma, é medida pela a quantidade de lúmen por metro quadrado (lx = lm / m²).</p>
+<p class="lx lx-ali">b) Fluxo luminoso é a quantidade de luz emitida por uma fonte em todas as direções.</p>
+<p class="lx lx-ali">c) Lúmens (lm) é a unidade de medida do fluxo luminoso.</p>
+<p class="lx lx-cap">3.2 DOS LOCAIS DE INSTALAÇÃO</p>
+<p class="lx lx-cap">3.2.1 Deverá ser previsto o subsistema de iluminação de emergência para os casos abaixo:</p>
+<p class="lx lx-ali">a) Os acessos, áreas de risco quanto à população a ser evacuada (boates, auditórios, espaço de reunião de público, etc), escadas, áreas de refúgio e antecâmaras das edificações e demais rotas de fuga.</p>
+<p class="lx lx-ali">b) As salas privativas ou coletivas, cuja distância linear do ponto mais desfavorável para a porta que dá acesso à área comum seja superior a 10m.</p>
+<p class="lx lx-ali">c) As circulações internas (área comum) de salas privativas que possuam somatório de área construída maior que 50m2.</p>
+<p class="lx lx-sub">Nota: Não será considerado no somatório de área para efeito do exposto na letra “c” do presente item, os espaços destinados a wc, copa, DML e assemelhados.</p>
+<p class="lx lx-cap">3.3 DA INSTALAÇÃO DO SUBSISTEMA</p>
+<p class="lx lx-cap">3.3.1 No corpo das luminárias ou nos blocos autônomos de emergência, deve ser registrada a quantidade de lúmens prevista para o aparelho. Esse registro poderá também possuir duas referências de intensidade (limite inferior e superior), variando estas inversamente com o tempo de autonomia.</p>
+<p class="lx lx-cap">3.3.2 Deve ser considerado o maior limite registrado para efeito de confirmação da quantidade de lúmens das luminárias ou de blocos de iluminação de emergência durante a vistoria técnica.</p>
+<p class="lx lx-cap">3.3.3 As distâncias entre as luminárias ou blocos autônomos, bem como de ambos em relação às paredes, devem atender ao abaixo exposto:</p>
+<p class="lx lx-ali">a) Para luminárias ou blocos autônomos entre o limite mínimo de 100 lúmens (ln) a 600 lúmens (ln) ou, ainda, 10 watts (w) para lâmpadas incandescentes (subsistema centralizado):</p>
+<p class="lx lx-sub">• A distância máxima entre os pontos de iluminação de emergência não deve ultrapassar 15,0m, do mesmo modo, que entre o ponto de iluminação e a parede o limite deverá ser 7,5 m.</p>
+<p class="lx lx-ali">b) Para luminárias ou blocos autônomos com o limite superior de 600 lúmens (ln):</p>
+<p class="lx lx-sub">• A distância máxima entre os pontos de iluminação de emergência não deve ultrapassar 25,0m, do mesmo modo, que entre o ponto de iluminação e a parede o limite deverá ser 12,5m.</p>
+<p class="lx lx-cap">3.3.3.1 Para efeito de medição entre pontos de iluminação de emergência, quando houver mudança de direção na rota de fuga, a distância linear entre eles deve ser de, no máximo, 7,5m.</p>
+<p class="lx lx-cap">3.3.3.2 Os parâmetros constantes do item 3.3.3 não são empregados para as escadas de emergência, as quais, no mínimo, deverão possuir ponto de iluminação de emergência em cada patamar (principal e/ou intermediário).</p>
+<p class="lx lx-cap">3.3.3.3 Os parâmetros de dimensionamento constantes no item 3.3.3 devem garantir um nível mínimo de iluminamento de 3 lux (lx) e 5 lux (lx), respectivamente, para áreas planas (corredores, halls, áreas de refúgio, etc) e escada/rampa.</p>
+<p class="lx lx-cap">3.3.3.4 Para efeito desta norma, a altura padrão usada para a medição da quantidade de iluminamento e das distâncias constantes do item 3.3.3 é de no máximo 3,0m, devendo esta última ser redimensionada, com um fator redutor de 10% para cada metro ou fração a mais na altura padrão acrescida, com o limite de 50%.</p>
+<p class="lx lx-cap">3.3.3.5 Não haverá necessidade da redução prevista no item 3.3.3.4, quando a quantidade de lúmens por luminária ou bloco autônomo for maior ou igual a 2.000 lúmens (ln).</p>
+<p class="lx lx-cap">3.4 DO PROJETO</p>
+<p class="lx lx-cap">3.4.1 Para efeito de verificação do dimensionamento do subsistema de iluminação de emergência deverá constar, no mínimo, no Projeto de Prevenção e Combate a Incêndio (PPCI) o seguinte:</p>
+<p class="lx lx-ali">a) Ser registrada a quantidade de lúmens para cada luminária ou bloco de emergência na simbologia ou na prancha.</p>
+<p class="lx lx-ali">b) As simbologias das luminárias de emergência preferencialmente deverão ser apresentadas no layer na cor verde ou verde com preto.</p>
+<p class="lx lx-sub">Nota: Será permitida a utilização de outras cores de layer, quando a complexidade do projeto de iluminação necessitar, visando a diferenciar, por exemplo, luminárias ligadas a fontes centralizadas e autônomas, luminárias para áreas classificadas, seus modelos, entre outras situações. Deve ser evitado o uso de cores já empregadas para representar outros subsistemas, quando estes também fizerem parte da prancha.</p>
+<p class="lx lx-cap">3.5 DA VISTORIA</p>
+<p class="lx lx-cap">3.5.1 No momento da vistoria técnica, em atendimento ao exposto nesta RT, deve ser observado, em relação ao subsistema de iluminação de emergência:</p>
+<p class="lx lx-ali">a) A compatibilização do subsistema de iluminação proposta em projeto de PCI, com o executado no local, bem como sua eficácia.</p>
+<p class="lx lx-ali">b) Nas edificações ou áreas de risco que não dependem de projeto de PCI para seu funcionamento:</p>
+<p class="lx lx-sub">• Verificar e orientar o contribuinte, caso necessário, quanto à falta da luminária de emergência, quando, através de sua avalição, entende-se necessária a sua existência (edificações onde forem exigidas escadas dos tipos II, III e IV ou com área superior a 1.500 m2 ou ainda, com lotação prevista superior a 100 (cem) pessoas).</p>
+<p class="lx lx-sub">• Verificar e orientar o contribuinte, caso necessário, quando as luminárias de emergências existentes não atenderem aos parâmetros de (altura de instalação) x (distância de cobertura) x (quantidade de lúmens).</p>
+<p class="lx lx-sub">Nota: Poderão existir na edificação, suplementarmente ao subsistema de iluminação de emergência, previsto em projeto ou definido em vistoria de regularização ou fiscalização, outras luminárias ou blocos autônomos ou, ainda, sistemas elétricos que não necessariamente atenderão ao exposto nesta norma, por não fazerem parte do subsistema de iluminação de emergência, quanto ao previsto no item 3.1.1 da presente RT. Nesse sentido, é possível destacar os seguintes exemplos:</p>
+<p class="lx lx-sub">• Quando uma fábrica previr a existência de luminárias ligadas a um gerador que, por questão da necessidade de não interromper o processo fabril, caso haja falta de energia elétrica.</p>
+<p class="lx lx-sub">• Quando, por opção do proprietário, forem previstos em seu empreendimento, blocos autônomos com quantidades de lúmens a menor do prescrito nesta norma, para setores não contemplados no projeto de PPCI, em face de sua não obrigatoriedade normativa. Dessa forma, não sendo necessária qualquer intervenção por parte do Corpo de Bombeiros em relação ao exposto, em consonância com o Enunciado Técnico 038, publicado no BGE nº 175, de 06SET23.</p>
+  <p class="lex-src">CBMPE/DIESP, RT nº 001/2023, revisão nº 01, homologada pelo CSAT (Ata nº 050/2024, de 25/06/2024), válida a partir de 03/07/2024.</p>
+  </div></details>
+  <details class="lex"><summary><b>COSCIP-PE, art. 189</b><span>Definição do sistema</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 189. O sistema de iluminação de emergência é formado por componentes eletro- eletrônicos, com fonte de alimentação própria, e destinado a proporcionar iluminação das rotas de fuga, sempre que a rede predial de eletricidade for cortada, ou pela falta de energia da concessionária local.</p>
+  <p class="lex-src">Decreto nº 19.644/1997, texto vigente consolidado pela ALEPE (consultado em 13/11/2026).</p>
+  </div></details>
+  <details class="lex"><summary><b>COSCIP-PE, art. 190</b><span>Alimentação por baterias</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 190. A alimentação do sistema deverá ser efetivada por bateria de acumuladores, devendo entrar em funcionamento automaticamente.</p>
+  <p class="lex-src">Decreto nº 19.644/1997, texto vigente consolidado pela ALEPE (consultado em 13/11/2026).</p>
+  </div></details>
+  <details class="lex"><summary><b>COSCIP-PE, art. 191</b><span>Fontes e autonomia de 1 hora</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 191. As fontes de alimentação do sistema de iluminação de emergência serão:</p>
+<p class="lx lx-inc">I - por sistema centralizado;</p>
+<p class="lx lx-inc">II - por aparelhos portáteis;</p>
+<p class="lx lx-par">§ 1º As fontes de alimentação do sistema de iluminação de emergência devem garantir uma autonomia mínima de 1 hora de funcionamento, sem que seja diminuído o nível de iluminamento.</p>
+<p class="lx lx-par">§ 2º Ocorrendo a situação do sistema centralizado alimentar, além da iluminação de emergência, os equipamentos previstos no artigo 194, a autonomia mínima especificada no parágrafo anterior não poderá sofrer redução.</p>
+  <p class="lex-src">Decreto nº 19.644/1997, texto vigente consolidado pela ALEPE (consultado em 13/11/2026).</p>
+  </div></details>
+  <details class="lex"><summary><b>COSCIP-PE, art. 192</b><span>Sistema centralizado</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 192. O sistema centralizado será formado por um conjunto de acumuladores, instalado em local adequado, de forma a promover a alimentação geral de todo o sistema.</p>
+<p class="lx lx-par">§ 1º A alimentação será dimensionada para atender às demandas do sistema de iluminação de emergência e também, quando for o caso, a outros sistemas que venham a ser previstos na edificação.</p>
+<p class="lx lx-par">§ 2º O sistema centralizado deverá ser dotado de circuito que permita sua recarga automática.</p>
+  <p class="lex-src">Decreto nº 19.644/1997, texto vigente consolidado pela ALEPE (consultado em 13/11/2026).</p>
+  </div></details>
+  <details class="lex"><summary><b>COSCIP-PE, art. 193</b><span>Painel de controle</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 193. O sistema deverá contar com um painel de controle, que permita avaliar as suas condições de operação e funcionamento.</p>
+<p class="lx lx-par">§ 1º O painel de que trata este artigo deverá ser instalado em local ou área de fácil acesso, possibilitando sua inspeção e manutenção.</p>
+<p class="lx lx-par">§ 2º A situação dos circuitos de carga, controle e proteção das baterias deverá ser mostrada no painel do equipamento, através de sinalização luminosa.</p>
+  <p class="lex-src">Decreto nº 19.644/1997, texto vigente consolidado pela ALEPE (consultado em 13/11/2026).</p>
+  </div></details>
+  <details class="lex"><summary><b>COSCIP-PE, art. 194</b><span>Outros equipamentos no centralizado</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 194. O sistema centralizado poderá ser utilizado para alimentar, além dos circuitos de iluminação de emergência, os seguintes equipamentos:</p>
+<p class="lx lx-inc">I - detecção automática de incêndio;</p>
+<p class="lx lx-inc">II - alarme de incêndio;</p>
+<p class="lx lx-inc">III - sinalização de saídas de emergência.</p>
+  <p class="lex-src">Decreto nº 19.644/1997, texto vigente consolidado pela ALEPE (consultado em 13/11/2026).</p>
+  </div></details>
+  <details class="lex"><summary><b>COSCIP-PE, art. 195</b><span>Aparelhos portáteis</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 195. Os aparelhos portáteis são equipamentos autônomos de iluminação de emergência que funcionam através de fonte de alimentação própria.</p>
+<p class="lx lx-par">§ 1º Os aparelhos portáteis deverão se constituídos por luminária, painel de controle e acumuladores e dotados de dispositivos que possibilitem a conexão às tomadas de corrente elétrica da edificação.</p>
+<p class="lx lx-par">§ 2º As tomadas de corrente em que serão instalados os aparelhos portáteis não poderão servir como alimentação a outros equipamentos.</p>
+  <p class="lex-src">Decreto nº 19.644/1997, texto vigente consolidado pela ALEPE (consultado em 13/11/2026).</p>
+  </div></details>
+  <details class="lex"><summary><b>COSCIP-PE, art. 196</b><span>Luminárias: locais e 10 W</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 196. As luminárias do sistema de iluminação de emergência serão distribuídas pelos acessos, escadas, áreas de refúgio, descargas e antecâmaras das edificações, de forma a proporcionar um caminhamento seguro.</p>
+<p class="lx lx-par">§ 1º As luminárias previstas para o sistema terão potência mínima de 10 w.</p>
+<p class="lx lx-par">§ 2º As luminárias poderão ser incandescentes ou fluorescentes, desde que atendam às exigências contidas neste Código.</p>
+  <p class="lex-src">Decreto nº 19.644/1997, texto vigente consolidado pela ALEPE (consultado em 13/11/2026).</p>
+  </div></details>
+  <details class="lex"><summary><b>COSCIP-PE, art. 197</b><span>Sem ofuscamento</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 197. Os pontos de luz não devem ser resplandecentes, seja diretamente ou por iluminação reflexiva.</p>
+<p class="lx lx-par">Parágrafo único. Quando o ponto de luz for ofuscante, será exigida a instalação de um anteparo translúcido, de forma a evitar o ofuscamento das pessoas.</p>
+  <p class="lex-src">Decreto nº 19.644/1997, texto vigente consolidado pela ALEPE (consultado em 13/11/2026).</p>
+  </div></details>
+  <details class="lex"><summary><b>COSCIP-PE, art. 198</b><span>Anteparos</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 198. Quando utilizados anteparos ou luminárias fechadas, os aparelhos devem ser projetados de modo a não reter fumaça.</p>
+  <p class="lex-src">Decreto nº 19.644/1997, texto vigente consolidado pela ALEPE (consultado em 13/11/2026).</p>
+  </div></details>
+  <details class="lex"><summary><b>COSCIP-PE, art. 199</b><span>Fixação</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 199. A fixação dos pontos de luz será rígida, de forma a impedir quedas acidentais, remoção desautorizada, ou que não sejam facilmente avariadas ou postas fora de serviço.</p>
+  <p class="lex-src">Decreto nº 19.644/1997, texto vigente consolidado pela ALEPE (consultado em 13/11/2026).</p>
+  </div></details>
+  <details class="lex"><summary><b>COSCIP-PE, art. 200</b><span>Condutores</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 200. Os condutores para os pontos de luz serão dimensionados para a queda de tensão no ponto mais desfavorável não exceda 10%.</p>
+<p class="lx lx-par">§ 1º Os condutores terão bitola mínima de 1,5 mm2.</p>
+<p class="lx lx-par">§ 2º Não serão admitidas ligações em serie dos pontos de luz.</p>
+  <p class="lex-src">Decreto nº 19.644/1997, texto vigente consolidado pela ALEPE (consultado em 13/11/2026).</p>
+  </div></details>
+  <details class="lex"><summary><b>COSCIP-PE, art. 201</b><span>Eletrodutos</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 201. Os condutores e suas derivações serão embutidos.</p>
+<p class="lx lx-par">§ 1º Nos casos de instalações aparentes, os eletrodutos serão metálicos.</p>
+<p class="lx lx-par">§ 2º Quando os eletrodutos passarem por áreas de risco, serão dotados de isolamento térmico e à prova de fogo.</p>
+  <p class="lex-src">Decreto nº 19.644/1997, texto vigente consolidado pela ALEPE (consultado em 13/11/2026).</p>
+  </div></details>
+  <details class="lex"><summary><b>COSCIP-PE, art. 202</b><span>Uso exclusivo</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 202. Os eletrodos utilizados para o sistema de iluminação de emergência não serão usados para outros fins, salvo instalação dos sistemas de detecção, alarme de incêndio e sinalização de saídas de emergência.</p>
+  <p class="lex-src">Decreto nº 19.644/1997, texto vigente consolidado pela ALEPE (consultado em 13/11/2026).</p>
+  </div></details>
+  <details class="lex"><summary><b>COSCIP-PE, art. 203</b><span>Pontos de luz nas circulações e rotas</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 203. Nas edificações classificadas neste Código, em que seja exigido o sistema de iluminação de emergência, é obrigatória a instalação de pontos de luz em todos os locais que proporcionem uma circulação horizontal ou vertical da edificação, e das rotas de fuga.</p>
+<p class="lx lx-par">§ 1º Nas edificações Tipo H, abrangidas por este artigo, será exigida a instalação de pontos de luz nas áreas ou locais destinados a concentração ou reunião de público.</p>
+<p class="lx lx-par">§ 2º A exigência especificada no parágrafo anterior será extensiva as edificações Tipos J e P, quando estas forem caracterizadas como de reunião de público, em conformidade com as disposições deste Código.</p>
+  <p class="lex-src">Decreto nº 19.644/1997, texto vigente consolidado pela ALEPE (consultado em 13/11/2026).</p>
+  </div></details>
+  <details class="lex"><summary><b>COSCIP-PE, art. 204</b><span>Reconhecer obstáculos</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 204. A instalação do sistema deve proporcionar iluminação de área protegida, permitindo, inclusive o reconhecimento de obstáculos que possam dificultar a circulação.</p>
+  <p class="lex-src">Decreto nº 19.644/1997, texto vigente consolidado pela ALEPE (consultado em 13/11/2026).</p>
+  </div></details>
+  <details class="lex"><summary><b>COSCIP-PE, art. 205</b><span>Exigência: escadas EP ou PF</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 205. Sempre que forem exigidas escadas enclausuradas protegidas (EP) ou escadas enclausuradas à prova de fumaça (PF) será obrigatória a instalação do sistema de iluminação de emergência. <span class="anot">(Redação alterada pelo art. 1º do Decreto nº 58.690, de 27 de maio de 2025.)</span></p>
+  <p class="lex-src">Decreto nº 19.644/1997, texto vigente consolidado pela ALEPE (consultado em 13/11/2026).</p>
+  </div></details>
+  <details class="lex"><summary><b>COSCIP-PE, art. 206</b><span>Exigência: lotação e área</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 206. As edificações não abrangidas no artigo anterior será exigida a instalação do sistema de iluminação de emergência sempre que a lotação prevista das referidas edificações seja superior a 100 (cem) pessoas ou de área construída superior a 1.500 m2.</p>
+<p class="lx lx-par">Parágrafo único. Para efeito de cálculo de dimensionamento do número de pessoas para as edificações, segundo sua classe de ocupação, deverão ser empregados os dados da TABELA 1 - CÁLCULO DA POPULAÇÃO, constante do Anexo A ao presente Código.</p>
+  <p class="lex-src">Decreto nº 19.644/1997, texto vigente consolidado pela ALEPE (consultado em 13/11/2026).</p>
+  </div></details>
+  <details class="lex"><summary><b>Enunciado Técnico 038</b><span>Enunciado técnico para os parágrafos 2º e 3º do artigo 28 do COSCIP-PE.</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap"><b>ENUNCIADO TÉCNICO 038: Enunciado técnico para os parágrafos 2º e 3º do artigo 28 do COSCIP-PE.</b></p>
+<p class="lx lx-cap">"Havendo a previsão em planta de sistemas ou componentes de sistemas de proteção ativa ou passiva não exigíveis para a edificação, esses não serão obrigados a cumprir os requisitos de dimensionamento previstos nesse código, exceto nos casos em que a previsão de sistemas ou de componentes de sistemas possa oferecer riscos, a exemplo de centrais de GLP não exigida e que não obedeça aos requisitos em norma específica, de escadas sinalizadas como sendo de emergência e que não sejam do tipo requerida para a edificação ou não possuam largura compatível com a população prevista etc".</p>
+<p class="lx lx-ref">(REF.: Ata 059/23 - CSAT, de 22AGO23 (SEI nº 40587881). Publicado no BGE nº 175, de 06SET23)</p>
+  <p class="lex-src">CBMPE/DIESP, Enunciados Técnicos, compilado atualizado em 20/10/2025.</p>
+  </div></details>
+</section>
+<section class="blk lex-sec" id="normas-alturas" data-pg="normas">
+  <div class="sec-head"><div class="tag">Textos das normas</div><h2>Alturas de instalação</h2><p><a href="#alturas">← Voltar para a página de alturas de instalação</a></p></div>
+  <details class="lex"><summary><b>COSCIP-PE, art. 34</b><span>Extintor: até 1,60 m</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 34. Para efeito de instalação do sistema, deverá ser observado o seguinte;</p>
+<p class="lx lx-inc">I - os extintores não devem ter a sua parte superior acima de 1,60 m do piso;</p>
+<p class="lx lx-inc">II - os extintores não devem ser instalados nas escadas e nas antecâmaras das escadas a prova de fumaça;</p>
+<p class="lx lx-inc">III - os extintores devem ser instalados em locais onde:</p>
+<p class="lx lx-ali">a) haja menor probabilidade do fogo bloquear seu acesso;</p>
+<p class="lx lx-ali">b) sejam visíveis;</p>
+<p class="lx lx-ali">c) conservem-se protegidos contra golpes e intempéries;</p>
+<p class="lx lx-ali">d) não fiquem encobertos ou obstruídos.</p>
+  <p class="lex-src">Decreto nº 19.644/1997, texto vigente consolidado pela ALEPE (consultado em 13/11/2026).</p>
+  </div></details>
+  <details class="lex"><summary><b>COSCIP-PE, art. 35</b><span>Faixa no piso e exceção</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 35. Os extintores devem ser devidamente sinalizados, para fácil visualização, permitindo-se uma rápida localização e identificação do equipamento e de seu agente extintor.</p>
+<p class="lx lx-par">§ 1º A sinalização de que trata o presente artigo poderá ser feita através de discos de sinalização ou setas indicativas, com dimensões mínimas de 0,070m2, afixados, no mínimo, a 0,50m acima do extintor e de forma que permitam sua fácil visualização e identificação.</p>
+<p class="lx lx-par">§ 2º Os discos de sinalização deverão ser formados por um circuito interno, que terá a cor identificadora do agente extintor correspondente, com a indicação do fone do Corpo de Bombeiros e circunscrito por outro na cor vermelha, em cores firmes.</p>
+<p class="lx lx-par">§ 3º O círculo interno dos discos de sinalização deverá obedecer à seguinte configuração:</p>
+<p class="lx lx-inc">I - círculo interno na cor BRANCA, para identificação dos aparelhos com o agente extintor a base de água;</p>
+<p class="lx lx-inc">II - círculo interno na cor AMARELA, para identificação dos aparelhos com o agente extintor gás carbônico;</p>
+<p class="lx lx-inc">III - círculo interno na cor AZUL, para identificação dos aparelhos com o agente extintor pó químico.</p>
+<p class="lx lx-par">§ 4º Serão admitidas setas de sinalização, quando sua instalação apresente harmonia com o ambiente, desde que permitam uma identificação rápida do agente extintor contido no aparelho correspondente, sendo admitidos os parâmetros de sinalização previstos na ABNT NBR 16820, ou norma técnica que venha a substituí-la. <span class="anot">(Redação alterada pelo art. 1º do Decreto nº 58.690, de 27 de maio de 2025.)</span></p>
+<p class="lx lx-par">§ 5º Quando os extintores de incêndio forem instalados em pilares ou colunas, a sinalização dever ser de tal maneira que possa ser visualizada em todos os sentidos, através da repetição lateral dos discos ou setas, ou por anéis, nas cores especificadas no § 3º supra.</p>
+<p class="lx lx-par">§ 6º Deverá ser delimitada por faixa, na cor vermelha, no piso abaixo do extintor, uma área de 1,00 m x 1,00 m, salvo para edificações privativas multifamiliares.</p>
+  <p class="lex-src">Decreto nº 19.644/1997, texto vigente consolidado pela ALEPE (consultado em 13/11/2026).</p>
+  </div></details>
+  <details class="lex"><summary><b>COSCIP-PE, art. 49</b><span>Hidrante: registro entre 1,00 m e 1,50 m (inciso III)</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 49. Os sistemas de combate a incêndios por hidrantes ou por carretel com mangotinho são considerados como sistemas fixos sob comando, e deverão obedecer aos requisitos seguintes, quanto à sua instalação:</p>
+<p class="lx lx-inc">I - os hidrantes ou carretéis devem ser instalados de maneira tal que qualquer ponto da edificação ou pavimento possa ser atingido por um jato d’água, considerando-se os seguintes fatores:</p>
+<p class="lx lx-ali">a) para o sistema de proteção por hidrantes ou carretéis internos, será considerado como alcance máximo de linha de mangueira um total de 30,0 m, a partir do registro de manobra ou ponto de tomada d’água, estabelecida no plano horizontal, e com a mangueira ou mangotinho totalmente estendida;</p>
+<p class="lx lx-ali">b) para o sistema de proteção por hidrantes externos, será considerado como alcance máximo da linha de mangueira um total de 60,0 m, a partir do registro de manobra, estabelecida no plano horizontal, e com a mangueira totalmente estendida;</p>
+<p class="lx lx-ali">c) para o sistema de proteção por carretel com mangotinho externo, será considerado como alcance máximo da linha total de 45,0 m, a partir do ponto de tomada d’água, estabelecida no plano horizontal e com o mangotinho totalmente estendido.</p>
+<p class="lx lx-inc">II - um mesmo conjunto não poderá proteger pontos de pavimentos diferentes;</p>
+<p class="lx lx-inc">III - a altura do registro de manobra dos hidrantes ou da tomada d’água dos carretéis com mangotinho deverá estar compreendida entre 1,00 m a 1,50 m, em relação ao piso acabado;</p>
+<p class="lx lx-inc">IV - os hidrantes e os carretéis com mangotinho devem ser:</p>
+<p class="lx lx-ali">a) localizados de tal forma que, entre o operador e as rotas de fuga, os acessos estejam sempre desobstruídos, e não haja probabilidade de serem bloqueados pelo fogo;</p>
+<p class="lx lx-ali">b) devidamente sinalizados, a fim de serem facilmente localizados, e os locais de instalação, bem como seus acessos, devem estar desobstruídos e livres de serem bloqueados pelo fogo;</p>
+<p class="lx lx-ali">c) localizados nas áreas de ocupação do risco, não sendo admitida, em qualquer situação, sua instalação nas escadas ou nas antecâmaras das escadas à prova de fumaça, e, ainda, em rampas;</p>
+<p class="lx lx-ali">d) localizados nas proximidades das portas de acesso às saídas de emergência.</p>
+<p class="lx lx-par">§ 1º A instalação de hidrantes ou de carretéis com mangotinhos em pontos centrais da edificação será:</p>
+<p class="lx lx-inc">I - obrigatória, quando os alcances máximos das linhas de mangueiras, descritos nas alíneas a, b e c do inciso I deste artigo não forem obtidos;</p>
+<p class="lx lx-inc">II - facultativa, quando, a critério da parte interessada, servir como proteção adicional ou complementar.</p>
+<p class="lx lx-par">§ 2º Nos casos previstos no parágrafo anterior, os hidrantes ou carretéis com mangotinho deverão ser instalados nas áreas de circulações do risco.</p>
+<p class="lx lx-par">§ 3º Quando externos, os hidrantes ou carretéis com mangotinho deverão ser localizados em locais onde a probabilidade de danos pela queda de paredes seja mínima e onde o operador não seja bloqueado pelas chamas ou pela fumaça, tomando-se como referência 15,0 m da projeção da edificação a proteger ou a distância mínima de 1,5 vezes a altura da edificação disposta no § 7º do art. 25 deste Código. <span class="anot">(Redação alterada pelo art. 1º do Decreto nº 58.690, de 27 de maio de 2025.)</span></p>
+<p class="lx lx-par">§ 4º A distância máxima entre dois hidrantes ou dois carretéis consecutivos de uma rede, em qualquer direção no plano horizontal, será de 60 (sessenta) metros.</p>
+<p class="lx lx-par">§ 5º O alcance máximo das linhas de mangueira exigido neste artigo será obtido através do caminhamento normal no plano horizontal, não se computando janelas, muretas ou guarda-corpo.</p>
+  <p class="lex-src">Decreto nº 19.644/1997, texto vigente consolidado pela ALEPE (consultado em 13/11/2026).</p>
+  </div></details>
+  <details class="lex"><summary><b>COSCIP-PE, art. 137</b><span>Acionador manual: 1,20 m a 1,60 m (inciso II, “a”)</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 137. Para efeito de instalação do sistema nos locais e ambientes a serem protegidos, os seguintes parâmetros devem ser observados:</p>
+<p class="lx lx-inc">I - quanto aos Detectores Automáticos: <span class="anot">(Redação alterada pelo art. 1º do Decreto nº 58.690, de 27 de maio de 2025.)</span></p>
+<p class="lx lx-ali">a) terem a seguinte área de ação: <span class="anot">(Redação alterada pelo art. 1º do Decreto nº 58.690, de 27 de maio de 2025.)</span></p>
+<p class="lx lx-num">1. para os detectores de temperatura, a área de ação máxima a ser empregada é de 36,0 m², referente ao retângulo circunscrito na circunferência, de forma que o raio de ação do detector será de 4,2 m; <span class="anot">(Redação alterada pelo art. 1º do Decreto nº 58.690, de 27 de maio de 2025.)</span></p>
+<p class="lx lx-num">2. para os detectores de fumaça, a área de ação máxima a ser empregada é de 81,0 m², referente ao retângulo circunscrito na circunferência, de forma que o raio de ação do detector será de 6,3 m; <span class="anot">(Redação alterada pelo art. 1º do Decreto nº 58.690, de 27 de maio de 2025.)</span></p>
+<p class="lx lx-num">3. para os detectores de chamas, a ação se verifica em função da emanação de energia radiante, considerando-se as seguintes faixas de atuação;</p>
+<p class="lx lx-sub">3.1. emanação de raios ultravioleta;</p>
+<p class="lx lx-sub">3.2. emanação de chama tremulante;</p>
+<p class="lx lx-sub">3.3. emanação de raios infravermelho.</p>
+<p class="lx lx-ali">b) serem selecionados e escolhidos em função dos parâmetros descritos no inciso III do artigo anterior;</p>
+<p class="lx lx-ali">c) serem resistentes a possíveis mudanças normais de temperatura;</p>
+<p class="lx lx-ali">d) serem resistentes à umidade e à corrosão existentes no ambiente;</p>
+<p class="lx lx-ali">e) serem resistentes mecanicamente a vibrações existentes no ambiente;</p>
+<p class="lx lx-ali">f) terem identificação de seu fabricante, tipo, temperatura, faixa ou parâmetros para atuação e ano de fabricação, convenientemente instalados em seu corpo;</p>
+<p class="lx lx-ali">g) serem os detectores de temperatura e fumaça, intercambiáveis entre si no sistema, sem necessidade de mudança de circuito;</p>
+<p class="lx lx-ali">h) possuírem indicação visual própria e adequada, que deverá ser acionada quando de sua atuação.</p>
+<p class="lx lx-inc">II - quanto aos Acionadores Manuais</p>
+<p class="lx lx-ali">a) serem instalados a uma altura entre 1,20 m a 1,60 m do piso acabado;</p>
+<p class="lx lx-ali">b) terem a distância máxima a ser percorrida por uma pessoa em qualquer ponto da área a ser protegida até o acionador manual mais próximo não superior a 30,0m;</p>
+<p class="lx lx-ali">c) serem alojados em carcaças rígidas, que impeçam danos mecânicos aos dispositivos de acionamento;</p>
+<p class="lx lx-ali">d) possuírem instruções de operação, impressas em português no próprio corpo do equipamento, de forma clara e em lugar facilmente visível após a instalação;</p>
+<p class="lx lx-ali">e) possuírem dispositivo que dificulte o acionamento acidental, porém facilmente destrutível no caso de operação internacional;</p>
+<p class="lx lx-ali">f) serem de acionamento de tipo, travante, permitindo a identificação do acionador operado.</p>
+<p class="lx lx-ali">g) possuírem duplo comando, a fim de fornecer informação à central, e permitir o acionamento do alarme do setor ou da edificação.</p>
+<p class="lx lx-inc">III - quanto aos indicadores Sonoros e Visuais</p>
+<p class="lx lx-ali">a) terem, respectivamente, características de audibilidade ou visibilidade compatíveis com o ambiente em que estão instalados, em condições normais de trabalho desses ambientes;</p>
+<p class="lx lx-ali">b) serem alimentado por fontes ininterruptas supervisionadas, ou por fontes ininterruptas supervisionadas, ou por fonte própria, também supervisionada devidamente dimensionada para o sistema.</p>
+<p class="lx lx-inc">IV - quanto aos Circuitos</p>
+<p class="lx lx-ali">a) terem condutores rígidos;</p>
+<p class="lx lx-ali">b) terem os condutores, quando não protegidos por condutos incombustíveis, isolação resistente às chamas;</p>
+<p class="lx lx-inc">V - quanto aos Condutos</p>
+<p class="lx lx-ali">a) serem aparentes ou embutidos, metálicos, plástico ou qualquer outro material que garanta efetiva proteção contra danos mecânicos dos condutores neles contidos;</p>
+<p class="lx lx-ali">b) quando metálicos terem;</p>
+<p class="lx lx-num">1. perfeita continuidade elétrica;</p>
+<p class="lx lx-num">2. rigidez mecânica compatível com o ambiente de instalação;</p>
+<p class="lx lx-num">3. condições satisfatórias de aterramento;</p>
+<p class="lx lx-num">4. perfeita identificação entre os demais condutos.</p>
+<p class="lx lx-ali">c) quando de plástico ou de outro material não condutor, os condutos:</p>
+<p class="lx lx-num">1. serem rígidos;</p>
+<p class="lx lx-num">2. conterem fio terra em toda a sua extensão;</p>
+<p class="lx lx-num">3. terem a fiação de condutores dotados de blindagem elétrica;</p>
+<p class="lx lx-num">4. terem perfeita identificação entre os demais condutos.</p>
+<p class="lx lx-par">§ 1º Em um mesmo pavimento deverá existir, no mínimo, um laço independente.</p>
+<p class="lx lx-par">§ 2º Não poderá haver laço comum a dois ou mais pavimentos.</p>
+<p class="lx lx-par">§ 3º Sempre que um mesmo laço atender áreas compartimentadas, deverão ser instalados dispositivos luminosos que as identifique.</p>
+<p class="lx lx-par">§ 4º Os dispositivos luminosos de que trata o parágrafo anterior deverão ser instalados:</p>
+<p class="lx lx-inc">I - Através de Dispositivo Luminoso Indicativo de Compartimento - DLIC - na parte externa, acima da porta ou abertura principal de acesso ao compartimento;</p>
+<p class="lx lx-inc">II - através de Painel Indicativo de Ponto - PIP - na área de acesso principal ao pavimento.</p>
+<p class="lx lx-par">§ 5º Caberá ao Corpo de Bombeiros Militar de Pernambuco, através de normas técnicas, regular os requisitos dos sistemas de detecção e alarme de incêndio. <span class="anot">(Acrescido pelo art. 1º do Decreto nº 58.690, de 27 de maio de 2025.)</span></p>
+  <p class="lex-src">Decreto nº 19.644/1997, texto vigente consolidado pela ALEPE (consultado em 13/11/2026).</p>
+  </div></details>
+  <details class="lex"><summary><b>COSCIP-PE, art. 210</b><span>Placa no terço superior da porta corta-fogo (inciso IV)</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 210. Para efeito de instalação do sistema de sinalização de saídas de emergência, serão observados os seguintes requisitos:</p>
+<p class="lx lx-inc">I - colocação de setas indicativas de sentido de fluxo em todos os pavimentos, acessos, escadas ou rampas, terminando na área de descarga da edificação;</p>
+<p class="lx lx-inc">II - nas circulações retilíneas, será colocada seta indicativa a cada 20,0 m no máximo;</p>
+<p class="lx lx-inc">III - nas mudanças de direção serão instaladas tantas setas indicativas quantas forem necessárias para que uma pessoa, na posição mais desfavorável, possa visualizá-las;</p>
+<p class="lx lx-inc">IV - nas portas corta-fogo serão colocadas placas indicativas no terço superior das mesmas, com a palavra SAÍDA, colocadas na face voltada para a rota de fuga.</p>
+<p class="lx lx-par">Parágrafo único. Quando a edificação dispuser de rampas, estas serão sinalizadas com os dizeres SAÍDA - RAMPA.</p>
+  <p class="lex-src">Decreto nº 19.644/1997, texto vigente consolidado pela ALEPE (consultado em 13/11/2026).</p>
+  </div></details>
+  <details class="lex"><summary><b>NT 1.02 CBMPE, item 3.2.1, I e VI</b><span>O que o projeto deve cotar e medir</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">3.2.1 O projeto de segurança contra incêndio e pânico anexado no sistema para análise digital deverá obrigatoriamente constar as seguintes informações, no que couber (VER ANEXO B):</p>
+<p class="lx lx-inc">I - As cotas:</p>
+<p class="lx lx-ali">a) Das larguras de corredores e das escadas;</p>
+<p class="lx lx-ali">b) Vãos livres de portas (tanto para as portas das saídas quanto as dos compartimentos internos);</p>
+<p class="lx lx-ali">c) Dos Guarda-corpos, balaústres e longarinas;</p>
+<p class="lx lx-ali">d) Todas as medidas de altura (altura da edificação, altura entre pavimentos, altura do nível de acesso à edificação, altura do fundo do reservatório e do nível de acesso ao ponto mais alto do piso do último pavimento computável);</p>
+<p class="lx lx-ali">e) Na planta de locação, distâncias entre edificações nos casos em que houver a previsão de mais de uma edificação no mesmo terreno;</p>
+<p class="lx lx-ali">f) Nos projetos de depósitos de GLP, especificando as distâncias de armazenamento dos recipientes;</p>
+<p class="lx lx-ali">g) Das marquises quando estas servirem de proteção a corredores a céu aberto na descarga da edificação;</p>
+<p class="lx lx-ali">h) Das medidas de segurança previstas em norma para a instalação de centrais de GLP;</p>
+<p class="lx lx-ali">i) Da distância entre a projeção da edificação e o hidrante externo;</p>
+<p class="lx lx-ali">j) Das distâncias exigidas para os chuveiros automáticos;</p>
+<p class="lx lx-ali">k) Das aberturas de pavimentos situados abaixo e acima do nível de acesso à edificação;</p>
+<p class="lx lx-ali">l) Dos Detalhes das marcações em pisos de extintores, altura de instalação de equipamentos, medidas do registro de recalque, instalação de corrimão, etc.;</p>
+<p class="lx lx-ali">m) As distâncias entre hidrantes externos.</p>
+<p class="lx lx-inc">(…)</p>
+<p class="lx lx-inc">VI - As medidas das distâncias:</p>
+<p class="lx lx-ali">a) Do ponto mais distante do perímetro do pavimento às portas das escadas enclausuradas, às portas das antecâmaras das escadas à prova de fumaça ou aos degraus superiores das escadas protegidas;</p>
+<p class="lx lx-ali">b) Do ponto mais distante no pavimento ao hidrante mais próximo deste (havendo mais de um hidrante por pavimento, estes deverão ser numerados para serem referenciados em caso de exigência);</p>
+<p class="lx lx-ali">c) Do ponto mais distante do pavimento ao acionador manual mais próximo deste (também numerado);</p>
+<p class="lx lx-ali">d) Do ponto mais distante do pavimento ao extintor mais próximo deste;</p>
+<p class="lx lx-ali">e) Do ponto mais distante do risco isolado ao extintor mais próximo deste, quando não estiverem muito próximos;</p>
+  <p class="lex-src">Norma Técnica nº 1.02 – Análise de projeto de segurança contra incêndio e pânico (BGE nº 041, de 28/02/2022).</p>
+  </div></details>
+</section>
+<section class="blk lex-sec" id="normas-vistoria" data-pg="normas">
+  <div class="sec-head"><div class="tag">Textos das normas</div><h2>Na vistoria</h2></div>
+  <details class="lex"><summary><b>Portaria Administrativa nº 29/2023 – CBMPE – DIESP</b><span>Vistoria de edificação com projeto aprovado</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">EMENTA: Regula procedimentos de vistoria.</p>
+<p class="lx lx-cap">(…) Considerando ainda que a verificação do correto dimensionamento dos sistemas preventivos é inerente à atividade de análise de projeto, uma vez que, in loco, não é exequível para o vistoriador conferir todas as distâncias, alturas, diâmetros de tubulação, memórias de cálculo e outros enquadramentos.</p>
+<p class="lx lx-cap">E considerando, por fim, que a aprovação do projeto pressupõe que as condições de exigência de proteção ativa e passiva (quantitativos, tipos, localização e detalhamentos) foram satisfeitos, além de proporcionar segurança jurídica aqueles que buscaram se regularizar e tiveram seus projetos chancelados pela Corporação.</p>
+<p class="lx lx-cap">RESOLVE:</p>
+<p class="lx lx-cap">Art. 1º Determinar que as vistorias que sejam procedidas em locais que possuam PPCI aprovados deverão seguir o dimensionamento e equipamentos de prevenção e combate a incêndio e pânico dos sistemas plotados em planta, bem como a verificação do seu funcionamento.</p>
+<p class="lx lx-cap">Art. 2º Revogam-se as disposições em contrário, em especial a Portaria Administrativa nº 1/2022 - DNT/DIESP, datada de 30 de março de 2022.</p>
+<p class="lx lx-cap">Art. 3º Esta portaria entra em vigor a contar da data de sua publicação.</p>
+  <p class="lex-src">CBMPE, Diretoria Integrada Especializada, Portaria Administrativa nº 29, de 27/10/2023 (SEI nº 3900000099.001376/2023-84).</p>
+  </div></details>
+  <details class="lex"><summary><b>Resolução Técnica nº 007/17 – C.I.A.T.</b><span>Quando o vistoriador discorda do projeto aprovado</span></summary>
+  <div class="lex-body">
+<p class="lx lx-cap">Art. 1º Estabelecer que nas Vistorias de Regularização dos estabelecimentos que possuem projeto de segurança contra incêndio e pânico aprovado junto ao CBMPE, quando o vistoriador discordar do projeto, deverão ser tomadas as seguintes providências:</p>
+<p class="lx lx-inc">I - Deverá ser concedido o AR ao estabelecimento;</p>
+<p class="lx lx-inc">II - Deverá ser realizado parecer técnico do vistoriador, visando esclarecer as supostas inconformidades.</p>
+<p class="lx lx-inc">III - O Chefe do CAT encaminhará o parecer técnico ao Diretor da DIESP para deliberação junto a Comissão Interna de Análises Técnicas.</p>
+<p class="lx lx-inc">IV - O Presidente da Comissão Interna de Análises Técnicas determinará a realização de visita técnica no local, com no mínimo dois membros da comissão, visando dirimir a situação, verificando o (projeto aprovado) X (COSCIP) X (sistemas instalados).</p>
+<p class="lx lx-inc">V - Após a visita técnica, em caso de não concordar com o parecer do vistoriador, a equipe revisora emitirá relatório, o qual deverá ser homologado pelo presidente do CIAT e posteriormente remetido para o vistoriador, Comandante do CAT e para o cliente.</p>
+<p class="lx lx-inc">VI - na concordância do exposto pelo vistoriador, caberá as seguintes medidas:</p>
+<p class="lx lx-ali">a) informar ao proprietário da inconformidade encontrada em projeto;</p>
+<p class="lx lx-ali">b) Verificando que a(s) inconformidade(s) não é (são) impeditiva(s) do ponto de vista da segurança do empreendimento, será fornecido um prazo ao proprietário, de um ano para regularização do sistema de segurança (projeto e instalações) junto a DIESP;</p>
+<p class="lx lx-ali">c) Não será cobrada taxa de análise de projeto, desde que, seja dado entrada na DIESP no prazo máximo de dois meses, a contar da cientificação do proprietário;</p>
+<p class="lx lx-ali">d) Em caso do não atendimento dos itens anteriores, deverá ser cassado o AVCB e tomadas as demais medidas legais.</p>
+<p class="lx lx-cap">Art 2º Esta Resolução entrará em vigor na data de sua publicação.</p>
+  <p class="lex-src">CBMPE/DIESP, Comissão Interna de Análise Técnica. Publicada no BGE nº 175/2017.</p>
+  </div></details>
 </section>
 
 <nav class="pager" id="pager" aria-label="Página anterior e próxima"></nav>
@@ -876,12 +1853,12 @@ footer ul { padding-left: 18px; }
 
 <footer>
   <div class="wrap read">
-    <p><b>Fonte:</b> COSCIP-PE — Código de Segurança Contra Incêndio e Pânico de Pernambuco (Decreto nº 19.644/1997), texto vigente. NT 1.02 do CBMPE (Análise de projeto, BGE 041, de 28/02/2022), item 3.2.1. Símbolos em planta: NT 1.02, Anexo A, redesenhados pela biblioteca de simbologia do CAT Sertão.</p>
+    <p><b>Fonte:</b> COSCIP-PE — Código de Segurança Contra Incêndio e Pânico de Pernambuco (Decreto nº 19.644/1997), texto vigente. Normas do CBMPE: NT 1.02 (Análise de projeto, BGE 041, de 28/02/2022), item 3.2.1; RT nº 001/2023 (iluminação de emergência); NT nº 003/2019 (hidrantes e mangotinho); Enunciados Técnicos (compilado de 20/10/2025); Portaria Administrativa nº 29/2023. A íntegra de cada dispositivo está em <a href="#normas">Textos das normas</a>. Símbolos em planta: NT 1.02, Anexo A, redesenhados pela biblioteca de simbologia do CAT Sertão.</p>
     <ul>
-      <li>Referências complementares, fora do COSCIP, sempre sinalizadas em amarelo: ABNT NBR 10898 (iluminação de emergência) e ABNT NBR 16820 (sinalização), esta admitida pelo art. 209, § 2º.</li>
-      <li>A NT nº 003/2019 do CBMPE (hidrantes e mangotinho) não foi consultada nesta página; as regras de hidrante vêm do texto vigente do COSCIP.</li>
+      <li>Referência complementar, fora das normas do CBMPE, sinalizada em amarelo: ABNT NBR 16820 (sinalização), admitida pelo art. 209, § 2º.</li>
+      <li>Pontos em que uma norma mais antiga do CBMPE foi escrita sobre a redação anterior do art. 147 (RT nº 001/17 e NT 1.04, item 5.4) aparecem marcados em amarelo, como ponto de interpretação.</li>
       <li>As plantas são exemplos didáticos. As distâncias são calculadas pelo menor trajeto possível, contornando paredes, pilares e shafts.</li>
-      <li>Artigos e números conferidos em 17/11/2026 no texto vigente do COSCIP-PE (ALEPE) e na NT 1.02.</li>
+      <li>Artigos e números conferidos em 17/11/2026 no texto vigente do COSCIP-PE (ALEPE) e em todas as 54 legislações técnicas publicadas em bombeiros.pe.gov.br.</li>
     </ul>
   </div>
 </footer>
@@ -995,7 +1972,7 @@ footer ul { padding-left: 18px; }
   const PAGES = [
     ['inicio', 'Início'], ['saidas', 'Saídas de emergência'], ['extintores', 'Extintores e acionador manual'], ['hidrantes', 'Hidrantes'],
     ['chuveiros', 'Chuveiros automáticos'], ['detectores', 'Detectores automáticos'], ['sinalizacao', 'Sinalização de saídas'],
-    ['iluminacao', 'Iluminação de emergência'], ['alturas', 'Alturas de instalação'], ['quiz', 'Teste rápido'],
+    ['iluminacao', 'Iluminação de emergência'], ['alturas', 'Alturas de instalação'], ['quiz', 'Teste rápido'], ['normas', 'Textos das normas'],
   ];
   const ids = PAGES.map(p => p[0]), name = id => PAGES.find(p => p[0] === id)[1];
   const secs = [...document.querySelectorAll('section.blk[data-pg]')], links = [...document.querySelectorAll('nav.toc a[data-pg]')], pager = document.getElementById('pager');
@@ -1012,16 +1989,19 @@ footer ul { padding-left: 18px; }
       for (const a of links) { if (a.dataset.pg === pg) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); }
       const cur_a = links.find(a => a.dataset.pg === pg); if (cur_a) cur_a.scrollIntoView({ block: 'nearest', inline: 'nearest' });
       const i = ids.indexOf(pg), prev = ids[i - 1], next = ids[i + 1];
-      pager.innerHTML = pg === 'inicio' ? '' :
+      const temLex = !['inicio', 'quiz', 'normas'].includes(pg);
+      pager.innerHTML = pg === 'inicio' ? '' : (temLex ? `<a class="lexlink" href="#normas-${pg}">Ler a íntegra dos artigos, incisos e alíneas usados nesta página →</a>` : '') +
         (prev ? `<a class="prev" href="#${prev}"><small>← Anterior</small><b>${name(prev)}</b></a>` : '') +
         (next ? `<a class="next" href="#${next}"><small>Próxima →</small><b>${name(next)}</b></a>` : `<a class="next" href="#inicio"><small>Fim</small><b>Voltar ao início</b></a>`);
       document.title = pg === 'inicio' ? baseTitle : name(pg) + ' · ' + baseTitle;
     }
     // página inteira: volta ao topo; trecho dentro da página (ex.: #tabela3): vai até ele
     const target = el && sec && el !== sec.closest('main').querySelector(`section[data-pg="${pg}"]`) ? el : null;
+    if (target && target.classList.contains('lex-sec')) target.querySelectorAll('details.lex').forEach(d => { d.open = true; }); // quem chega pelo link de um sistema já vê os textos abertos
     const go = () => { if (target) target.scrollIntoView({ behavior: 'instant', block: 'start' }); else if (changed && !first) window.scrollTo({ top: 0, behavior: 'instant' }); };
     if (first) requestAnimationFrame(go); else go();
   }
+  document.querySelectorAll('[data-lex]').forEach(b => b.addEventListener('click', () => { const abrir = b.dataset.lex === 'abrir'; document.querySelectorAll('details.lex').forEach(d => { d.open = abrir; }); }));
   window.addEventListener('hashchange', () => route(false));
   route(true);
 })();
@@ -1041,7 +2021,8 @@ footer ul { padding-left: 18px; }
     const out = $('c-out'), why = $('c-why'), nt = $('c-nt'); const notes = [];
     if (tec) { out.textContent = '140 m'; why.textContent = 'Nota “d”: áreas técnicas, sem permanência humana e de acesso restrito.'; nt.innerHTML = ''; return; }
     if (g === 'JQ') { out.textContent = '—'; why.textContent = 'J e Q: use a classe de ocupação correspondente, ressalvado o parágrafo único do art. 144.'; nt.innerHTML = ''; return; }
-    const base = TAB3[g][pav][(spk ? 4 : 0) + (mais ? 2 : 0) + (det ? 1 : 0)];
+    const gT = g === 'P' ? 'EFGHIKO' : g;
+    const base = TAB3[gT][pav][(spk ? 4 : 0) + (mais ? 2 : 0) + (det ? 1 : 0)];
     let v = base, parts = [`Tabela 3: ${base} m`];
     if (fum) { v *= 1.5; parts.push('× 1,5 (Nota “b”)'); }
     if (!lei) { v *= 0.7; parts.push('× 0,7 (Nota “a”)'); }
@@ -1050,6 +2031,7 @@ footer ul { padding-left: 18px; }
     if (mais) notes.push('“Mais de uma saída” exige pelo menos <b>10 m</b> entre as saídas (Nota “c”).');
     if (fum && !lei) notes.push('<span class="flag">O art. 147, § 2º, compara a distância direta com os limites da Tabela 3, “Nota b, reduzidas em 30%”: por isso a calculadora aplica os dois fatores (× 1,5 × 0,7). Confirme com o setor técnico.</span>');
     if (spk || det || fum) notes.push('Sem compartimentação, os sistemas que aumentam a distância devem cobrir toda a edificação, com as ressalvas da Nota “f”.');
+    if (g === 'P') notes.push('Templos (tipo P): a Tabela 3 não lista o tipo; o Enunciado Técnico 031, item 2, manda usar as distâncias do tipo H.');
     if (g === 'M') notes.push('Garagem: veículo não é obstáculo fixo; pode-se considerar o deslocamento entre veículos (Nota “e”).');
     if (g === 'LN') notes.push('Depósito (tipo N) automatizado e sem presença humana: a distância máxima pode ser desconsiderada (art. 147, § 3º).');
     nt.innerHTML = notes.map(n => `<div>${n}</div>`).join('');
@@ -1060,12 +2042,12 @@ footer ul { padding-left: 18px; }
     { q: 'Extintor de risco classe A. Como conferir os 20 m?', o: ['Círculo de 20 m de raio em volta do extintor', 'Trajeto real do ponto mais desfavorável até o extintor', 'Linha reta até o extintor, desde que sem parede no meio', 'Eixo das paredes, de centro a centro'], a: 1, e: 'O art. 32 fala em distância “percorrida pelo operador”. É caminhamento, pelas circulações e portas.' },
     { q: 'Pavimento sem leiaute definido em planta. A Tabela 3 dá 40 m. Qual é o limite e como medir?', o: ['40 m, pelo trajeto real', '28 m, em linha reta (distância direta)', '28 m, pelo trajeto real', '52 m, em linha reta'], a: 1, e: 'Sem leiaute, distância direta e limite reduzido em 30%: 40 × 0,7 = 28 m (art. 147, § 2º; Nota “a”).' },
     { q: 'Hidrante interno. Qual é o alcance que se confere?', o: ['30 m de raio no compasso', '30 m de mangueira pelo trajeto real, mais jato de até 8 m com visada livre', '38 m em linha reta', '60 m em qualquer direção'], a: 1, e: 'Art. 49, I, “a” (30 m, plano horizontal, mangueira estendida) e art. 70, § 1º (jato de no máximo 8 m, contato visual sem barreiras, depois de entrar 1 m no compartimento).' },
-    { q: 'Chuveiros automáticos, risco A, bico pendente. Distância máxima do bico até a parede?', o: ['4,50 m', '2,25 m', '1,00 m', '3,50 m'], a: 1, e: 'Metade da distância máxima entre bicos: 4,5 / 2 = 2,25 m (art. 121, § 1º).' },
+    { q: 'Chuveiros automáticos, risco A, bico pendente, numa sala de 60 m². Distância máxima do bico até a parede?', o: ['4,50 m', '2,25 m', '1,00 m', '3,50 m'], a: 1, e: 'Metade da distância máxima entre bicos: 4,5 / 2 = 2,25 m (art. 121, § 1º). Só em salas de até 21 m² o Enunciado Técnico 002 admite até 2,70 m da parede e 3,40 m do canto.' },
     { q: 'Escada tipo I, na numeração do art. 147. Onde termina a medição da distância máxima a ser percorrida?', o: ['No degrau da escada', 'Na porta da antecâmara', 'Na saída da edificação no térreo', 'No eixo da caixa de escada'], a: 0, e: 'Art. 147: degrau da escada tipo I; porta das escadas tipo II e III; porta da antecâmara da escada tipo IV.' },
     { q: 'Apartamento com caminhamento interno de 8 m. De onde começa a contar a distância até a escada?', o: ['Do quarto mais distante do apartamento', 'Da porta de acesso do apartamento', 'Do centro do apartamento', 'Do elevador'], a: 1, e: 'Art. 147, § 1º: a partir da porta de acesso da unidade autônoma mais distante, se o caminhamento interno não passar de 10 m.' },
     { q: 'Corredor reto de 50 m. Qual é a regra para as setas de saída?', o: ['Uma seta no início e outra no fim', 'Setas a cada 20 m, no máximo', 'Setas a cada 15 m, sempre', 'Só na porta corta-fogo'], a: 1, e: 'Art. 210, II: nas circulações retilíneas, seta indicativa a cada 20,0 m no máximo. Em 50 m, são pelo menos três trechos.' },
     { q: 'Detector de fumaça. Qual é o raio de ação que o COSCIP dá?', o: ['4,2 m', '6,3 m', '9,0 m', '4,5 m'], a: 1, e: 'Art. 137, I, “a”, 2: área de ação máxima de 81 m², com raio de ação de 6,3 m. O detector de temperatura tem 36 m² e 4,2 m.' },
-    { q: 'O COSCIP fixa a distância entre pontos de iluminação de emergência?', o: ['Sim, 15 m', 'Sim, 4 vezes a altura', 'Não; a referência técnica é a NBR 10898', 'Sim, 20 m'], a: 2, e: 'O COSCIP exige pontos de luz em todas as circulações e rotas de fuga (arts. 203 e 204), sem fixar espaçamento. A NBR 10898 dá até 4 vezes a altura de instalação.' },
+    { q: 'Bloco autônomo de 300 lúmens, instalado a 2,80 m de altura num corredor. Qual é a distância máxima entre dois pontos e do ponto até a parede?', o: ['25 m e 12,5 m', '15 m e 7,5 m', '4 vezes a altura: 11,2 m', '20 m e 10 m'], a: 1, e: 'RT nº 001/2023, item 3.3.3, “a”: de 100 a 600 lúmens, até 15,0 m entre pontos e 7,5 m até a parede. Abaixo de 3 m de altura não há redução (item 3.3.3.4). Acima de 600 lúmens seriam 25 m e 12,5 m.' },
   ];
   const box = $('qz'); let right = 0, done = 0;
   Q.forEach((it, i) => {
@@ -2063,60 +3045,78 @@ function sceneSinalizacao(T, OC, fig) {
 }
 
 // ---------------------------------------------------------------- ILUMINAÇÃO
+// RT nº 001/2023, item 3.3.3: distâncias por faixa de lúmens; 3.3.3.4: redução de 10% por metro ou fração acima de 3 m (máx. 50%);
+// 3.3.3.5: sem redução com 2.000 lm ou mais.
+const ILU = { a: { D: 15, P: 7.5, nome: '100 a 600 lm' }, b: { D: 25, P: 12.5, nome: 'acima de 600 lm' }, c: { D: 25, P: 12.5, nome: '2.000 lm ou mais' } };
+function iluLimites(faixa, h) {
+  const f = ILU[faixa], extra = Math.max(0, h - 3), fr = extra > 1e-9 ? Math.ceil(extra - 1e-9) : 0;
+  const red = faixa === 'c' ? 0 : Math.min(0.5, 0.1 * fr);
+  return { D: f.D * (1 - red), P: f.P * (1 - red), red, fr, nome: f.nome };
+}
 function sceneIluminacao(T, OC, fig) {
-  const host = fig.querySelector('.stage'); let Lc = 24, hL = 2.5; const CW = 2.2, WH = 3.0;
+  const host = fig.querySelector('.stage'); let Lc = 30, hL = 2.5, faixa = 'a'; const CW = 2.2;
+  let WH = 3.0;
   const st = new Stage(T, OC, host, { w: Lc + 2, h: CW + 6 }); const grp = new T.Group(); st.root.add(grp);
   st.sun.castShadow = false;
   const ground = new T.Mesh(new T.PlaneGeometry(200, 120), new T.MeshStandardMaterial({ color: cssVar('--ground', '#c9d1d5'), roughness: 1 })); ground.rotation.x = -Math.PI / 2; ground.position.y = -0.02; st.root.add(ground);
-  let lums = [], spots = [], pools = [], dims = [], near = null, lay = null;
+  let lums = [], spots = [], pools = [], dims = [], lay = null, lim = null;
   const poolTex = (() => { const c = document.createElement('canvas'); c.width = c.height = 128; const g = c.getContext('2d'), gr = g.createRadialGradient(64, 64, 0, 64, 64, 64); gr.addColorStop(0, 'rgba(255,240,190,0.9)'); gr.addColorStop(0.7, 'rgba(255,230,160,0.35)'); gr.addColorStop(1, 'rgba(255,230,160,0)'); g.fillStyle = gr; g.fillRect(0, 0, 128, 128); const t = new T.CanvasTexture(c); return t; })();
+  const lumMat = new T.MeshStandardMaterial({ color: 0xf8f9fa, emissive: 0xfff3bf, emissiveIntensity: 0 }), lumGeo = new T.BoxGeometry(0.34, 0.12, 0.08);
   const build = () => {
     disposeTree(grp); while (grp.children.length) grp.remove(grp.children[0]); spots.forEach(s => { st.scene.remove(s); st.scene.remove(s.target); }); st.clearLabels(); st.planOnly.forEach(o => st.root.remove(o)); st.planOnly = [];
     lums = []; spots = []; pools = []; dims = [];
+    WH = Math.max(3.0, hL + 0.5);
     st.W = Lc + 2; st.H = CW + 6; st.cx = st.W / 2; st.cy = st.H / 2; st.resize();
     const x0 = 1, y0 = 3;
     const fm = new T.MeshStandardMaterial({ map: tileTexture(T), roughness: 0.9 }); fm.map.repeat.set(Lc / 2.4, 1);
     const fl = new T.Mesh(new T.PlaneGeometry(Lc, CW), fm); fl.rotation.x = -Math.PI / 2; fl.position.copy(st.w(x0 + Lc / 2, y0 + CW / 2, 0.003)); fl.receiveShadow = true; grp.add(fl);
     const wall = (x1, y1, x2, y2, h = WH) => { const len = Math.hypot(x2 - x1, y2 - y1) + 0.15, m = new T.Mesh(boxGeo(T, len, h, 0.15, 0xf1efe9), st.wallMat); m.position.copy(st.w((x1 + x2) / 2, (y1 + y2) / 2, h / 2)); m.rotation.y = -Math.atan2(y2 - y1, x2 - x1); m.receiveShadow = true; grp.add(m); return m; };
-    wall(x0, y0, x0 + Lc, y0); wall(x0, y0, x0, y0 + CW); wall(x0 + Lc, y0, x0 + Lc, y0 + CW); near = wall(x0, y0 + CW, x0 + Lc, y0 + CW, 0.5);
-    const n = Math.max(1, Math.ceil(Lc / (4 * hL))), s = Lc / n; lay = { n, s };
+    wall(x0, y0, x0 + Lc, y0); wall(x0, y0, x0, y0 + CW); wall(x0 + Lc, y0, x0 + Lc, y0 + CW); wall(x0, y0 + CW, x0 + Lc, y0 + CW, 0.5);
+    lim = iluLimites(faixa, hL);
+    // menor número de pontos com espaçamento uniforme: s ≤ D entre pontos e s/2 ≤ P até a parede (P = D/2)
+    const n = Math.max(1, Math.ceil(Lc / lim.D - 1e-9)), s = Lc / n; lay = { n, s };
     for (let i = 0; i < n; i++) {
       const x = x0 + s * (i + 0.5);
-      const b = new T.Mesh(new T.BoxGeometry(0.34, 0.12, 0.08), new T.MeshStandardMaterial({ color: 0xf8f9fa, emissive: 0xfff3bf, emissiveIntensity: 0 })); b.position.copy(st.w(x, y0 + 0.11, hL)); grp.add(b); lums.push(b);
-      const sp = new T.SpotLight(0xfff1c1, 0, hL * 4, Math.PI * 0.42, 0.65, 1.2); sp.position.copy(st.w(x, y0 + 0.3, hL - 0.05)); sp.target.position.copy(st.w(x, y0 + CW / 2, 0)); st.scene.add(sp); st.scene.add(sp.target); spots.push(sp);
-      const pm = new T.Mesh(new T.PlaneGeometry(4 * hL, CW - 0.1), new T.MeshBasicMaterial({ map: poolTex, transparent: true, depthWrite: false, opacity: 0, blending: T.AdditiveBlending })); pm.rotation.x = -Math.PI / 2; pm.position.copy(st.w(x, y0 + CW / 2, 0.02)); grp.add(pm); pools.push(pm);
+      const b = new T.Mesh(lumGeo, lumMat.clone()); b.position.copy(st.w(x, y0 + 0.11, hL)); grp.add(b); lums.push(b);
+      const sp = new T.SpotLight(0xfff1c1, 0, Math.max(hL * 4, s), Math.PI * 0.42, 0.65, 1.2); sp.position.copy(st.w(x, y0 + 0.3, hL - 0.05)); sp.target.position.copy(st.w(x, y0 + CW / 2, 0)); st.scene.add(sp); st.scene.add(sp.target); spots.push(sp);
+      const pm = new T.Mesh(new T.PlaneGeometry(Math.min(s, hL * 4), CW - 0.1), new T.MeshBasicMaterial({ map: poolTex, transparent: true, depthWrite: false, opacity: 0, blending: T.AdditiveBlending })); pm.rotation.x = -Math.PI / 2; pm.position.copy(st.w(x, y0 + CW / 2, 0.02)); grp.add(pm); pools.push(pm);
       st.symbolPlane('ilum_parede', x, y0 + 0.55, 0.8, WH + 0.2);
     }
     const dm = new T.MeshBasicMaterial({ color: 0x0b7285, depthTest: false });
     const dim = (a, b, text) => { const A = st.w(a, y0 + CW / 2, 0.06), B = st.w(b, y0 + CW / 2, 0.06), m = new T.Mesh(new T.BoxGeometry(A.distanceTo(B), 0.03, 0.06), dm); m.position.copy(A.clone().add(B).multiplyScalar(0.5)); m.renderOrder = 12; grp.add(m); const l = st.label(text, (a + b) / 2, y0 + CW / 2 + 0.6, 0.1, 'teal small'); dims.push({ m, l }); };
-    dim(x0, x0 + s / 2, `${fmt(s / 2)} m até a parede`);
-    if (n > 1) dim(x0 + s / 2, x0 + s * 1.5, `${fmt(s)} m ≤ 4h = ${fmt(4 * hL)} m`);
+    dim(x0, x0 + s / 2, `${fmt(s / 2, 2)} m até a parede ≤ ${fmt(lim.P, 2)} m`);
+    if (n > 1) dim(x0 + s / 2, x0 + s * 1.5, `${fmt(s, 2)} m ≤ ${fmt(lim.D, 2)} m`);
     st.hl = st.label(`h = ${fmt(hL, 2)} m`, x0 + s / 2, y0 + 0.2, hL + 0.35, 'dark small');
     fig.querySelector('[data-h-out]').textContent = fmt(hL, 2) + ' m'; fig.querySelector('[data-cl-out]').textContent = fmt(Lc, 0) + ' m';
-    fig.querySelector('.ilu-out').innerHTML = `<b>${n}</b> ponto(s) de luz · espaçamento <b>${fmt(s)} m</b> (máx. 4 × ${fmt(hL, 2)} = ${fmt(4 * hL)} m) · até a parede <b>${fmt(s / 2)} m</b>`;
+    const redTxt = faixa === 'c' ? 'sem redução pela altura (2.000 lm ou mais)' : lim.red > 0 ? `altura ${fmt(hL, 2)} m: ${lim.fr} metro(s) ou fração acima de 3 m, redução de ${Math.round(lim.red * 100)}%` : 'até 3 m de altura: sem redução';
+    fig.querySelector('.ilu-out').innerHTML = `<b>${n}</b> ponto(s) de luz · espaçamento <b>${fmt(s)} m</b> (máx. ${fmt(lim.D)} m) · até a parede <b>${fmt(s / 2, 2)} m</b> (máx. ${fmt(lim.P, 2)} m) · ${lim.nome}; ${redTxt}`;
+    if (player) { steps[3].caption = capDist(); if (player.i === 3) player.capB.innerHTML = steps[3].caption; }
     st.kick();
   };
-  build(); st.setCam({ az: -10, el: 38, dist: 22 });
+  const capDist = () => `Luminária de <b>${lim.nome}</b>: no máximo <b>${fmt(lim.D)} m</b> entre pontos e <b>${fmt(lim.P, 2)} m</b> do ponto até a parede${lim.red > 0 ? `, já com a redução de ${Math.round(lim.red * 100)}% pela altura de ${fmt(hL, 2)} m` : ''} (RT nº 001/2023, itens 3.3.3 e 3.3.3.4). Mude os lúmens, a altura e o corredor abaixo.`;
+  let player = null;
+  const steps = [
+    { title: 'Luz normal', dur: 3, view: '3d', caption: 'Corredor de rota de fuga com os blocos autônomos instalados na parede, apagados.' },
+    { title: 'Falta energia', dur: 3, view: '3d', caption: 'A energia cai. O sistema deve entrar em funcionamento <b>automaticamente</b>, alimentado por baterias, com autonomia mínima de 1 hora (arts. 190 e 191).' },
+    { title: 'Os pontos de luz acendem', dur: 5, view: '3d', caption: 'Pontos de luz em todas as circulações e rotas de fuga, permitindo reconhecer obstáculos (arts. 203 e 204). O iluminamento mínimo é de <b>3 lux</b> em áreas planas e <b>5 lux</b> em escadas e rampas (RT nº 001/2023, item 3.3.3.3).' },
+    { title: 'Distância entre pontos', dur: 8, view: 'plan', caption: '' },
+    { title: 'Mudança de direção e escadas', dur: 6, view: '3d', caption: 'Quando a rota muda de direção, a distância linear entre dois pontos é de no máximo <b>7,5 m</b> (item 3.3.3.1). Nas escadas de emergência não se usam essas distâncias: há pelo menos <b>um ponto em cada patamar</b>, principal e/ou intermediário (item 3.3.3.2).' },
+  ];
+  build(); steps[3].caption = capDist(); st.setCam({ az: -10, el: 38, dist: Math.max(22, Lc * 0.75) });
   const bgDay = st.bg.clone(), bgNight = new T.Color(0x0b0f14);
   const lightsTo = (day, emer) => {
     st.hemi.intensity = 0.08 + 1.17 * day; st.sun.intensity = 2.4 * day; st.scene.background = bgDay.clone().lerp(bgNight, 1 - day); st.scene.fog.color.copy(st.scene.background);
     spots.forEach((s, i) => { const e = clamp(emer * spots.length - i, 0, 1); s.intensity = 9 * e; lums[i].material.emissiveIntensity = 1.6 * e; pools[i].material.opacity = 0.55 * e * (1 - day * 0.8); });
   };
-  const steps = [
-    { title: 'Luz normal', dur: 3, view: '3d', caption: 'Corredor de rota de fuga com os blocos autônomos instalados na parede, apagados.' },
-    { title: 'Falta energia', dur: 3, view: '3d', caption: 'A energia cai. O sistema deve entrar em funcionamento <b>automaticamente</b>, alimentado por baterias, com autonomia mínima de 1 hora (arts. 190 e 191).' },
-    { title: 'Os pontos de luz acendem', dur: 5, view: '3d', caption: 'Pontos de luz em todas as circulações e rotas de fuga, permitindo reconhecer obstáculos (arts. 203 e 204). Potência mínima de 10 W por luminária (art. 196, § 1º).' },
-    { title: 'Distância entre pontos', dur: 8, view: 'plan', caption: '<span class="flag">O COSCIP não fixa a distância entre pontos.</span> Referência técnica: ABNT NBR 10898, até <b>4 vezes a altura</b> de instalação entre dois pontos. Confira a edição vigente da norma.' },
-  ];
   const apply = (i, k) => {
     dims.forEach(d => { d.m.visible = i === 3; d.l.show(i === 3); }); st.hl.show(i >= 2);
-    if (i === 0) lightsTo(1, 0); if (i === 1) lightsTo(1 - ease(k), 0); if (i === 2) lightsTo(0, ease(k)); if (i === 3) lightsTo(0, 1);
-    hud(fig, { val: lay.s, lim: 4 * hL, title: 'Espaçamento entre pontos (NBR 10898)', mode: 'esp' });
+    if (i === 0) lightsTo(1, 0); if (i === 1) lightsTo(1 - ease(k), 0); if (i >= 2) lightsTo(0, i === 2 ? ease(k) : 1);
+    hud(fig, { val: lay.s, lim: lim.D, title: 'Entre pontos · RT nº 001/2023', mode: 'esp' });
   };
-  const player = new Player(fig, st, steps, apply);
-  const sh = fig.querySelector('[data-h]'), sc = fig.querySelector('[data-cl]');
-  const upd = () => { hL = +sh.value; Lc = +sc.value; build(); player.rerender(); };
-  sh.addEventListener('input', upd); sc.addEventListener('input', upd);
+  player = new Player(fig, st, steps, apply, 3);
+  const sh = fig.querySelector('[data-h]'), sc = fig.querySelector('[data-cl]'), sl = fig.querySelector('[data-lm]');
+  const upd = () => { hL = +sh.value; Lc = +sc.value; faixa = sl.value; build(); player.rerender(); };
+  sh.addEventListener('input', upd); sc.addEventListener('input', upd); sl.addEventListener('change', upd);
   return { st, player };
 }
 
