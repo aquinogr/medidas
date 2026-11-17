@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Como medir na fiscalização</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23c92a2a'/%3E%3Cpath d='M6 22h20M6 22v-5M11 22v-3M16 22v-5M21 22v-3M26 22v-5' stroke='%23fff' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
@@ -58,6 +60,27 @@ nav.toc .wrap { display: flex; gap: 6px; overflow-x: auto; padding-top: 9px; pad
 nav.toc a { flex: none; text-decoration: none; color: var(--ink); font: 600 .9rem/1 var(--body); padding: 8px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); }
 nav.toc a:hover { border-color: var(--ink); }
 nav.toc a[data-r]::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 7px; vertical-align: 1px; background: var(--c); }
+nav.toc a[aria-current="page"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+/* uma página por sistema: só as seções da página aberta aparecem */
+body[data-pg]:not([data-pg="inicio"]) .lede { display: none; }
+body[data-pg]:not([data-pg="inicio"]) header.top { padding: 26px 0 18px; }
+body[data-pg]:not([data-pg="inicio"]) header.top h1 { font-size: clamp(1.6rem, 3.4vw, 2.3rem); }
+section.blk[hidden] { display: none; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; }
+.card-pg { display: grid; gap: 8px; align-content: start; padding: 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--ink); text-decoration: none; transition: border-color .15s, transform .15s; }
+.card-pg:hover { border-color: var(--ink); transform: translateY(-2px); }
+.card-pg .regua { justify-self: start; }
+.card-pg b { font: 700 1.25rem/1.1 var(--display); }
+.card-pg span:not(.regua) { color: var(--muted); font-size: .95rem; }
+.card-pg i { font: 500 .78rem/1.3 var(--mono); font-style: normal; color: var(--muted); }
+.pager { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; padding: 34px 0 6px; border-top: 1px solid var(--line); margin-top: 30px; }
+.pager:empty { display: none; }
+.pager a { display: grid; gap: 3px; text-decoration: none; color: var(--ink); padding: 12px 16px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); min-width: 0; max-width: 100%; }
+.pager a:hover { border-color: var(--ink); }
+.pager a small { font: 600 .74rem/1 var(--mono); letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+.pager a b { font: 700 1.1rem/1.15 var(--display); }
+.pager .next { margin-left: auto; text-align: right; }
 [data-r="cam"] { --c: var(--cam); } [data-r="reta"] { --c: var(--reta); } [data-r="esp"] { --c: var(--esp); }
 
 section.blk { padding: 54px 0 20px; border-top: 1px solid var(--line); }
@@ -93,6 +116,7 @@ figure.ready .boot { display: none; }
 .lbl.muted { background: rgba(80, 90, 98, .85); }
 .lbl.small { font-size: 11.5px; padding: 3px 6px; }
 .lbl .x { color: #ffd8a8; font-weight: 700; }
+.lbl .o { color: #ffb37a; font-family: var(--mono); font-weight: 700; } .lbl .bl { color: #a5d8ff; font-family: var(--mono); font-weight: 700; }
 .lbl.room { background: transparent; box-shadow: none; color: #3d4850; font: 700 11px/1 var(--mono); letter-spacing: .04em; text-transform: uppercase; padding: 0; }
 :root[data-theme="dark"] .lbl.room { color: #b9c5cc; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .lbl.room { color: #b9c5cc; } }
@@ -225,7 +249,7 @@ footer ul { padding-left: 18px; }
   <div class="wrap">
     <div class="kicker">Fiscalização · COSCIP-PE</div>
     <h1>Como medir distâncias na fiscalização</h1>
-    <p class="lede">Saídas, extintores, acionadores, hidrantes, chuveiros automáticos, detectores, sinalização e iluminação de emergência. Cada sistema usa uma régua diferente. As cenas abaixo mostram, em 3D e em planta, como o Código manda medir. Toque na planta para medir você mesmo.</p>
+    <p class="lede">Saídas, extintores, acionadores, hidrantes, chuveiros automáticos, detectores, sinalização e iluminação de emergência. Cada sistema usa uma régua diferente e tem a sua página, com uma cena que mostra, em 3D e em planta, como o Código manda medir. Toque na planta para medir você mesmo.</p>
     <div class="toolbar">
       <button class="seg" id="narr" type="button" aria-pressed="false" style="padding:8px 12px;font-weight:600;cursor:pointer">Ouvir narração: desligada</button>
       <span class="src-chip">Fonte: COSCIP-PE, texto vigente · NT 1.02 CBMPE</span>
@@ -235,25 +259,22 @@ footer ul { padding-left: 18px; }
 
 <nav class="toc" aria-label="Seções">
   <div class="wrap">
-    <a href="#reguas">As 3 réguas</a>
-    <a href="#saidas" data-r="cam">Saídas</a>
-    <a href="#tabela3" data-r="cam">Tabela 3</a>
-    <a href="#extintores" data-r="cam">Extintores e acionador</a>
-    <a href="#hidrantes" data-r="cam">Hidrantes</a>
-    <a href="#chuveiros" data-r="esp">Chuveiros</a>
-    <a href="#detectores" data-r="esp">Detectores</a>
-    <a href="#sinalizacao" data-r="esp">Sinalização</a>
-    <a href="#iluminacao" data-r="esp">Iluminação</a>
-    <a href="#alturas">Alturas</a>
-    <a href="#google">Texto do Google</a>
-    <a href="#quiz">Teste</a>
-    <a href="#resumo">Resumo</a>
+    <a href="#inicio" data-pg="inicio">Início</a>
+    <a href="#saidas" data-pg="saidas" data-r="cam">Saídas</a>
+    <a href="#extintores" data-pg="extintores" data-r="cam">Extintores e acionador</a>
+    <a href="#hidrantes" data-pg="hidrantes" data-r="cam">Hidrantes</a>
+    <a href="#chuveiros" data-pg="chuveiros" data-r="esp">Chuveiros</a>
+    <a href="#detectores" data-pg="detectores" data-r="esp">Detectores</a>
+    <a href="#sinalizacao" data-pg="sinalizacao" data-r="esp">Sinalização</a>
+    <a href="#iluminacao" data-pg="iluminacao" data-r="esp">Iluminação</a>
+    <a href="#alturas" data-pg="alturas">Alturas</a>
+    <a href="#quiz" data-pg="quiz">Teste</a>
   </div>
 </nav>
 
 <main class="wrap">
 
-<section class="blk" id="reguas">
+<section class="blk" id="reguas" data-pg="inicio">
   <div class="sec-head">
     <div class="tag">Antes de medir</div>
     <h2>As três réguas da fiscalização</h2>
@@ -298,7 +319,26 @@ footer ul { padding-left: 18px; }
   </div>
 </section>
 
-<section class="blk" id="saidas">
+<section class="blk" id="sistemas" data-pg="inicio">
+  <div class="sec-head">
+    <div class="tag">Escolha o sistema</div>
+    <h2>Uma página para cada sistema</h2>
+    <p>Cada página abre só a sua cena 3D. Os links podem ser enviados direto para quem precisa de um sistema específico.</p>
+  </div>
+  <div class="cards">
+    <a class="card-pg" href="#saidas" data-r="cam"><span class="regua" style="--c:var(--cam)">CAMINHAMENTO</span><b>Saídas de emergência</b><span>Distância máxima até a saída, Tabela 3 com calculadora e o que o texto do Google acertou.</span><i>Cena 3D · arts. 25 e 147</i></a>
+    <a class="card-pg" href="#extintores" data-r="cam"><span class="regua" style="--c:var(--cam)">CAMINHAMENTO</span><b>Extintores e acionador manual</b><span>20 m ou 15 m percorridos pelo operador; acionador manual a até 30 m.</span><i>Cena 3D · arts. 32 e 137</i></a>
+    <a class="card-pg" href="#hidrantes" data-r="cam"><span class="regua" style="--c:var(--cam)">CAMINHAMENTO + RETA</span><b>Hidrantes</b><span>Mangueira pelo trajeto real e, depois dela, o jato de até 8 m com visada livre.</span><i>Cena 3D · arts. 49 e 70</i></a>
+    <a class="card-pg" href="#chuveiros" data-r="esp"><span class="regua" style="--c:var(--esp)">ESPAÇAMENTO</span><b>Chuveiros automáticos</b><span>Área por bico, distância entre bicos e metade dessa distância até a parede.</span><i>Cena 3D · art. 121</i></a>
+    <a class="card-pg" href="#detectores" data-r="esp"><span class="regua" style="--c:var(--esp)">ÁREA E RAIO</span><b>Detectores automáticos</b><span>Área de ação e raio de ação dos detectores de temperatura e de fumaça.</span><i>Desenho em escala · art. 137</i></a>
+    <a class="card-pg" href="#sinalizacao" data-r="esp"><span class="regua" style="--c:var(--esp)">ESPAÇAMENTO</span><b>Sinalização de saídas</b><span>Setas a cada 20 m e visíveis na mudança de direção; placa da porta.</span><i>Cena 3D · arts. 207 a 210</i></a>
+    <a class="card-pg" href="#iluminacao" data-r="esp"><span class="regua" style="--c:var(--esp)">ESPAÇAMENTO</span><b>Iluminação de emergência</b><span>Onde o Código para e onde a NBR 10898 entra como referência.</span><i>Cena 3D · arts. 189 a 206</i></a>
+    <a class="card-pg" href="#alturas"><span class="regua" style="--c:#5b6770">ALTURAS</span><b>Alturas de instalação</b><span>Extintor, hidrante, acionador manual e porta corta-fogo.</span><i>Desenho em escala</i></a>
+    <a class="card-pg" href="#quiz"><span class="regua" style="--c:#5b6770">FIXAÇÃO</span><b>Teste rápido</b><span>Nove perguntas, com a explicação e o artigo de cada resposta.</span><i>Sem 3D</i></a>
+  </div>
+</section>
+
+<section class="blk" id="saidas" data-pg="saidas">
   <div class="sec-head">
     <div class="tag"><span class="regua" style="--c:var(--cam)">CAMINHAMENTO</span> Saídas de emergência · arts. 25, VII, e 147 · Tabela 3</div>
     <h2>Distância máxima a ser percorrida até a saída</h2>
@@ -388,7 +428,7 @@ footer ul { padding-left: 18px; }
   </div>
 </section>
 
-<section class="blk" id="tabela3">
+<section class="blk" id="tabela3" data-pg="saidas">
   <div class="sec-head">
     <div class="tag"><span class="regua" style="--c:var(--cam)">CALCULADORA</span> COSCIP, Anexo A, Tabela 3</div>
     <h2>Qual é o limite deste pavimento?</h2>
@@ -414,7 +454,7 @@ footer ul { padding-left: 18px; }
   </div>
 </section>
 
-<section class="blk" id="extintores">
+<section class="blk" id="extintores" data-pg="extintores">
   <div class="sec-head">
     <div class="tag"><span class="regua" style="--c:var(--cam)">CAMINHAMENTO</span> Extintores · art. 32 · Acionador manual · art. 137, II, “b”</div>
     <h2>Até o extintor e até o acionador manual</h2>
@@ -476,7 +516,7 @@ footer ul { padding-left: 18px; }
   </div>
 </section>
 
-<section class="blk" id="hidrantes">
+<section class="blk" id="hidrantes" data-pg="hidrantes">
   <div class="sec-head">
     <div class="tag"><span class="regua" style="--c:var(--cam)">CAMINHAMENTO</span> + <span class="regua" style="--c:var(--reta)">LINHA RETA</span> Hidrantes · arts. 49 e 70</div>
     <h2>Alcance do hidrante: mangueira pelo trajeto real, depois o jato</h2>
@@ -536,7 +576,7 @@ footer ul { padding-left: 18px; }
   </div>
 </section>
 
-<section class="blk" id="chuveiros">
+<section class="blk" id="chuveiros" data-pg="chuveiros">
   <div class="sec-head">
     <div class="tag"><span class="regua" style="--c:var(--esp)">ESPAÇAMENTO E ÁREA</span> Chuveiros automáticos · art. 121</div>
     <h2>Chuveiro automático não tem raio: tem área e espaçamento</h2>
@@ -588,7 +628,7 @@ footer ul { padding-left: 18px; }
   </div>
 </section>
 
-<section class="blk" id="detectores">
+<section class="blk" id="detectores" data-pg="detectores">
   <div class="sec-head">
     <div class="tag"><span class="regua" style="--c:var(--esp)">ÁREA E RAIO</span> Detecção automática · art. 137, I</div>
     <h2>Detector automático: aqui o Código fala em raio</h2>
@@ -644,7 +684,7 @@ footer ul { padding-left: 18px; }
   </div>
 </section>
 
-<section class="blk" id="sinalizacao">
+<section class="blk" id="sinalizacao" data-pg="sinalizacao">
   <div class="sec-head">
     <div class="tag"><span class="regua" style="--c:var(--esp)">ESPAÇAMENTO</span> Sinalização de saídas · arts. 207 a 210</div>
     <h2>Setas a cada 20 m e visíveis na mudança de direção</h2>
@@ -673,7 +713,7 @@ footer ul { padding-left: 18px; }
   </div>
 </section>
 
-<section class="blk" id="iluminacao">
+<section class="blk" id="iluminacao" data-pg="iluminacao">
   <div class="sec-head">
     <div class="tag"><span class="regua" style="--c:var(--esp)">ESPAÇAMENTO</span> Iluminação de emergência · arts. 189 a 206</div>
     <h2>Iluminação de emergência: onde o Código para e a NBR continua</h2>
@@ -715,7 +755,7 @@ footer ul { padding-left: 18px; }
   </div>
 </section>
 
-<section class="blk" id="alturas">
+<section class="blk" id="alturas" data-pg="alturas">
   <div class="sec-head">
     <div class="tag">Medidas verticais</div>
     <h2>Alturas que o Código fixa</h2>
@@ -775,7 +815,7 @@ footer ul { padding-left: 18px; }
   </div>
 </section>
 
-<section class="blk" id="google">
+<section class="blk" id="google" data-pg="saidas">
   <div class="sec-head">
     <div class="tag">Conferência</div>
     <h2>O que o texto do Google acertou</h2>
@@ -796,7 +836,7 @@ footer ul { padding-left: 18px; }
   </table></div>
 </section>
 
-<section class="blk" id="quiz">
+<section class="blk" id="quiz" data-pg="quiz">
   <div class="sec-head">
     <div class="tag">Fixação</div>
     <h2>Teste rápido</h2>
@@ -805,7 +845,7 @@ footer ul { padding-left: 18px; }
   <div class="quiz" id="qz"></div>
 </section>
 
-<section class="blk" id="resumo">
+<section class="blk" id="resumo" data-pg="inicio">
   <div class="sec-head">
     <div class="tag">Para consultar em campo</div>
     <h2>Resumo: qual régua, qual limite</h2>
@@ -829,6 +869,8 @@ footer ul { padding-left: 18px; }
     </tbody>
   </table></div>
 </section>
+
+<nav class="pager" id="pager" aria-label="Página anterior e próxima"></nav>
 
 </main>
 
@@ -947,6 +989,43 @@ footer ul { padding-left: 18px; }
   root.SIMB = S; root.SIMB_SIST = SIST; root.desenhaSimbolo = desenhaSimbolo; root.SIMB_FONTE = id => S[id].f || 'NT 1.02 CBMPE (BGE 041/2022), Anexo A';
 })(typeof window !== 'undefined' ? window : globalThis);
 </script>
+<script>// ===== Uma página por sistema: o endereço (#saidas, #hidrantes…) escolhe o que aparece =====
+// Só as seções da página aberta ficam visíveis; as cenas 3D das outras páginas não são criadas.
+(function () {
+  const PAGES = [
+    ['inicio', 'Início'], ['saidas', 'Saídas de emergência'], ['extintores', 'Extintores e acionador manual'], ['hidrantes', 'Hidrantes'],
+    ['chuveiros', 'Chuveiros automáticos'], ['detectores', 'Detectores automáticos'], ['sinalizacao', 'Sinalização de saídas'],
+    ['iluminacao', 'Iluminação de emergência'], ['alturas', 'Alturas de instalação'], ['quiz', 'Teste rápido'],
+  ];
+  const ids = PAGES.map(p => p[0]), name = id => PAGES.find(p => p[0] === id)[1];
+  const secs = [...document.querySelectorAll('section.blk[data-pg]')], links = [...document.querySelectorAll('nav.toc a[data-pg]')], pager = document.getElementById('pager');
+  const baseTitle = document.title;
+  let cur = null;
+  function route(first) {
+    const h = decodeURIComponent(location.hash.slice(1));
+    const el = h ? document.getElementById(h) : null, sec = el && el.closest('section.blk[data-pg]');
+    const pg = sec ? sec.dataset.pg : (ids.includes(h) ? h : 'inicio');
+    const changed = pg !== cur; cur = pg;
+    if (changed) {
+      document.body.dataset.pg = pg;
+      for (const s of secs) s.hidden = s.dataset.pg !== pg;
+      for (const a of links) { if (a.dataset.pg === pg) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); }
+      const cur_a = links.find(a => a.dataset.pg === pg); if (cur_a) cur_a.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+      const i = ids.indexOf(pg), prev = ids[i - 1], next = ids[i + 1];
+      pager.innerHTML = pg === 'inicio' ? '' :
+        (prev ? `<a class="prev" href="#${prev}"><small>← Anterior</small><b>${name(prev)}</b></a>` : '') +
+        (next ? `<a class="next" href="#${next}"><small>Próxima →</small><b>${name(next)}</b></a>` : `<a class="next" href="#inicio"><small>Fim</small><b>Voltar ao início</b></a>`);
+      document.title = pg === 'inicio' ? baseTitle : name(pg) + ' · ' + baseTitle;
+    }
+    // página inteira: volta ao topo; trecho dentro da página (ex.: #tabela3): vai até ele
+    const target = el && sec && el !== sec.closest('main').querySelector(`section[data-pg="${pg}"]`) ? el : null;
+    const go = () => { if (target) target.scrollIntoView({ behavior: 'instant', block: 'start' }); else if (changed && !first) window.scrollTo({ top: 0, behavior: 'instant' }); };
+    if (first) requestAnimationFrame(go); else go();
+  }
+  window.addEventListener('hashchange', () => route(false));
+  route(true);
+})();
+</script>
 <script>// ===== Interface sem 3D: calculadora da Tabela 3, teste e narração =====
 (function () {
   const TAB3 = {
@@ -1011,9 +1090,11 @@ footer ul { padding-left: 18px; }
   if (!('speechSynthesis' in window)) nb.style.display = 'none';
 })();
 </script>
-<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
-<script type="module">import * as THREE from 'three';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script type="module">
+// O three.js só é baixado quando a primeira cena 3D aparece na tela (páginas sem 3D não carregam nada).
+let THREE = null, OrbitControls = null;
+const load3D = () => load3D.p || (load3D.p = Promise.all([import('three'), import('three/addons/controls/OrbitControls.js')]).then(([t, o]) => { THREE = t; OrbitControls = o.OrbitControls; }));
 // ===== Geometria: caminhamento real (menor trajeto contornando paredes e obstáculos) =====
 // Unidades em metros. Paredes = segmentos (eixo da parede). Portas = vãos entre segmentos.
 
@@ -1201,7 +1282,8 @@ function planEscritorio() {
 if (typeof module !== 'undefined') module.exports = { Plan, planEscritorio, polyLen, hwall, vwall, buildWalls, segX };
 
 // ===== Palco 3D (three.js): planta semirrealista, câmeras 3D/planta, rótulos, trajeto, boneco =====
-const fmt = (v, d = 1) => (isFinite(v) ? v : 0).toLocaleString('pt-BR', { minimumFractionDigits: d, maximumFractionDigits: d });
+const NF = {}; // formatadores de número guardados: toLocaleString cria um formatador novo a cada chamada (lento)
+const fmt = (v, d = 1) => (NF[d] || (NF[d] = new Intl.NumberFormat('pt-BR', { minimumFractionDigits: d, maximumFractionDigits: d }))).format(isFinite(v) ? v : 0);
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 const ease = t => t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
 const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1227,6 +1309,25 @@ function textTexture(THREE, text, { w = 512, h = 128, bg = '#ffffff', fg = '#c00
   g.fillStyle = bg; g.fillRect(0, 0, w, h); g.fillStyle = fg; g.font = font; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(text, w / 2, h / 2 + 4);
   const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
 }
+// Caixa (parede, pilar) desenhada numa só chamada: laterais e topo pintados por cor de vértice,
+// em vez de um material por face (6 chamadas por caixa em cada passada de desenho e de sombra).
+function boxGeo(T, w, h, d, side = 0xf3f1ec, top = 0x2c3238) {
+  const g = new T.BoxGeometry(w, h, d), n = g.attributes.position.count, col = new Float32Array(n * 3), cs = new T.Color(side), ct = new T.Color(top);
+  for (let v = 0; v < n; v++) { const c = (v >> 2) === 2 ? ct : cs; col[v * 3] = c.r; col[v * 3 + 1] = c.g; col[v * 3 + 2] = c.b; } // 4 vértices por face; a 3ª face é o topo (+y)
+  g.setAttribute('color', new T.BufferAttribute(col, 3)); g.clearGroups(); return g;
+}
+// Junta várias geometrias (já posicionadas) numa só, para desenhar tudo de uma vez.
+function mergeGeos(T, geos) {
+  const out = new T.BufferGeometry(), idx = []; let off = 0;
+  for (const name of Object.keys(geos[0].attributes)) {
+    const a0 = geos[0].attributes[name], arr = new Float32Array(geos.reduce((s, g) => s + g.attributes[name].array.length, 0)); let o = 0;
+    for (const g of geos) { arr.set(g.attributes[name].array, o); o += g.attributes[name].array.length; }
+    out.setAttribute(name, new T.BufferAttribute(arr, a0.itemSize));
+  }
+  for (const g of geos) { const I = g.index.array; for (let i = 0; i < I.length; i++) idx.push(I[i] + off); off += g.attributes.position.count; g.dispose(); }
+  out.setIndex(idx); return out;
+}
+function disposeTree(o) { o.traverse(x => { if (x.geometry) x.geometry.dispose(); }); }
 
 class Stage {
   constructor(THREE, OrbitControls, host, opt) {
@@ -1254,9 +1355,11 @@ class Stage {
     this.ctl = new OrbitControls(this.persp, canvas); this.ctl.enableDamping = true; this.ctl.maxPolarAngle = Math.PI * 0.47; this.ctl.minDistance = 4; this.ctl.maxDistance = span * 3;
     this.ctlO = new OrbitControls(this.ortho, canvas); this.ctlO.enableRotate = false; this.ctlO.enabled = false; this.ctlO.screenSpacePanning = true; this.ctlO.minZoom = 0.6; this.ctlO.maxZoom = 6;
     this.userMoved = false;
-    for (const c of [this.ctl, this.ctlO]) c.addEventListener('start', () => { this.userMoved = true; this.fly = null; this.kick(); });
+    for (const c of [this.ctl, this.ctlO]) { c.addEventListener('start', () => { this.userMoved = true; this.fly = null; this.kick(); }); c.addEventListener('change', () => { if (!this._upd) this.kick(); }); } // arraste e roda do mouse acordam a cena
+    if (document.fonts && document.fonts.addEventListener) document.fonts.addEventListener('loadingdone', () => { for (const L of this.labels) L.size = null; this.kick(); }); // rótulos medidos antes da fonte carregar
     this.labels = []; this.anims = new Set(); this.planOnly = []; this.only3d = [];
     this.root = new T.Group(); sc.add(this.root);
+    this.wallMat = new T.MeshStandardMaterial({ vertexColors: true, roughness: 0.85 });
     this._resize = () => this.resize(); this.ro = new ResizeObserver(this._resize); this.ro.observe(host);
     this.resize();
     // toque para medir
@@ -1282,6 +1385,7 @@ class Stage {
   resize() {
     const w = this.host.clientWidth, h = this.host.clientHeight; if (!w || !h) return;
     this.renderer.setSize(w, h, false); this.persp.aspect = w / h; this.persp.updateProjectionMatrix();
+    for (const L of this.labels) L.size = null; // a fonte dos rótulos muda com a largura da tela
     // planta: deixa uma faixa livre no alto para o painel de medida
     const m = 1.06, a = w / h, W = this.W * m, H = this.H * m, padK = 0.17;
     const total = Math.max(W / a, H / (1 - padK)), hw = total * a / 2, s = total * padK / 2;
@@ -1317,40 +1421,41 @@ class Stage {
     const floor = new T.Mesh(new T.PlaneGeometry(plan.W, plan.H), floorMat); floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true; g.add(floor);
     const ground = new T.Mesh(new T.PlaneGeometry(plan.W * 4, plan.H * 6), new T.MeshStandardMaterial({ color: cssVar('--ground', '#c9d1d5'), roughness: 1 }));
     ground.rotation.x = -Math.PI / 2; ground.position.y = -0.02; ground.receiveShadow = true; g.add(ground);
-    const side = new T.MeshStandardMaterial({ color: 0xf3f1ec, roughness: 0.85 }), top = new T.MeshStandardMaterial({ color: 0x2c3238, roughness: 0.7 });
-    const mats = [side, side, top, side, side, side];
     this.wallMeshes = [];
     for (const s of plan.walls) {
-      const L = Math.hypot(s[2] - s[0], s[3] - s[1]) + th, m = new T.Mesh(new T.BoxGeometry(L, wallH, th), mats);
+      const L = Math.hypot(s[2] - s[0], s[3] - s[1]) + th, m = new T.Mesh(boxGeo(T, L, wallH, th), this.wallMat);
       m.position.copy(this.w((s[0] + s[2]) / 2, (s[1] + s[3]) / 2, wallH / 2)); m.rotation.y = -Math.atan2(s[3] - s[1], s[2] - s[0]);
       m.castShadow = m.receiveShadow = true; m.userData.seg = s; g.add(m); this.wallMeshes.push(m);
     }
-    // portas: folha aberta + arco no piso (convenção de planta)
+    // portas: folha aberta + arco no piso (convenção de planta). Todas as folhas numa malha só; todos os arcos numa linha só.
     const leaf = new T.MeshStandardMaterial({ color: 0xa9774d, roughness: 0.6 }), arcM = new T.LineBasicMaterial({ color: 0x6b737b, transparent: true, opacity: 0.8 });
+    const leaves = [], arcs = [];
     for (const d of plan.doors) {
       if (d.noLeaf) continue;
-      const w = d.w * 0.92, ax = d.axis === 'x', hx = ax ? d.x - d.w / 2 : d.x, hy = ax ? d.y : d.y - d.w / 2, sgn = d.swing || -1;
-      const m = new T.Mesh(new T.BoxGeometry(0.04, Math.min(wallH, 2.1), w), leaf);
-      if (ax) m.position.copy(this.w(hx + 0.03, hy + sgn * w / 2, Math.min(wallH, 2.1) / 2)); else { m.rotation.y = Math.PI / 2; m.position.copy(this.w(hx + sgn * w / 2, hy + 0.03, Math.min(wallH, 2.1) / 2)); }
-      m.castShadow = true; g.add(m);
-      const pts = []; for (let i = 0; i <= 20; i++) { const a = i / 20 * Math.PI / 2; pts.push(ax ? this.w(hx + Math.sin(a) * w, hy + sgn * Math.cos(a) * w, 0.015) : this.w(hx + sgn * Math.cos(a) * w, hy + Math.sin(a) * w, 0.015)); }
-      g.add(new T.Line(new T.BufferGeometry().setFromPoints(pts), arcM));
+      const w = d.w * 0.92, ax = d.axis === 'x', hx = ax ? d.x - d.w / 2 : d.x, hy = ax ? d.y : d.y - d.w / 2, sgn = d.swing || -1, lh = Math.min(wallH, 2.1);
+      const lg = new T.BoxGeometry(0.04, lh, w);
+      if (ax) { const p = this.w(hx + 0.03, hy + sgn * w / 2, lh / 2); lg.translate(p.x, p.y, p.z); } else { const p = this.w(hx + sgn * w / 2, hy + 0.03, lh / 2); lg.rotateY(Math.PI / 2).translate(p.x, p.y, p.z); }
+      leaves.push(lg);
+      let prev = null; for (let i = 0; i <= 20; i++) { const a = i / 20 * Math.PI / 2, q = ax ? this.w(hx + Math.sin(a) * w, hy + sgn * Math.cos(a) * w, 0.015) : this.w(hx + sgn * Math.cos(a) * w, hy + Math.sin(a) * w, 0.015); if (prev) arcs.push(prev, q); prev = q; }
     }
+    if (leaves.length) { const m = new T.Mesh(mergeGeos(T, leaves), leaf); m.castShadow = true; g.add(m); }
+    if (arcs.length) g.add(new T.LineSegments(new T.BufferGeometry().setFromPoints(arcs), arcM));
     // pilares, shafts
-    const conc = new T.MeshStandardMaterial({ color: 0x9da6ad, roughness: 0.9 });
     for (const ob of plan.obst) {
-      const h = ob.kind === 'shaft' ? wallH : wallH + 0.01, m = new T.Mesh(new T.BoxGeometry(ob.w, h, ob.h), [conc, conc, top, conc, conc, conc]);
+      const h = ob.kind === 'shaft' ? wallH : wallH + 0.01, m = new T.Mesh(boxGeo(T, ob.w, h, ob.h, 0x9da6ad), this.wallMat);
       m.position.copy(this.w(ob.x + ob.w / 2, ob.y + ob.h / 2, h / 2)); m.castShadow = m.receiveShadow = true; g.add(m);
       if (ob.kind === 'shaft') { const x = new T.LineSegments(new T.EdgesGeometry(new T.BoxGeometry(ob.w * 0.9, 0.01, ob.h * 0.9)), new T.LineBasicMaterial({ color: 0x555b61 })); x.position.copy(this.w(ob.x + ob.w / 2, ob.y + ob.h / 2, h + 0.01)); g.add(x); }
     }
-    // mobiliário (decorativo)
-    const fm = new T.MeshStandardMaterial({ color: 0xd8d2c7, roughness: 0.75 });
-    for (const f of plan.def.furniture || []) { const m = new T.Mesh(new T.BoxGeometry(f.w, f.ht, f.h), fm); m.position.copy(this.w(f.x + f.w / 2, f.y + f.h / 2, f.ht / 2)); m.castShadow = m.receiveShadow = true; g.add(m); }
-    // escada
+    // mobiliário (decorativo), numa malha só
+    const fm = new T.MeshStandardMaterial({ color: 0xd8d2c7, roughness: 0.75 }), fgs = [];
+    for (const f of plan.def.furniture || []) { const p = this.w(f.x + f.w / 2, f.y + f.h / 2, f.ht / 2); fgs.push(new T.BoxGeometry(f.w, f.ht, f.h).translate(p.x, p.y, p.z)); }
+    if (fgs.length) { const m = new T.Mesh(mergeGeos(T, fgs), fm); m.castShadow = m.receiveShadow = true; g.add(m); }
+    // escada (degraus numa malha só)
     const st = plan.def.stair;
     if (st) {
-      const sm = new T.MeshStandardMaterial({ color: 0xbfc6cb, roughness: 0.8 }), n = 9;
-      for (let i = 0; i < n; i++) { const h = Math.min(wallH - 0.05, 0.17 * (i + 1)); const m = new T.Mesh(new T.BoxGeometry(st.w * 0.5 - 0.15, h, (st.h - 0.6) / n), sm); m.position.copy(this.w(st.x + st.w * 0.75, st.y + 0.3 + (i + 0.5) * (st.h - 0.6) / n, h / 2)); m.castShadow = m.receiveShadow = true; g.add(m); }
+      const sm = new T.MeshStandardMaterial({ color: 0xbfc6cb, roughness: 0.8 }), n = 9, sgs = [];
+      for (let i = 0; i < n; i++) { const h = Math.min(wallH - 0.05, 0.17 * (i + 1)), p = this.w(st.x + st.w * 0.75, st.y + 0.3 + (i + 0.5) * (st.h - 0.6) / n, h / 2); sgs.push(new T.BoxGeometry(st.w * 0.5 - 0.15, h, (st.h - 0.6) / n).translate(p.x, p.y, p.z)); }
+      const steps = new T.Mesh(mergeGeos(T, sgs), sm); steps.castShadow = steps.receiveShadow = true; g.add(steps);
       const land = new T.Mesh(new T.BoxGeometry(st.w * 0.5 - 0.15, 0.04, st.h - 0.6), sm); land.position.copy(this.w(st.x + st.w * 0.27, st.y + st.h / 2, 0.02)); land.receiveShadow = true; g.add(land);
       const sign = new T.Mesh(new T.PlaneGeometry(1.2, 1.2), new T.MeshBasicMaterial({ map: textTexture(T, 'ESCADA', { w: 256, h: 256, bg: '#12a83a', fg: '#fff', font: '800 54px Barlow, Arial' }), transparent: true, opacity: 0.95, toneMapped: false }));
       sign.rotation.x = -Math.PI / 2; sign.position.copy(this.w(st.x + st.w * 0.27, st.y + st.h / 2, 0.05)); g.add(sign);
@@ -1359,10 +1464,10 @@ class Stage {
     return g;
   }
   ghostWalls(pred, on) {
+    if (!this.ghostMat) { const c = this.ghostMat = this.wallMat.clone(); c.transparent = true; c.opacity = 0.13; c.depthWrite = false; }
     for (const m of this.wallMeshes) {
       const ghost = on && pred(m.userData.seg);
-      if (ghost && !m.userData.ghostMats) { m.userData.mats = m.material; m.userData.ghostMats = m.material.map(x => { const c = x.clone(); c.transparent = true; c.opacity = 0.13; c.depthWrite = false; return c; }); }
-      m.material = ghost ? m.userData.ghostMats : (m.userData.mats || m.material); m.castShadow = !ghost;
+      m.material = ghost ? this.ghostMat : this.wallMat; m.castShadow = !ghost;
     }
     this.kick();
   }
@@ -1378,12 +1483,14 @@ class Stage {
     o.set(1); return o;
   }
   dashLine(a, b, color = 0x1971c2, h = 0.08) {
-    const T = this.T, g = new T.Group(), A = this.w(a[0], a[1], h), B = this.w(b[0], b[1], h), L = A.distanceTo(B), n = Math.max(1, Math.floor(L / 0.6));
+    // todos os traços numa malha instanciada: uma chamada de desenho para a linha inteira
+    const T = this.T, A = this.w(a[0], a[1], h), B = this.w(b[0], b[1], h), L = A.distanceTo(B), n = Math.max(1, Math.floor(L / 0.6));
     const mat = new T.MeshBasicMaterial({ color, depthTest: false, transparent: true, opacity: 0.95 }), geo = new T.CylinderGeometry(0.06, 0.06, 0.36, 6);
-    const dir = B.clone().sub(A).normalize(), q = new T.Quaternion().setFromUnitVectors(new T.Vector3(0, 1, 0), dir);
-    for (let i = 0; i < n; i++) { const m = new T.Mesh(geo, mat); m.quaternion.copy(q); m.position.copy(A.clone().addScaledVector(dir, (i + 0.5) * L / n)); m.renderOrder = 10; g.add(m); }
+    const dir = B.clone().sub(A).normalize(), q = new T.Quaternion().setFromUnitVectors(new T.Vector3(0, 1, 0), dir), one = new T.Vector3(1, 1, 1), M = new T.Matrix4();
+    const g = new T.InstancedMesh(geo, mat, n); g.frustumCulled = false; g.renderOrder = 10;
+    for (let i = 0; i < n; i++) g.setMatrixAt(i, M.compose(A.clone().addScaledVector(dir, (i + 0.5) * L / n), q, one));
     this.root.add(g);
-    return { g, len: L, set: t => { const k = Math.floor(clamp(t, 0, 1) * n); g.children.forEach((c, i) => c.visible = i < k); g.visible = t > 0; }, dispose: () => { this.root.remove(g); geo.dispose(); mat.dispose(); } };
+    return { g, len: L, set: t => { const k = Math.floor(clamp(t, 0, 1) * n); g.count = k; g.visible = t > 0 && k > 0; }, dispose: () => { this.root.remove(g); geo.dispose(); mat.dispose(); g.dispose(); } };
   }
   ring(x, y, R, color = 0x1971c2, w = 0.09) {
     const T = this.T, m = new T.Mesh(new T.RingGeometry(R - w, R + w, 160), new T.MeshBasicMaterial({ color, transparent: true, opacity: 0.9, depthTest: false, side: T.DoubleSide }));
@@ -1435,10 +1542,31 @@ class Stage {
   }
   label(html, x, y, h = 1.8, cls = '') {
     const el = document.createElement('div'); el.className = 'lbl ' + cls; el.innerHTML = html; this.labelLayer.appendChild(el);
-    const L = { el, pos: this.w(x, y, h), on: true, set: s => { el.innerHTML = s; }, show: v => { L.on = v; el.style.display = v ? '' : 'none'; }, move: (x2, y2, h2 = h) => L.pos.copy(this.w(x2, y2, h2)), remove: () => { el.remove(); this.labels = this.labels.filter(z => z !== L); } };
+    const L = { el, pos: this.w(x, y, h), on: true, cur: html, size: null,
+      set: s => { if (s !== L.cur) { L.cur = s; L.html = s; this.kick(); } }, // o texto novo entra no próximo quadro, junto com a medição
+      show: v => { if (v === L.on) return; L.on = v; el.style.display = v ? '' : 'none'; if (v) this.kick(); },
+      move: (x2, y2, h2 = h) => L.pos.copy(this.w(x2, y2, h2)), remove: () => { el.remove(); this.labels = this.labels.filter(z => z !== L); } };
     this.labels.push(L); return L;
   }
   clearLabels() { for (const L of this.labels) L.el.remove(); this.labels = []; }
+  // Posiciona os rótulos sobre a cena. Primeiro lê todas as medidas, depois escreve todas as posições:
+  // ler o tamanho de um rótulo logo depois de mover outro obriga o navegador a refazer o leiaute a cada rótulo.
+  placeLabels() {
+    const w = this.host.clientWidth, h = this.host.clientHeight, v = this._v || (this._v = new this.T.Vector3()), on = [];
+    for (const L of this.labels) {
+      if (!L.on) continue;
+      if (L.html !== undefined) { L.el.innerHTML = L.html; L.html = undefined; L.size = null; }
+      if (!L.size) L.size = [L.el.offsetWidth, L.el.offsetHeight]; // tamanho só é medido quando o texto muda
+      on.push(L);
+    }
+    for (const L of on) {
+      v.copy(L.pos).project(this.cam); const hide = v.z > 1 || v.x < -1.15 || v.x > 1.15 || v.y < -1.15 || v.y > 1.15;
+      const [ew, eh] = L.size, px = clamp((v.x * 0.5 + 0.5) * w, ew / 2 + 4, w - ew / 2 - 4), py = clamp((-v.y * 0.5 + 0.5) * h, eh + 4, h - 4);
+      const op = hide ? '0' : '1', tf = `translate(${px.toFixed(1)}px, ${py.toFixed(1)}px) translate(-50%, -100%)`;
+      if (L.op !== op) { L.el.style.opacity = op; L.op = op; }
+      if (L.tf !== tf) { L.el.style.transform = tf; L.tf = tf; }
+    }
+  }
   kick() { this.dirty = true; if (this.visible && !this.raf) this.raf = requestAnimationFrame(this.loop); }
   start() { this.visible = true; this.kick(); }
   stop() { this.visible = false; }
@@ -1446,16 +1574,19 @@ class Stage {
     this.raf = 0; const dt = Math.min(0.05, (now - this.last) / 1000); this.last = now; this.time += dt;
     let busy = false;
     if (this.fly) { const f = this.fly; f.t += dt / f.dur; const k = ease(clamp(f.t, 0, 1)); this.persp.position.lerpVectors(f.p0, f.p1, k); this.ctl.target.lerpVectors(f.t0, f.t1, k); if (f.t >= 1) this.fly = null; busy = true; }
-    const c = this.view === 'plan' ? this.ctlO : this.ctl; if (c.update()) busy = true;
+    // Na planta (câmera olhando reto para baixo) o update() sempre diz que mudou, por arredondamento;
+    // como esse controle não tem inércia, quem acorda a cena é o evento "change" do próprio arraste.
+    this._upd = true; if (this.view === 'plan') this.ctlO.update(); else if (this.ctl.update()) busy = true; this._upd = false;
     if (this.tick && this.tick(dt) !== false) busy = true;
     for (const a of this.anims) if (a(dt, this.time) !== false) busy = true;
     if (busy || this.dirty) {
       this.renderer.render(this.scene, this.cam); this.dirty = false;
-      const w = this.host.clientWidth, h = this.host.clientHeight, v = new this.T.Vector3();
-      for (const L of this.labels) { if (!L.on) continue; v.copy(L.pos).project(this.cam); const hide = v.z > 1 || v.x < -1.15 || v.x > 1.15 || v.y < -1.15 || v.y > 1.15; L.el.style.opacity = hide ? 0 : 1; const ew = L.el.offsetWidth, eh = L.el.offsetHeight; const px = clamp((v.x * 0.5 + 0.5) * w, ew / 2 + 4, w - ew / 2 - 4), py = clamp((-v.y * 0.5 + 0.5) * h, eh + 4, h - 4); L.el.style.transform = `translate(${px}px, ${py}px) translate(-50%, -100%)`; }
+      this.placeLabels();
     }
-    if (this.visible && (busy || this.dirty)) this.raf = requestAnimationFrame(this.loop);
-    else if (this.visible) this.raf = requestAnimationFrame(this.loop); // mantém responsivo ao toque/controle
+    // Agenda o próximo quadro uma vez só. Antes, o tocador (kick) e o fim do laço agendavam cada um o seu:
+    // as execuções dobravam a cada quadro (1, 2, 4, 8…) e a página travava enquanto a cena tocava.
+    // Parada, a cena não gasta nada; mexer na câmera (evento "change") ou tocar a cena a acorda.
+    if (this.visible && !this.raf && (busy || this.dirty)) this.raf = requestAnimationFrame(this.loop);
   }
 }
 
@@ -1710,9 +1841,9 @@ function sceneHidrantes(T, OC, fig) {
     for (let i = 0; i < N; i++) { const t = ((time * 0.9 + seed[i]) % 1) * jetOn; const s = (seed[i] - 0.5) * 0.5 * t; arr[i * 3] = a.x + (b.x - a.x) * t + s; arr[i * 3 + 2] = a.z + (b.z - a.z) * t - s; arr[i * 3 + 1] = a.y + (b.y - a.y) * t + Math.sin(t * Math.PI) * d * 0.12; }
     geo.attributes.position.needsUpdate = true; return true;
   });
+  const A1 = '<span class="o">30 m de mangueira</span> pelo trajeto real', A2 = A1 + '<br><span class="bl">+ jato até 8 m</span> com visada livre';
   const L = {
-    a: st.label('<b>30 m de mangueira</b><br>pelo trajeto real', hp[0] - 2, hp[1], 1.9, 'orange'),
-    b: st.label('<b>+ jato até 8 m</b><br>com visada livre', hp[0] - 2, hp[1] - 1.2, 3.0, 'blue'),
+    a: st.label(A1, hp[0] - 0.4, hp[1] - 0.3, 2.5, 'dark'),
     in1: st.label('entrou <b>1 m</b> na sala', T1[0] + 0.6, T1[1], 1.4, 'orange small'),
     jet: st.label(`jato <b>${fmt(jetD)} m</b> ≤ 8 m`, (T2[0] + corner[0]) / 2, (T2[1] + corner[1]) / 2, 1.5, 'blue'),
     ring: st.label('círculo de 30 m em linha reta<br><span class="x">não vale</span>', hp[0] - 21, hp[1] - 6, 1.6, 'blue'),
@@ -1723,16 +1854,16 @@ function sceneHidrantes(T, OC, fig) {
   const all = () => { heat.hide(); walker.hide(); tube1.set(0); tube2.set(0); jetMesh.visible = false; jetLine.set(0); ring.visible = false; drops.visible = false; Object.values(L).forEach(x => x.show(false)); meas.forEach(o => o.dispose ? o.dispose() : st.root.remove(o)); meas = []; };
   const unc = () => { let u = 0; for (let k = 0; k < F.g.length; k++) if (!isNaN(F.g[k]) && !J.reach[k] && !J.jet[k]) u++; return u * P.cell * P.cell; };
   const steps = [
-    { title: 'Alcance = mangueira + jato', dur: 6, cam: { az: -50, el: 40, dist: 22, at: [25, 8] }, caption: 'Para hidrante interno, a linha de mangueira alcança no máximo <b>30 m</b> a partir do registro, no plano horizontal e totalmente estendida (art. 49, I, “a”). Depois, conta o <b>jato de até 8 m</b> (art. 70, § 1º).' },
+    { title: 'Alcance = mangueira + jato', dur: 6, cam: { az: -125, el: 42, dist: 27, at: [26.5, 8.4] }, caption: 'Para hidrante interno, a linha de mangueira alcança no máximo <b>30 m</b> a partir do registro, no plano horizontal e totalmente estendida (art. 49, I, “a”). Depois, conta o <b>jato de até 8 m</b> (art. 70, § 1º).' },
     { title: 'A mangueira segue o trajeto real', dur: 10, cam: { az: -32, el: 50 }, caption: 'A mangueira vai pelo <b>caminhamento normal</b>, pelas circulações e portas. Até 1 m dentro da Sala 1 foram <b>' + fmt(p1.len) + ' m</b>.' },
-    { title: 'Avance e lance o jato', dur: 9, cam: { az: -20, el: 52, dist: 24, at: [6, 4] }, caption: `Sobram ${fmt(rest)} m de mangueira. Do esguicho até o canto mais distante da sala: <b>${fmt(jetD)} m</b>, com contato visual e sem barreiras. Ponto coberto.` },
+    { title: 'Avance e lance o jato', dur: 9, cam: { az: -22, el: 54, dist: 29, at: [8, 5] }, caption: `Sobram ${fmt(rest)} m de mangueira. Do esguicho até o canto mais distante da sala: <b>${fmt(jetD)} m</b>, com contato visual e sem barreiras. Ponto coberto.` },
     { title: 'Mapa de cobertura', dur: 8, view: 'plan', caption: 'Laranja: a mangueira chega. Azul: só o jato chega (até 8 m, com visada livre). <b>Vermelho: ninguém chega</b> e o projeto precisa de outro hidrante (art. 49, § 1º).' },
     { title: 'O que não vale', dur: 7, view: '3d', cam: { az: -25, el: 60 }, caption: 'Círculo em linha reta não mede alcance de mangueira. Mangueira não passa por janela, mureta ou guarda-corpo. O jato não atravessa parede.' },
   ];
   const apply = (i, k) => {
     if (hp[0] !== 28.2 || hp[1] !== 8.8) { hp = [28.2, 8.8]; build(); }
     all(); jetFrom = T2; jetTo = corner;
-    if (i === 0) { L.a.show(k > 0.15); L.b.show(k > 0.5); hud(fig, { val: HOSE, title: 'Comprimento máximo da linha', note: 'hidrante interno: 30 m · jato: até 8 m' }); }
+    if (i === 0) { L.a.set(k > 0.5 ? A2 : A1); L.a.show(k > 0.15); hud(fig, { val: HOSE, title: 'Comprimento máximo da linha', note: 'hidrante interno: 30 m · jato: até 8 m' }); }
     if (i === 1) { tube1.set(k); const p = tube1.at(k), t = tube1.tan(k); walker.place(p.x + st.cx, p.z + st.cy, t.x, t.z, k * 6); if (k > 0.9) L.in1.show(true); hud(fig, { val: p1.len * k, lim: HOSE, title: 'Mangueira estendida', okText: 'Ainda há mangueira', badText: 'Acabou a mangueira' }); }
     if (i === 2) { tube2.set(1); const p = tube2.at(1); walker.place(T2[0] - 0.4, T2[1] + 0.3, dir[0], dir[1], 0); jetOn = clamp(k * 2, 0, 1); drops.visible = k > 0.15; jetMesh.visible = k > 0.35; jetMesh.material.opacity = 0.3 * clamp((k - 0.35) * 3, 0, 1); jetLine.set(clamp((k - 0.3) * 2, 0, 1)); L.jet.show(k > 0.6); hud(fig, { val: jetD * clamp((k - 0.3) * 2, 0, 1), lim: JET, title: 'Alcance do jato', mode: 'reta' }); }
     if (i === 3) { heat.paint(cover()); const u = unc(); hud(fig, { val: u, title: 'Área sem cobertura', unit: 'm²', note: 'mangueira + jato', pill: { ok: u === 0, text: u === 0 ? 'Todo o pavimento coberto' : 'Há área descoberta' } }); }
@@ -1784,14 +1915,13 @@ function sceneChuveiros(T, OC, fig) {
   ];
   const H = 3.0;
   const build = () => {
-    while (grp.children.length) grp.remove(grp.children[0]); st.clearLabels(); st.planOnly.forEach(o => st.root.remove(o)); st.planOnly = [];
+    disposeTree(grp); while (grp.children.length) grp.remove(grp.children[0]); st.clearLabels(); st.planOnly.forEach(o => st.root.remove(o)); st.planOnly = [];
     const { L, W, r } = room; lay = spkLayout(L, W, r); ox = 2; oy = 2;
     st.W = L + 4; st.H = W + 4.6; st.cx = st.W / 2; st.cy = st.H / 2; st.resize();
     const ctr = [ox + L / 2, oy + W / 2], D0 = Math.max(L, W * 1.5) * 1.75 + 6;
     steps[0].cam = { az: -35, el: 42, dist: D0, at: ctr }; steps[3].cam = { az: -40, el: 34, dist: D0 * 0.95, at: ctr };
     const fl = new T.Mesh(new T.PlaneGeometry(L, W), floorMat); floorMat.map.repeat.set(L / 2.4, W / 2.4); fl.rotation.x = -Math.PI / 2; fl.position.copy(st.w(ox + L / 2, oy + W / 2, 0.002)); fl.receiveShadow = true; grp.add(fl);
-    const side = new T.MeshStandardMaterial({ color: 0xf3f1ec, roughness: 0.85 }), top = new T.MeshStandardMaterial({ color: 0x2c3238 }), mats = [side, side, top, side, side, side];
-    const wall = (x1, y1, x2, y2, h) => { const len = Math.hypot(x2 - x1, y2 - y1) + 0.15, m = new T.Mesh(new T.BoxGeometry(len, h, 0.15), mats); m.position.copy(st.w((x1 + x2) / 2, (y1 + y2) / 2, h / 2)); m.rotation.y = -Math.atan2(y2 - y1, x2 - x1); m.castShadow = m.receiveShadow = true; grp.add(m); };
+    const wall = (x1, y1, x2, y2, h) => { const len = Math.hypot(x2 - x1, y2 - y1) + 0.15, m = new T.Mesh(boxGeo(T, len, h, 0.15, 0xf3f1ec), st.wallMat); m.position.copy(st.w((x1 + x2) / 2, (y1 + y2) / 2, h / 2)); m.rotation.y = -Math.atan2(y2 - y1, x2 - x1); m.castShadow = m.receiveShadow = true; grp.add(m); };
     wall(ox, oy, ox + L, oy, H + 0.2); wall(ox, oy, ox, oy + W, H + 0.2); wall(ox, oy + W, ox + L, oy + W, 0.6); wall(ox + L, oy, ox + L, oy + W, 0.6);
     const pipe = new T.MeshStandardMaterial({ color: 0xc92a2a, roughness: 0.5, metalness: 0.2 }), brass = new T.MeshStandardMaterial({ color: 0xc9a227, metalness: 0.6, roughness: 0.35 });
     spk = []; cells = [];
@@ -1863,20 +1993,19 @@ function sceneSinalizacao(T, OC, fig) {
   const ground = new T.Mesh(new T.PlaneGeometry(200, 120), new T.MeshStandardMaterial({ color: cssVar('--ground', '#c9d1d5'), roughness: 1 })); ground.rotation.x = -Math.PI / 2; ground.position.y = -0.02; ground.receiveShadow = true; st.root.add(ground);
   const signTex = id => { const t = symbolTexture(T, id); t.repeat.set(0.64, 0.33); t.offset.set(0.18, 0.335); return t; };
   const build = () => {
-    while (grp.children.length) grp.remove(grp.children[0]); st.clearLabels(); signs = []; nearWalls = [];
+    disposeTree(grp); while (grp.children.length) grp.remove(grp.children[0]); st.clearLabels(); signs = []; nearWalls = [];
     st.W = Lc + 2; st.H = C2 + 2; st.cx = st.W / 2; st.cy = st.H / 2; st.resize();
     const x0 = 1, y0 = 1, xe = x0 + Lc; // corredor 1: x0..xe, y0..y0+CW; corredor 2: xe-CW..xe, y0..y0+C2
     const fm = new T.MeshStandardMaterial({ map: tileTexture(T), roughness: 0.9 }); fm.map.repeat.set(Lc / 2.4, 1);
     const f1 = new T.Mesh(new T.PlaneGeometry(Lc, CW), fm); f1.rotation.x = -Math.PI / 2; f1.position.copy(st.w(x0 + Lc / 2, y0 + CW / 2, 0.003)); f1.receiveShadow = true;
     const fm2 = fm.clone(); fm2.map = fm.map.clone(); fm2.map.repeat.set(1, C2 / 2.4); fm2.map.needsUpdate = true;
     const f2 = new T.Mesh(new T.PlaneGeometry(CW, C2 - CW), fm2); f2.rotation.x = -Math.PI / 2; f2.position.copy(st.w(xe - CW / 2, y0 + CW + (C2 - CW) / 2, 0.003)); f2.receiveShadow = true; grp.add(f1, f2);
-    const side = new T.MeshStandardMaterial({ color: 0xf1efe9, roughness: 0.85 }), top = new T.MeshStandardMaterial({ color: 0x2c3238 }), mats = [side, side, top, side, side, side];
-    const wall = (x1, y1, x2, y2, near) => { const len = Math.hypot(x2 - x1, y2 - y1) + 0.15, m = new T.Mesh(new T.BoxGeometry(len, WH, 0.15), mats); m.position.copy(st.w((x1 + x2) / 2, (y1 + y2) / 2, WH / 2)); m.rotation.y = -Math.atan2(y2 - y1, x2 - x1); m.castShadow = m.receiveShadow = true; grp.add(m); if (near) nearWalls.push(m); };
+    const wall = (x1, y1, x2, y2, near) => { const len = Math.hypot(x2 - x1, y2 - y1) + 0.15, m = new T.Mesh(boxGeo(T, len, WH, 0.15, 0xf1efe9), st.wallMat); m.position.copy(st.w((x1 + x2) / 2, (y1 + y2) / 2, WH / 2)); m.rotation.y = -Math.atan2(y2 - y1, x2 - x1); m.castShadow = m.receiveShadow = true; grp.add(m); if (near) nearWalls.push(m); };
     wall(x0, y0, xe, y0); wall(x0, y0 + CW, xe - CW, y0 + CW, true); wall(x0, y0, x0, y0 + CW); wall(xe, y0, xe, y0 + C2); wall(xe - CW, y0 + CW, xe - CW, y0 + C2, true);
     wall(xe - CW, y0 + C2, xe - CW + 0.35, y0 + C2); wall(xe - 0.35, y0 + C2, xe, y0 + C2);
     // porta corta-fogo (fechada) com placa SAÍDA no terço superior
     const dh = 2.1, dw = CW - 0.7; door = new T.Mesh(new T.BoxGeometry(dw, dh, 0.06), new T.MeshStandardMaterial({ color: 0x8f2d2d, roughness: 0.5, metalness: 0.2 })); door.position.copy(st.w(xe - CW / 2, y0 + C2, dh / 2)); door.castShadow = true; grp.add(door);
-    const over = new T.Mesh(new T.BoxGeometry(dw + 0.7, WH - dh, 0.15), mats); over.position.copy(st.w(xe - CW / 2, y0 + C2, dh + (WH - dh) / 2)); grp.add(over);
+    const over = new T.Mesh(boxGeo(T, dw + 0.7, WH - dh, 0.15, 0xf1efe9), st.wallMat); over.position.copy(st.w(xe - CW / 2, y0 + C2, dh + (WH - dh) / 2)); grp.add(over);
     plateTop = new T.Mesh(new T.PlaneGeometry(0.66, 0.34), new T.MeshBasicMaterial({ map: signTex('placa_saida'), toneMapped: false })); plateTop.position.copy(st.w(xe - CW / 2, y0 + C2 - 0.035, dh * 5 / 6)); plateTop.rotation.y = Math.PI; grp.add(plateTop);
     thirds = [1, 2].map(n => { const m = new T.Mesh(new T.BoxGeometry(dw + 0.2, 0.02, 0.02), new T.MeshBasicMaterial({ color: 0x0c8599, depthTest: false })); m.position.copy(st.w(xe - CW / 2, y0 + C2 - 0.06, dh * n / 3)); m.renderOrder = 15; grp.add(m); return m; });
     // setas a cada <= 20 m
@@ -1901,7 +2030,8 @@ function sceneSinalizacao(T, OC, fig) {
     st.kick();
   };
   build(); st.setCam({ az: -15, el: 55, dist: 40 });
-  const ghost = on => nearWalls.forEach(m => { if (!m.userData.g) { m.userData.m0 = m.material; m.userData.g = m.material.map(x => { const c = x.clone(); c.transparent = true; c.opacity = 0.12; c.depthWrite = false; return c; }); } m.material = on ? m.userData.g : m.userData.m0; });
+  const ghostMat = st.wallMat.clone(); ghostMat.transparent = true; ghostMat.opacity = 0.12; ghostMat.depthWrite = false;
+  const ghost = on => nearWalls.forEach(m => { m.material = on ? ghostMat : st.wallMat; });
   let fp = false;
   const steps = [
     { title: 'Setas a cada 20 m, no máximo', dur: 7, view: 'plan', caption: 'Nas circulações retilíneas, uma seta indicativa a cada <b>20,0 m no máximo</b> (art. 210, II). Arraste o controle e veja a quantidade de setas mudar.' },
@@ -1941,14 +2071,13 @@ function sceneIluminacao(T, OC, fig) {
   let lums = [], spots = [], pools = [], dims = [], near = null, lay = null;
   const poolTex = (() => { const c = document.createElement('canvas'); c.width = c.height = 128; const g = c.getContext('2d'), gr = g.createRadialGradient(64, 64, 0, 64, 64, 64); gr.addColorStop(0, 'rgba(255,240,190,0.9)'); gr.addColorStop(0.7, 'rgba(255,230,160,0.35)'); gr.addColorStop(1, 'rgba(255,230,160,0)'); g.fillStyle = gr; g.fillRect(0, 0, 128, 128); const t = new T.CanvasTexture(c); return t; })();
   const build = () => {
-    while (grp.children.length) grp.remove(grp.children[0]); spots.forEach(s => { st.scene.remove(s); st.scene.remove(s.target); }); st.clearLabels(); st.planOnly.forEach(o => st.root.remove(o)); st.planOnly = [];
+    disposeTree(grp); while (grp.children.length) grp.remove(grp.children[0]); spots.forEach(s => { st.scene.remove(s); st.scene.remove(s.target); }); st.clearLabels(); st.planOnly.forEach(o => st.root.remove(o)); st.planOnly = [];
     lums = []; spots = []; pools = []; dims = [];
     st.W = Lc + 2; st.H = CW + 6; st.cx = st.W / 2; st.cy = st.H / 2; st.resize();
     const x0 = 1, y0 = 3;
     const fm = new T.MeshStandardMaterial({ map: tileTexture(T), roughness: 0.9 }); fm.map.repeat.set(Lc / 2.4, 1);
     const fl = new T.Mesh(new T.PlaneGeometry(Lc, CW), fm); fl.rotation.x = -Math.PI / 2; fl.position.copy(st.w(x0 + Lc / 2, y0 + CW / 2, 0.003)); fl.receiveShadow = true; grp.add(fl);
-    const side = new T.MeshStandardMaterial({ color: 0xf1efe9, roughness: 0.85 }), top = new T.MeshStandardMaterial({ color: 0x2c3238 }), mats = [side, side, top, side, side, side];
-    const wall = (x1, y1, x2, y2, h = WH) => { const len = Math.hypot(x2 - x1, y2 - y1) + 0.15, m = new T.Mesh(new T.BoxGeometry(len, h, 0.15), mats); m.position.copy(st.w((x1 + x2) / 2, (y1 + y2) / 2, h / 2)); m.rotation.y = -Math.atan2(y2 - y1, x2 - x1); m.receiveShadow = true; grp.add(m); return m; };
+    const wall = (x1, y1, x2, y2, h = WH) => { const len = Math.hypot(x2 - x1, y2 - y1) + 0.15, m = new T.Mesh(boxGeo(T, len, h, 0.15, 0xf1efe9), st.wallMat); m.position.copy(st.w((x1 + x2) / 2, (y1 + y2) / 2, h / 2)); m.rotation.y = -Math.atan2(y2 - y1, x2 - x1); m.receiveShadow = true; grp.add(m); return m; };
     wall(x0, y0, x0 + Lc, y0); wall(x0, y0, x0, y0 + CW); wall(x0 + Lc, y0, x0 + Lc, y0 + CW); near = wall(x0, y0 + CW, x0 + Lc, y0 + CW, 0.5);
     const n = Math.max(1, Math.ceil(Lc / (4 * hL))), s = Lc / n; lay = { n, s };
     for (let i = 0; i < n; i++) {
@@ -2006,7 +2135,13 @@ function boot(fig) {
 const io = new IntersectionObserver(es => {
   for (const e of es) {
     const fig = e.target; fig.classList.toggle('in-view', e.isIntersecting);
-    if (e.isIntersecting) { const s = boot(fig); if (s) s.st.start(); }
+    if (e.isIntersecting) {
+      load3D().then(() => {
+        if (!fig.classList.contains('in-view')) return; // saiu da tela enquanto o three.js baixava
+        // deixa o navegador pintar o aviso "Carregando…" antes do cálculo da cena
+        requestAnimationFrame(() => setTimeout(() => { if (!fig.classList.contains('in-view')) return; const s = boot(fig); if (s) s.st.start(); }, 0));
+      }, err => { console.error(err); fig.classList.add('failed'); const b = fig.querySelector('.boot'); if (b) b.textContent = 'Não foi possível baixar o motor 3D. Verifique a internet e recarregue a página.'; });
+    }
     else { const s = live.get(fig); if (s) { s.st.stop(); if (Narrator.on) try { speechSynthesis.cancel(); } catch (x) { } } }
   }
 }, { threshold: 0.2 });
