@@ -148,7 +148,7 @@ figure.ready .boot { display: none; }
 .card p, .card li { font-size: .97rem; }
 .card ul, .card ol { margin: 0; padding-left: 20px; }
 .card li { margin: 4px 0; }
-.cite { font: 500 .78rem/1.3 var(--mono); color: var(--muted); }
+.cite, .card p.cite { font: 500 .78rem/1.4 var(--mono); color: var(--muted); }
 .alert { border: 1px solid #e7c95a; background: var(--warn-bg); color: var(--warn-ink); border-radius: 10px; padding: 12px 16px; display: grid; gap: 4px; }
 .alert strong { font-family: var(--display); font-size: 1.05rem; }
 .steps-list { counter-reset: s; list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
@@ -225,7 +225,7 @@ footer ul { padding-left: 18px; }
   <div class="wrap">
     <div class="kicker">Fiscalização · COSCIP-PE</div>
     <h1>Como medir distâncias na fiscalização</h1>
-    <p class="lede">Saídas, extintores, acionadores, hidrantes, chuveiros automáticos, sinalização e iluminação de emergência. Cada sistema usa uma régua diferente. As cenas abaixo mostram, em 3D e em planta, como o Código manda medir. Toque na planta para medir você mesmo.</p>
+    <p class="lede">Saídas, extintores, acionadores, hidrantes, chuveiros automáticos, detectores, sinalização e iluminação de emergência. Cada sistema usa uma régua diferente. As cenas abaixo mostram, em 3D e em planta, como o Código manda medir. Toque na planta para medir você mesmo.</p>
     <div class="toolbar">
       <button class="seg" id="narr" type="button" aria-pressed="false" style="padding:8px 12px;font-weight:600;cursor:pointer">Ouvir narração: desligada</button>
       <span class="src-chip">Fonte: COSCIP-PE, texto vigente · NT 1.02 CBMPE</span>
@@ -241,6 +241,7 @@ footer ul { padding-left: 18px; }
     <a href="#extintores" data-r="cam">Extintores e acionador</a>
     <a href="#hidrantes" data-r="cam">Hidrantes</a>
     <a href="#chuveiros" data-r="esp">Chuveiros</a>
+    <a href="#detectores" data-r="esp">Detectores</a>
     <a href="#sinalizacao" data-r="esp">Sinalização</a>
     <a href="#iluminacao" data-r="esp">Iluminação</a>
     <a href="#alturas">Alturas</a>
@@ -292,7 +293,7 @@ footer ul { padding-left: 18px; }
       </svg>
       <h3>3. Espaçamento e área</h3>
       <p class="q">Distância entre equipamentos iguais, até a parede, ou área coberta por cada um.</p>
-      <ul><li>Chuveiros: área por bico, distância entre bicos e metade até a parede</li><li>Setas de sinalização: a cada 20 m, no máximo</li><li>Iluminação: o COSCIP não fixa; a NBR 10898 dá a referência</li></ul>
+      <ul><li>Chuveiros: área por bico, distância entre bicos e metade até a parede</li><li>Detectores: área de ação e raio de ação (aqui o Código usa raio)</li><li>Setas de sinalização: a cada 20 m, no máximo</li><li>Iluminação: o COSCIP não fixa; a NBR 10898 dá a referência</li></ul>
     </article>
   </div>
 </section>
@@ -301,7 +302,7 @@ footer ul { padding-left: 18px; }
   <div class="sec-head">
     <div class="tag"><span class="regua" style="--c:var(--cam)">CAMINHAMENTO</span> Saídas de emergência · arts. 25, VII, e 147 · Tabela 3</div>
     <h2>Distância máxima a ser percorrida até a saída</h2>
-    <p>Do ponto mais desfavorável até um local de relativa segurança, pelo caminhamento nas circulações e acessos. No exemplo, a linha reta dá 22,5 m e o trajeto real dá 38,6 m: quem mede em linha reta aprova um pavimento que reprova.</p>
+    <p>Do ponto mais desfavorável até um local de relativa segurança, pelo caminhamento nas circulações e acessos. No exemplo, a linha reta dá 22,4 m e o trajeto real dá 38,6 m: quem mede em linha reta aprova um pavimento que reprova.</p>
   </div>
   <figure class="player" data-scene="saidas" id="fig-saidas">
     <div class="stage"><div class="boot">Carregando a cena 3D…</div>
@@ -337,8 +338,9 @@ footer ul { padding-left: 18px; }
           </g>
         </svg>
       </div>
-      <p>Também é local de relativa segurança o espaço livre exterior, a área de refúgio e a área compartimentada com saída direta para o exterior.</p>
-      <p class="cite">COSCIP, art. 147, caput · tipos de escada: art. 152</p>
+      <p>Também é local de relativa segurança o espaço livre exterior, a área de refúgio e a área compartimentada com saída direta para o exterior. Área a céu aberto conta se comportar a população que passa por ela e estiver no caminhamento para as saídas (art. 147, § 4º).</p>
+      <p><span class="flag">O art. 147 numera as escadas de I a IV. A classificação em vigor (art. 152-A) é NE, EP e PF, e o Código não traz a correspondência entre as duas.</span> Na prancha, a NT 1.02 manda cotar até “as portas das escadas enclausuradas, as portas das antecâmaras das escadas à prova de fumaça ou os degraus superiores das escadas protegidas”.</p>
+      <p class="cite">COSCIP, art. 147, caput e § 4º; art. 152-A · NT 1.02, item 3.2.1, VI, “a”</p>
     </div>
     <div class="card">
       <h3>Unidades autônomas</h3>
@@ -360,9 +362,11 @@ footer ul { padding-left: 18px; }
         <li><b>c.</b> “Mais de uma saída” só vale com pelo menos 10 m entre elas.</li>
         <li><b>d.</b> Áreas técnicas sem permanência humana: 140 m.</li>
         <li><b>e.</b> Garagem (tipo M): veículo não é obstáculo fixo.</li>
-        <li><b>f.</b> Os sistemas que aumentam a distância podem ficar só na área compartimentada que precisa deles.</li>
+        <li><b>f.</b> Os sistemas que aumentam a distância podem ficar só na área compartimentada que precisa deles. Sem compartimentação, valem para toda a edificação, com ressalvas para as ocupações B, C e K.</li>
+        <li><b>g.</b> O CBMPE pode fixar outros limites, por norma técnica, para edificações específicas.</li>
       </ul>
-      <p class="cite">COSCIP, Anexo A, Tabela 3, Notas</p>
+      <p>Depósito (tipo N) automatizado e sem presença humana: a distância máxima pode ser desconsiderada (art. 147, § 3º).</p>
+      <p class="cite">COSCIP, Anexo A, Tabela 3, Notas; art. 147, § 3º</p>
     </div>
   </div>
   <div class="grid2">
@@ -418,7 +422,7 @@ footer ul { padding-left: 18px; }
   </div>
   <figure class="player" data-scene="extintores" id="fig-ext">
     <div class="stage"><div class="boot">Carregando a cena 3D…</div>
-      <div class="hud"><div class="hud-t">Ponto mais distante</div><div class="hud-v">15,8 m</div><div class="hud-bar"><i></i><b></b></div><div class="hud-row"><span class="hud-l">limite 20,0 m</span><span class="hud-s" data-ok="true">Dentro do limite</span></div></div>
+      <div class="hud"><div class="hud-t">Ponto mais distante</div><div class="hud-v">15,7 m</div><div class="hud-bar"><i></i><b></b></div><div class="hud-row"><span class="hud-l">limite 20,0 m</span><span class="hud-s" data-ok="true">Dentro do limite</span></div></div>
       <div class="viewsw"><button type="button" data-view="3d" aria-pressed="true">3D</button><button type="button" data-view="plan" aria-pressed="false">Planta</button></div>
     </div>
     <div class="bar">
@@ -460,6 +464,7 @@ footer ul { padding-left: 18px; }
         <li>Duas unidades extintoras por pavimento, mezanino, jirau ou risco isolado (art. 31, § 7º).</li>
         <li>Uma só, se a área protegida for de até 50 m² (art. 31, § 8º).</li>
         <li>Extintor sobre rodas não protege sozinho o risco (art. 31, § 5º).</li>
+        <li>Com extintores sobre rodas, a carga deles conta pela metade, e pelo menos 50% das unidades exigidas devem ser manuais (art. 31, § 3º, I e II).</li>
         <li>Em armazéns e depósitos sem processo de trabalho, admite-se instalar em grupos, perto das entradas e saídas (art. 32, § 2º).</li>
       </ul>
     </div>
@@ -479,7 +484,7 @@ footer ul { padding-left: 18px; }
   </div>
   <figure class="player" data-scene="hidrantes" id="fig-hid">
     <div class="stage"><div class="boot">Carregando a cena 3D…</div>
-      <div class="hud"><div class="hud-t">Área sem cobertura</div><div class="hud-v">0,0 m²</div><div class="hud-bar"><i></i><b></b></div><div class="hud-row"><span class="hud-l"></span><span class="hud-s" data-ok="true">Todo o pavimento coberto</span></div></div>
+      <div class="hud"><div class="hud-t">Área sem cobertura</div><div class="hud-v">0,00 m²</div><div class="hud-bar"><i></i><b></b></div><div class="hud-row"><span class="hud-l"></span><span class="hud-s" data-ok="true">Todo o pavimento coberto</span></div></div>
       <div class="viewsw"><button type="button" data-view="3d" aria-pressed="true">3D</button><button type="button" data-view="plan" aria-pressed="false">Planta</button></div>
     </div>
     <div class="bar">
@@ -514,6 +519,8 @@ footer ul { padding-left: 18px; }
         <li>Jato de no máximo 8 m, com contato visual sem barreiras depois de entrar pelo menos 1 m no compartimento (art. 70, § 1º).</li>
         <li>Um mesmo conjunto não protege pavimentos diferentes (art. 49, II).</li>
         <li>Se o alcance não for obtido, hidrante em ponto central é obrigatório (art. 49, § 1º).</li>
+        <li>Nenhuma área pode ficar sem cobertura (art. 70, IV).</li>
+        <li>Linha com mais de 20 m: lances de no mínimo 15 m cada (art. 70, II).</li>
       </ul>
     </div>
     <div class="card">
@@ -522,7 +529,8 @@ footer ul { padding-left: 18px; }
         <li>Entre dois hidrantes ou carretéis consecutivos: até <b>60 m</b>, em qualquer direção no plano horizontal (art. 49, § 4º).</li>
         <li>Registro de manobra ou tomada d’água entre <b>1,00 m e 1,50 m</b> do piso (art. 49, III).</li>
         <li>Hidrante externo: referência de 15 m da projeção da edificação ou 1,5 vez a altura (art. 49, § 3º).</li>
-        <li>Na prancha: distância do ponto mais distante ao hidrante mais próximo, com os hidrantes numerados (NT 1.02, 3.2.1, VI, “b”).</li>
+        <li>Onde instalar: perto das portas de acesso às saídas de emergência; nunca em escadas, antecâmaras de escadas à prova de fumaça ou rampas (art. 49, IV, “c” e “d”).</li>
+        <li>Na prancha: distância do ponto mais distante ao hidrante mais próximo, com os hidrantes numerados (NT 1.02, 3.2.1, VI, “b”); distância da projeção da edificação ao hidrante externo e entre hidrantes externos (3.2.1, I, “i” e “m”).</li>
       </ul>
     </div>
   </div>
@@ -580,6 +588,62 @@ footer ul { padding-left: 18px; }
   </div>
 </section>
 
+<section class="blk" id="detectores">
+  <div class="sec-head">
+    <div class="tag"><span class="regua" style="--c:var(--esp)">ÁREA E RAIO</span> Detecção automática · art. 137, I</div>
+    <h2>Detector automático: aqui o Código fala em raio</h2>
+    <p>Ao contrário dos chuveiros, o art. 137 dá a cada detector uma área de ação máxima e o raio de ação que corresponde a ela. A área é a do quadrado que cabe dentro do círculo; o raio é, aproximadamente, a metade da diagonal desse quadrado.</p>
+  </div>
+  <div class="grid2">
+    <div class="card">
+      <h3>Área de ação e raio de ação, em escala</h3>
+      <svg viewBox="0 0 520 284" role="img" aria-label="Detector de temperatura: quadrado de 6 por 6 metros dentro de um círculo de raio 4,2 metros. Detector de fumaça: quadrado de 9 por 9 metros dentro de um círculo de raio 6,3 metros." style="width:100%;height:auto;display:block">
+        <g font-family="IBM Plex Mono, ui-monospace, monospace" font-size="16">
+          <circle cx="130" cy="128" r="72.1" fill="var(--esp)" fill-opacity=".12" stroke="var(--esp)" stroke-width="2" stroke-dasharray="6 5"/>
+          <rect x="79" y="77" width="102" height="102" fill="none" stroke="var(--ink)" stroke-width="2"/>
+          <line x1="130" y1="128" x2="181" y2="77" stroke="var(--esp)" stroke-width="2.5"/>
+          <circle cx="130" cy="128" r="6" fill="var(--reta)"/>
+          <text x="150" y="98" text-anchor="end" fill="var(--esp)" font-weight="600">4,2 m</text>
+          <text x="88" y="170" fill="var(--ink)">36 m²</text>
+          <text x="130" y="196" text-anchor="middle" fill="var(--muted)" font-size="14">6 m</text>
+          <text x="130" y="258" text-anchor="middle" fill="var(--ink)" font-weight="600">Temperatura</text>
+          <text x="130" y="278" text-anchor="middle" fill="var(--muted)" font-size="13">art. 137, I, “a”, 1</text>
+          <circle cx="385" cy="128" r="108.2" fill="var(--esp)" fill-opacity=".12" stroke="var(--esp)" stroke-width="2" stroke-dasharray="6 5"/>
+          <rect x="308.5" y="51.5" width="153" height="153" fill="none" stroke="var(--ink)" stroke-width="2"/>
+          <line x1="385" y1="128" x2="461.5" y2="51.5" stroke="var(--esp)" stroke-width="2.5"/>
+          <circle cx="385" cy="128" r="6" fill="var(--reta)"/>
+          <text x="404" y="90" text-anchor="end" fill="var(--esp)" font-weight="600">6,3 m</text>
+          <text x="318" y="194" fill="var(--ink)">81 m²</text>
+          <text x="385" y="224" text-anchor="middle" fill="var(--muted)">9 m</text>
+          <text x="385" y="258" text-anchor="middle" fill="var(--ink)" font-weight="600">Fumaça</text>
+          <text x="385" y="278" text-anchor="middle" fill="var(--muted)" font-size="13">art. 137, I, “a”, 2</text>
+        </g>
+      </svg>
+      <p class="cite">Desenho em escala. O raio é a metade da diagonal do quadrado: 6 × 1,41 ÷ 2 ≈ 4,2 m; 9 × 1,41 ÷ 2 ≈ 6,3 m.</p>
+    </div>
+    <div class="card">
+      <h3>Os números do art. 137</h3>
+      <div class="tbl" style="border:0"><table>
+        <thead><tr><th>Detector</th><th>Área de ação máxima</th><th>Raio de ação</th></tr></thead>
+        <tbody>
+          <tr><td>Temperatura</td><td class="num">36,0 m²</td><td class="num">4,2 m</td></tr>
+          <tr><td>Fumaça</td><td class="num">81,0 m²</td><td class="num">6,3 m</td></tr>
+          <tr><td>Chamas</td><td colspan="2">pela energia radiante: ultravioleta, chama tremulante ou infravermelho</td></tr>
+        </tbody></table></div>
+      <ul>
+        <li>Em cada pavimento, pelo menos um laço independente; nenhum laço comum a dois ou mais pavimentos (art. 137, §§ 1º e 2º).</li>
+        <li>Laço que atende áreas compartimentadas: indicação luminosa de cada área, por DLIC acima da porta ou PIP no acesso ao pavimento (art. 137, §§ 3º e 4º).</li>
+        <li>Acionador manual: de 1,20 m a 1,60 m do piso e até 30 m de caminhamento (art. 137, II, “a” e “b”), como na seção de extintores.</li>
+      </ul>
+      <p class="cite">COSCIP, art. 137, I, “a”; II; §§ 1º a 4º</p>
+    </div>
+  </div>
+  <div class="alert" style="margin-top:16px">
+    <strong>O que o art. 137 não fixa</strong>
+    <p>O artigo dá a área e o raio de ação, mas não fixa a distância entre detectores nem a distância até a parede. O § 5º deixa os requisitos do sistema de detecção para as normas técnicas do CBMPE.</p>
+  </div>
+</section>
+
 <section class="blk" id="sinalizacao">
   <div class="sec-head">
     <div class="tag"><span class="regua" style="--c:var(--esp)">ESPAÇAMENTO</span> Sinalização de saídas · arts. 207 a 210</div>
@@ -604,8 +668,8 @@ footer ul { padding-left: 18px; }
   </figure>
   <div class="grid3">
     <div class="card"><h3>Saídas</h3><ul><li>Setas de sentido em todos os pavimentos, acessos, escadas e rampas, até a descarga (art. 210, I).</li><li>Reta: a cada <b>20,0 m</b> no máximo (art. 210, II).</li><li>Mudança de direção: visível da posição mais desfavorável (art. 210, III).</li><li>Porta corta-fogo: SAÍDA no <b>terço superior</b>, face voltada para a rota (art. 210, IV).</li><li>Rampa: SAÍDA – RAMPA (art. 210, parágrafo único).</li></ul></div>
-    <div class="card"><h3>Placas e luminárias</h3><ul><li>Luminosa: palavra SAÍDA e seta, mínimo 15 W, fonte própria com 1 hora de funcionamento (art. 208).</li><li>Fotoluminescente: na parede ou pendurada no teto das rotas de fuga, com SAÍDA e seta (art. 209).</li><li>São admitidos os parâmetros da ABNT NBR 16820 (art. 209, § 2º).</li></ul></div>
-    <div class="card"><h3>Equipamentos</h3><ul><li>Extintor: disco ou seta de no mínimo <b>0,070 m²</b>, pelo menos <b>0,50 m acima</b> do extintor (art. 35, § 1º); em pilar, repetir nas faces (§ 5º).</li><li>Abrigo de hidrante: INCÊNDIO em vermelho, letras de no mínimo 0,07 m × 0,03 m (art. 75, V).</li></ul></div>
+    <div class="card"><h3>Placas e luminárias</h3><ul><li>Luminosa: palavra SAÍDA e seta, em <b>vermelho sobre fundo branco</b>; mínimo 15 W; fonte própria com 1 hora de funcionamento (art. 208).</li><li>Fosforescente: na parede ou pendurada no teto das rotas de fuga, com SAÍDA e seta (art. 209).</li><li>Na placa fosforescente, vermelho sobre branco ou os parâmetros da ABNT NBR 16820 (art. 209, § 2º). As placas verdes das cenas seguem a NBR 16820.</li></ul></div>
+    <div class="card"><h3>Equipamentos</h3><ul><li>Extintor: disco ou seta de no mínimo <b>0,070 m²</b>, pelo menos <b>0,50 m acima</b> do extintor (art. 35, § 1º); em pilar, repetir nas faces (§ 5º).</li><li>Círculo interno do disco: <b>branco</b> para água, <b>amarelo</b> para gás carbônico, <b>azul</b> para pó químico (art. 35, § 3º).</li><li>Abrigo de hidrante: INCÊNDIO em vermelho, letras de no mínimo 0,07 m × 0,03 m (art. 75, V). Também se admite disco ou seta branca com friso vermelho e a letra H (art. 75, parágrafo único).</li></ul></div>
   </div>
 </section>
 
@@ -671,28 +735,43 @@ footer ul { padding-left: 18px; }
         <line x1="140" y1="170" x2="140" y2="118" stroke="var(--esp)" stroke-width="2" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="148" y="146">≥ 0,50 m</text>
         <text x="132" y="84">disco ≥ 0,070 m²</text>
         <path d="M55 330 L155 330 L170 352 L40 352 Z" fill="#d62828" opacity=".85"/><text x="40" y="372">faixa 1,00 × 1,00 m</text>
-        <text x="60" y="30" font-weight="600">Extintor · art. 34, I; art. 35</text>
+        <text x="60" y="30" font-weight="600">Extintor</text><text x="60" y="48" font-size="12" fill="var(--muted)">art. 34, I; art. 35</text>
         <!-- hidrante -->
         <rect x="300" y="135" width="120" height="110" fill="#c92a2a"/><text x="318" y="160" fill="#fff" font-weight="600">INCÊNDIO</text>
         <circle cx="360" cy="205" r="10" fill="#ffd43b" stroke="#222"/>
         <line x1="280" y1="330" x2="280" y2="230" stroke="var(--esp)" stroke-width="2" marker-start="url(#ar)" marker-end="url(#ar)"/>
         <line x1="270" y1="230" x2="440" y2="230" stroke="var(--esp)" stroke-dasharray="4 4"/><line x1="270" y1="180" x2="440" y2="180" stroke="var(--esp)" stroke-dasharray="4 4"/>
-        <text x="448" y="234">1,00 m</text><text x="448" y="184">1,50 m</text><text x="448" y="210">registro entre</text>
-        <text x="300" y="30" font-weight="600">Hidrante · art. 49, III</text>
+        <text x="448" y="234">1,00 m</text><text x="448" y="184">1,50 m</text><text x="448" y="210" fill="var(--muted)">faixa do registro</text>
+        <text x="300" y="30" font-weight="600">Hidrante</text><text x="300" y="48" font-size="12" fill="var(--muted)">art. 49, III</text>
         <!-- acionador -->
         <rect x="610" y="178" width="24" height="24" fill="#d62828"/><circle cx="622" cy="190" r="5" fill="#fff"/>
         <line x1="590" y1="210" x2="700" y2="210" stroke="var(--esp)" stroke-dasharray="4 4"/><line x1="590" y1="170" x2="700" y2="170" stroke="var(--esp)" stroke-dasharray="4 4"/>
-        <text x="646" y="214">1,20 m</text><text x="646" y="164">1,60 m</text>
-        <text x="560" y="30" font-weight="600">Acionador manual · art. 137, II, a</text>
+        <text x="708" y="214">1,20 m</text><text x="708" y="174">1,60 m</text>
+        <text x="560" y="30" font-weight="600">Acionador manual</text><text x="560" y="48" font-size="12" fill="var(--muted)">art. 137, II, “a”</text>
         <!-- porta -->
         <rect x="800" y="120" width="110" height="210" fill="#8f2d2d"/>
         <line x1="790" y1="190" x2="920" y2="190" stroke="#fff" stroke-dasharray="5 5"/><line x1="790" y1="260" x2="920" y2="260" stroke="#fff" stroke-dasharray="5 5"/>
         <rect x="822" y="138" width="66" height="34" fill="#12a83a"/><text x="830" y="160" fill="#fff" font-weight="600">SAÍDA</text>
         <text x="930" y="160">1/3</text><text x="930" y="230">1/3</text><text x="930" y="300">1/3</text>
-        <text x="790" y="30" font-weight="600">Porta corta-fogo · art. 210, IV</text>
-        <text x="790" y="50" font-size="12" fill="var(--muted)">placa no terço superior</text>
+        <text x="790" y="30" font-weight="600">Porta corta-fogo</text><text x="790" y="48" font-size="12" fill="var(--muted)">art. 210, IV</text>
+        <text x="790" y="66" font-size="12" fill="var(--muted)">placa no terço superior</text>
       </g>
     </svg>
+  </div>
+  <div class="grid2">
+    <div class="card">
+      <h3>Detalhes das cotas</h3>
+      <ul>
+        <li>Extintor: a <b>parte superior</b> não passa de 1,60 m do piso (art. 34, I). Não se instala em escadas nem em antecâmaras de escadas à prova de fumaça (art. 34, II).</li>
+        <li>Faixa vermelha de 1,00 m × 1,00 m no piso, abaixo do extintor, salvo em edificação privativa multifamiliar (art. 35, § 6º).</li>
+        <li>Hidrante: a altura vale para o registro de manobra; no carretel, para a tomada d’água (art. 49, III).</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Na prancha</h3>
+      <p>A NT 1.02 pede o detalhe das marcações de piso dos extintores e das alturas de instalação dos equipamentos, além das medidas do registro de recalque e do corrimão.</p>
+      <p class="cite">NT 1.02, item 3.2.1, I, “l”</p>
+    </div>
   </div>
 </section>
 
@@ -700,7 +779,7 @@ footer ul { padding-left: 18px; }
   <div class="sec-head">
     <div class="tag">Conferência</div>
     <h2>O que o texto do Google acertou</h2>
-    <p>O texto que você recebeu mistura NBR 9077 e IT de São Paulo. Em Pernambuco, a referência é o COSCIP. Ponto a ponto:</p>
+    <p>O resumo que o Google dá quando se pesquisa como medir a distância até a saída mistura a NBR 9077 e a IT de São Paulo. Em Pernambuco, a referência é o COSCIP. Ponto a ponto:</p>
   </div>
   <div class="tbl"><table>
     <thead><tr><th>O texto dizia</th><th>Situação</th><th>O que vale no CBMPE</th></tr></thead>
@@ -710,7 +789,7 @@ footer ul { padding-left: 18px; }
       <tr><td>Layout livre: linha reta com redutor de cerca de 30%</td><td><span class="pill ok">Certo</span></td><td>Exatamente 30%, sobre a distância direta, quando o leiaute não está definido em planta baixa (art. 147, § 2º; Nota “a”).</td></tr>
       <tr><td>Seguir o eixo central dos corredores</td><td><span class="pill part">Em parte</span></td><td>O COSCIP não fala em eixo. É convenção de projeto, que dá um valor um pouco maior.</td></tr>
       <tr><td>Início no ponto habitável mais distante e desfavorável</td><td><span class="pill ok">Certo</span></td><td>Com uma exceção: em unidade autônoma, conta da porta da unidade, se o caminhamento interno for de até 10 m (art. 147, § 1º).</td></tr>
-      <tr><td>Término na antecâmara, na escada enclausurada ou na saída da edificação</td><td><span class="pill part">Em parte</span></td><td>Faltou: degrau da escada tipo I (comum), área de refúgio e área compartimentada com saída direta para o exterior (art. 147).</td></tr>
+      <tr><td>Término na antecâmara, na escada enclausurada ou na saída da edificação</td><td><span class="pill part">Em parte</span></td><td>Faltou: degrau da escada tipo I, área de refúgio e área compartimentada com saída direta para o exterior (art. 147).</td></tr>
       <tr><td>Contornar obstáculos fixos em traçado ortogonal</td><td><span class="pill part">Em parte</span></td><td>Contornar, sim. “Ortogonal” não está no Código. Em garagem, veículo não é obstáculo fixo (Nota “e”).</td></tr>
       <tr><td>Chuveiros e detecção mudam o limite</td><td><span class="pill ok">Certo</span></td><td>A Tabela 3 tem colunas com e sem chuveiros, com e sem detecção. Controle de fumaça soma 50% (Nota “b”).</td></tr>
     </tbody>
@@ -721,7 +800,7 @@ footer ul { padding-left: 18px; }
   <div class="sec-head">
     <div class="tag">Fixação</div>
     <h2>Teste rápido</h2>
-    <p>Oito perguntas. Toque na resposta para ver a explicação. <span class="score" id="score"></span></p>
+    <p>Nove perguntas. Toque na resposta para ver a explicação. <span class="score" id="score"></span></p>
   </div>
   <div class="quiz" id="qz"></div>
 </section>
@@ -744,6 +823,7 @@ footer ul { padding-left: 18px; }
       <tr><td>Hidrante externo · carretel externo</td><td><span class="pill cam">Caminhamento</span></td><td>Linha a partir do registro</td><td class="num">60 m · 45 m</td><td>Art. 49, I, “b” e “c”</td></tr>
       <tr><td>Entre hidrantes</td><td><span class="pill reta">Linha reta</span></td><td>Hidrante → hidrante consecutivo</td><td class="num">60 m</td><td>Art. 49, § 4º</td></tr>
       <tr><td>Chuveiros automáticos</td><td><span class="pill esp">Espaçamento</span></td><td>Área por bico; bico → bico; bico → parede</td><td class="num">21/15/9 m² · 4,5/4,5/3,5 m · metade</td><td>Art. 121</td></tr>
+      <tr><td>Detectores automáticos</td><td><span class="pill esp">Área e raio</span></td><td>Área de ação e raio de ação de cada detector</td><td class="num">36 m² · 4,2 m / 81 m² · 6,3 m</td><td>Art. 137, I, “a”</td></tr>
       <tr><td>Setas de saída</td><td><span class="pill esp">Espaçamento</span></td><td>Seta → seta na circulação reta</td><td class="num">20 m</td><td>Art. 210, II</td></tr>
       <tr><td>Iluminação de emergência</td><td><span class="pill esp">Espaçamento</span></td><td>Ponto → ponto</td><td>Não fixado no COSCIP; NBR 10898: 4 × altura</td><td>Arts. 196, 203 e 204</td></tr>
     </tbody>
@@ -759,6 +839,7 @@ footer ul { padding-left: 18px; }
       <li>Referências complementares, fora do COSCIP, sempre sinalizadas em amarelo: ABNT NBR 10898 (iluminação de emergência) e ABNT NBR 16820 (sinalização), esta admitida pelo art. 209, § 2º.</li>
       <li>A NT nº 003/2019 do CBMPE (hidrantes e mangotinho) não foi consultada nesta página; as regras de hidrante vêm do texto vigente do COSCIP.</li>
       <li>As plantas são exemplos didáticos. As distâncias são calculadas pelo menor trajeto possível, contornando paredes, pilares e shafts.</li>
+      <li>Artigos e números conferidos em 17/11/2026 no texto vigente do COSCIP-PE (ALEPE) e na NT 1.02.</li>
     </ul>
   </div>
 </footer>
@@ -888,9 +969,10 @@ footer ul { padding-left: 18px; }
     out.textContent = f(v) + ' m'; why.textContent = parts.join(' ') + (parts.length > 1 ? ` = ${f(v)} m` : '');
     if (!lei) notes.push('Sem leiaute: meça a <b>distância direta</b> (linha reta) do ponto mais distante até a saída (art. 147, § 2º).'); else notes.push('Com leiaute definido: meça pelo <b>trajeto real</b> (caminhamento).');
     if (mais) notes.push('“Mais de uma saída” exige pelo menos <b>10 m</b> entre as saídas (Nota “c”).');
-    if (fum && !lei) notes.push('<span class="flag">O Código não diz como combinar as notas “a” e “b”. A calculadora multiplica os dois fatores; confirme com o setor técnico.</span>');
+    if (fum && !lei) notes.push('<span class="flag">O art. 147, § 2º, compara a distância direta com os limites da Tabela 3, “Nota b, reduzidas em 30%”: por isso a calculadora aplica os dois fatores (× 1,5 × 0,7). Confirme com o setor técnico.</span>');
     if (spk || det || fum) notes.push('Sem compartimentação, os sistemas que aumentam a distância devem cobrir toda a edificação, com as ressalvas da Nota “f”.');
     if (g === 'M') notes.push('Garagem: veículo não é obstáculo fixo; pode-se considerar o deslocamento entre veículos (Nota “e”).');
+    if (g === 'LN') notes.push('Depósito (tipo N) automatizado e sem presença humana: a distância máxima pode ser desconsiderada (art. 147, § 3º).');
     nt.innerHTML = notes.map(n => `<div>${n}</div>`).join('');
   }
   document.querySelectorAll('#calc select').forEach(s => s.addEventListener('change', calc)); calc();
@@ -900,9 +982,10 @@ footer ul { padding-left: 18px; }
     { q: 'Pavimento sem leiaute definido em planta. A Tabela 3 dá 40 m. Qual é o limite e como medir?', o: ['40 m, pelo trajeto real', '28 m, em linha reta (distância direta)', '28 m, pelo trajeto real', '52 m, em linha reta'], a: 1, e: 'Sem leiaute, distância direta e limite reduzido em 30%: 40 × 0,7 = 28 m (art. 147, § 2º; Nota “a”).' },
     { q: 'Hidrante interno. Qual é o alcance que se confere?', o: ['30 m de raio no compasso', '30 m de mangueira pelo trajeto real, mais jato de até 8 m com visada livre', '38 m em linha reta', '60 m em qualquer direção'], a: 1, e: 'Art. 49, I, “a” (30 m, plano horizontal, mangueira estendida) e art. 70, § 1º (jato de no máximo 8 m, contato visual sem barreiras, depois de entrar 1 m no compartimento).' },
     { q: 'Chuveiros automáticos, risco A, bico pendente. Distância máxima do bico até a parede?', o: ['4,50 m', '2,25 m', '1,00 m', '3,50 m'], a: 1, e: 'Metade da distância máxima entre bicos: 4,5 / 2 = 2,25 m (art. 121, § 1º).' },
-    { q: 'Escada comum (tipo I). Onde termina a medição da distância máxima a ser percorrida?', o: ['No degrau da escada', 'Na porta da antecâmara', 'Na saída da edificação no térreo', 'No eixo da caixa de escada'], a: 0, e: 'Art. 147: degrau da escada tipo I; porta das escadas tipo II e III; porta da antecâmara da escada tipo IV.' },
+    { q: 'Escada tipo I, na numeração do art. 147. Onde termina a medição da distância máxima a ser percorrida?', o: ['No degrau da escada', 'Na porta da antecâmara', 'Na saída da edificação no térreo', 'No eixo da caixa de escada'], a: 0, e: 'Art. 147: degrau da escada tipo I; porta das escadas tipo II e III; porta da antecâmara da escada tipo IV.' },
     { q: 'Apartamento com caminhamento interno de 8 m. De onde começa a contar a distância até a escada?', o: ['Do quarto mais distante do apartamento', 'Da porta de acesso do apartamento', 'Do centro do apartamento', 'Do elevador'], a: 1, e: 'Art. 147, § 1º: a partir da porta de acesso da unidade autônoma mais distante, se o caminhamento interno não passar de 10 m.' },
     { q: 'Corredor reto de 50 m. Qual é a regra para as setas de saída?', o: ['Uma seta no início e outra no fim', 'Setas a cada 20 m, no máximo', 'Setas a cada 15 m, sempre', 'Só na porta corta-fogo'], a: 1, e: 'Art. 210, II: nas circulações retilíneas, seta indicativa a cada 20,0 m no máximo. Em 50 m, são pelo menos três trechos.' },
+    { q: 'Detector de fumaça. Qual é o raio de ação que o COSCIP dá?', o: ['4,2 m', '6,3 m', '9,0 m', '4,5 m'], a: 1, e: 'Art. 137, I, “a”, 2: área de ação máxima de 81 m², com raio de ação de 6,3 m. O detector de temperatura tem 36 m² e 4,2 m.' },
     { q: 'O COSCIP fixa a distância entre pontos de iluminação de emergência?', o: ['Sim, 15 m', 'Sim, 4 vezes a altura', 'Não; a referência técnica é a NBR 10898', 'Sim, 20 m'], a: 2, e: 'O COSCIP exige pontos de luz em todas as circulações e rotas de fuga (arts. 203 e 204), sem fixar espaçamento. A NBR 10898 dá até 4 vezes a altura de instalação.' },
   ];
   const box = $('qz'); let right = 0, done = 0;
@@ -1423,7 +1506,7 @@ function lim3(g, pav, spk, mais, det) { return TAB3[g][pav][(spk ? 4 : 0) + (mai
 function hud(fig, { val, lim, title, unit = 'm', note = '', okText = 'Dentro do limite', badText = 'Acima do limite', mode = 'cam', pill = null }) {
   const h = fig.querySelector('.hud'); if (!h) return;
   h.querySelector('.hud-t').textContent = title;
-  h.querySelector('.hud-v').textContent = fmt(val) + ' ' + unit;
+  h.querySelector('.hud-v').textContent = fmt(val, unit === 'm²' ? 2 : 1) + ' ' + unit;
   const bar = h.querySelector('.hud-bar i'), st = h.querySelector('.hud-s');
   h.dataset.mode = mode;
   if (lim) {
@@ -1535,7 +1618,7 @@ function sceneExtintores(T, OC, fig) {
     if (F) { path = P.path(F.maxAt[0], F.maxAt[1], F); tube = st.pathTube(path.pts, C.cam); tube.set(0); }
     const area = P.W * P.H - 16;
     areaL.innerHTML = type === 'acion' ? `Acionador manual: distância percorrida até o acionador mais próximo de, no máximo, <b>30 m</b> (art. 137, II, b). Altura de instalação: 1,20 m a 1,60 m.` :
-      `Área do pavimento ≈ <b>${fmt(area, 0)} m²</b>. Cada unidade extintora protege até <b>${E.A} m²</b> (${E.art.replace('§ 3º', 'caput')}). Mínimo pela área: <b>${Math.ceil(area / E.A)}</b>. Mínimo por pavimento: <b>2</b> (art. 31, § 7º). As duas regras valem juntas (art. 32, § 1º).` + (type.startsWith('rod') ? ' <span class="warn-inline">Extintor sobre rodas não protege sozinho o risco (art. 31, § 5º).</span>' : '');
+      `Área do pavimento ≈ <b>${fmt(area, 0)} m²</b>. Cada unidade extintora protege até <b>${E.A} m²</b> (art. 32, ${E.A === 500 ? 'I' : 'II'}). Mínimo pela área: <b>${Math.ceil(area / E.A)}</b>. Mínimo por pavimento: <b>2</b> (art. 31, § 7º). As duas regras valem juntas (art. 32, § 1º).` + (type.startsWith('rod') ? ' <span class="warn-inline">Extintor sobre rodas não protege sozinho o risco (art. 31, § 5º).</span>' : '');
   };
   const col = lim => k => { const d = F.g[k]; if (isNaN(d)) return null; if (d > lim) return [...RGB.bad, 200]; return [...mix(RGB.ok, RGB.warn, d / lim * 0.8), 165]; };
   let ring = null;
@@ -1877,7 +1960,7 @@ function sceneIluminacao(T, OC, fig) {
     }
     const dm = new T.MeshBasicMaterial({ color: 0x0b7285, depthTest: false });
     const dim = (a, b, text) => { const A = st.w(a, y0 + CW / 2, 0.06), B = st.w(b, y0 + CW / 2, 0.06), m = new T.Mesh(new T.BoxGeometry(A.distanceTo(B), 0.03, 0.06), dm); m.position.copy(A.clone().add(B).multiplyScalar(0.5)); m.renderOrder = 12; grp.add(m); const l = st.label(text, (a + b) / 2, y0 + CW / 2 + 0.6, 0.1, 'teal small'); dims.push({ m, l }); };
-    dim(x0, x0 + s / 2, `${fmt(s / 2)} m ≤ 2h = ${fmt(2 * hL)} m`);
+    dim(x0, x0 + s / 2, `${fmt(s / 2)} m até a parede`);
     if (n > 1) dim(x0 + s / 2, x0 + s * 1.5, `${fmt(s)} m ≤ 4h = ${fmt(4 * hL)} m`);
     st.hl = st.label(`h = ${fmt(hL, 2)} m`, x0 + s / 2, y0 + 0.2, hL + 0.35, 'dark small');
     fig.querySelector('[data-h-out]').textContent = fmt(hL, 2) + ' m'; fig.querySelector('[data-cl-out]').textContent = fmt(Lc, 0) + ' m';
